@@ -1,0 +1,41 @@
+﻿@model WebsiteXemPhim.Models.TrangThai
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Xoá</h1>
+
+<h3>Bạn có chắc chắn xoá trạng thái này không?</h3>
+<div>
+    <h4>Trạng thái</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Trạng thái
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TrangThaiPhim)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete" id="deleteForm" data-trangThai-name="@Model.TrangThaiPhim">
+        <input type="hidden" asp-for="TrangThaiId" />
+        <input type="button" value="Xoá" class="btn btn-danger" onclick="confirmDelete()" /> |
+        <a class="btn btn-info" asp-action="Index">Trở về danh sách</a>
+    </form>
+</div>
+<script>
+    function confirmDelete() {
+        var hasMovies = @Json.Serialize(Model.phimBos.Any() || Model.phimLes.Any());
+        var tenTrangThai = document.getElementById("deleteForm").getAttribute("data-trangThai-name");
+        if (hasMovies) {
+            if (confirm("Trạng Thái " + tenTrangThai + " có phim.Khi xoá sẽ xoá lun phim.Bạn có chắc chắn muốn xoá ? ")) {
+                document.getElementById("deleteForm").submit();
+            }
+        } else {
+            document.getElementById("deleteForm").submit();
+        }
+    }
+</script>

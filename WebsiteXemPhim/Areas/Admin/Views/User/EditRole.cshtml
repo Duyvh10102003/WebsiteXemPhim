@@ -1,0 +1,21 @@
+﻿
+@{
+    @using static WebsiteXemPhim.Areas.Admin.Controllers.UserController
+    @model EditRoleViewModel
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Sửa chức vụ</h2>
+
+<form method="post" asp-action="EditRole">
+    <input type="hidden" name="Id" value="@Model.Id" />
+    <div class="form-group">
+        <label for="CurrentName">Tên chức vụ hiện tại</label>
+        <input type="text" id="CurrentName" name="CurrentName" class="form-control" value="@Model.CurrentName" readonly />
+    </div>
+    <div class="form-group">
+        <label for="NewName">Tên chức vụ</label>
+        <input type="text" id="NewName" name="NewName" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Update Role</button>
+</form>

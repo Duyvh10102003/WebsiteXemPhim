@@ -1,0 +1,164 @@
+﻿/* Căn chỉnh toàn bộ nội dung ở giữa trang */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f8f9fa; /* Màu nền nhẹ cho toàn trang */
+    margin: 0;
+}
+
+/* Tạo khung cho form */
+.container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+}
+
+/* Định dạng tiêu đề và chú thích */
+h1, h4 {
+    text-align: center;
+    color: #343a40;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+h4 {
+    font-size: 16px;
+    font-weight: normal;
+    color: #6c757d;
+    margin-bottom: 20px;
+}
+
+/* Định dạng các trường trong form */
+.form-group label {
+    font-weight: bold;
+    color: #495057;
+}
+
+.form-group input {
+    height: 45px;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+}
+
+    .form-group input:focus {
+        border-color: #80bdff;
+        outline: none;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+    }
+
+/* Định dạng cho nút gửi */
+.btn-primary {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+}
+
+    .btn-primary:hover {
+        background-color: #0069d9;
+        box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+    }
+
+/* Định dạng cho thông báo lỗi */
+.text-danger {
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+/* Responsive */
+@media only screen and (max-width: 767px) {
+    /* Các điều chỉnh cho điện thoại */
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 20px; /* Giảm kích thước font tiêu đề */
+    }
+
+    h4 {
+        font-size: 14px; /* Giảm kích thước font phụ đề */
+    }
+
+    .form-group input {
+        height: 40px; /* Giảm chiều cao của input */
+        font-size: 12px; /* Giảm kích thước chữ trong input */
+    }
+
+    .btn-primary {
+        padding: 10px; /* Giảm padding của nút */
+    }
+
+    .text-danger {
+        font-size: 12px; /* Giảm kích thước font của thông báo lỗi */
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    /* Các điều chỉnh cho máy tính bảng */
+    .container {
+        padding: 25px;
+    }
+
+    h1 {
+        font-size: 22px; /* Điều chỉnh kích thước font tiêu đề */
+    }
+
+    h4 {
+        font-size: 15px; /* Điều chỉnh kích thước font phụ đề */
+    }
+
+    .form-group input {
+        height: 42px; /* Điều chỉnh chiều cao của input */
+        font-size: 13px; /* Điều chỉnh kích thước chữ trong input */
+    }
+
+    .btn-primary {
+        padding: 11px; /* Điều chỉnh padding của nút */
+    }
+
+    .text-danger {
+        font-size: 12px; /* Điều chỉnh kích thước font của thông báo lỗi */
+    }
+}
+
+@media only screen and (min-width: 1025px) {
+    /* Các điều chỉnh cho laptop và màn hình lớn */
+    .container {
+        padding: 30px;
+    }
+
+    h1 {
+        font-size: 24px; /* Kích thước font tiêu đề chuẩn */
+    }
+
+    h4 {
+        font-size: 16px; /* Kích thước font phụ đề chuẩn */
+    }
+
+    .form-group input {
+        height: 45px; /* Chiều cao chuẩn cho input */
+        font-size: 14px; /* Kích thước chữ chuẩn trong input */
+    }
+
+    .btn-primary {
+        padding: 12px; /* Padding chuẩn cho nút */
+    }
+
+    .text-danger {
+        font-size: 13px; /* Kích thước font chuẩn cho thông báo lỗi */
+    }
+}

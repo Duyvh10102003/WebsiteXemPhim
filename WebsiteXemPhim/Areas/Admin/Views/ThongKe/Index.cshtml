@@ -1,0 +1,94 @@
+﻿@model IEnumerable<WebsiteXemPhim.Areas.Admin.Controllers.ThongKeController.PhimWithLoai>
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="~/admin/js/thongKe.js"></script>
+<script>
+    var phimBoTen = @Html.Raw(Json.Serialize(ViewData["PhimBoTen"]));
+    var phimBoTenDisplay = @Html.Raw(Json.Serialize(ViewData["PhimBoTenDisplay"]));
+    var phimBoLuotXem = @Html.Raw(Json.Serialize(ViewData["PhimBoLuotXem"]));
+    var phimLeTen = @Html.Raw(Json.Serialize(ViewData["PhimLeTen"]));
+    var phimLeTenDisplay = @Html.Raw(Json.Serialize(ViewData["PhimLeTenDisplay"]));
+    var phimLeLuotXem = @Html.Raw(Json.Serialize(ViewData["PhimLeLuotXem"]));
+    var phimBoLike = @Html.Raw(Json.Serialize(ViewData["PhimBoLike"]));
+    var phimLeLike = @Html.Raw(Json.Serialize(ViewData["PhimLeLike"]));
+</script>
+<div class="row">
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Tài khoản</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewData["NguoiDung"]</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-user fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Phim lẻ</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewData["PhimLe"]</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-video fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Phim bộ</div>
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-auto">
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">@ViewData["PhimBo"]</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-video fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <h2>Thống kê phim được xem nhiều nhất</h2>
+    <div class="col-md-8">
+        <canvas id="phimBoChart" class="chart"></canvas>
+    </div>
+    <div class="col-md-8">
+        <canvas id="phimLeChart" class="chart"></canvas>
+    </div>
+</div>
+
+<div class="row">
+    <h2>Thống kê phim được yêu thích nhất</h2>
+    <div class="col-md-8">
+        <canvas id="phimBoChart2" class="chart"></canvas>
+    </div>
+    <div class="col-md-8">
+        <canvas id="phimLeChart2" class="chart"></canvas>
+    </div>
+</div>

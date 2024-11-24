@@ -1,0 +1,91 @@
+﻿/* Style the dropdown menu */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Ensure dropdown is above other elements */
+    max-height: 300px; /* Adjust max-height as needed */
+    overflow-y: auto; /* Enable scrolling if needed */
+    width: 250px; /* Set width to match search input */
+    box-sizing: border-box; /* Ensure width includes padding and
+
+                border */
+}
+
+/* Change color of suggestion item on hover */
+.suggestion:hover {
+    background-color: #f4f4f4;
+}
+
+.suggestion-img {
+    width: 50px; /* Đặt kích thước mong muốn cho ảnh */
+    height: auto; /* Để tỷ lệ chiều cao tự động */
+    padding-right: 10px;
+}
+
+.header__center .dropdown-item {
+    color: #333;
+}
+
+.header__center {
+    text-align: center;
+    padding: 14px 0 15px;
+}
+
+    .header__center a {
+        display: inline-block;
+        font-size: 15px;
+        color: #ffffff;
+        padding: 8px;
+        margin: 0;
+    }
+
+        .header__center a:last-child {
+            margin-right: 0;
+        }
+
+.col-md-1 {
+    -ms-flex: 0 0 8.333333%;
+    flex: 0 0 8.333333%;
+    max-width: 8.333333%
+}
+
+.col-md-3 {
+    -ms-flex: 0 0 18%;
+    flex: 0 0 18%;
+    max-width: 18%
+}
+
+.suggestion {
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px; /* Khoảng cách giữa các gợi ý */
+}
+
+/* Phần tử bao bọc hình ảnh */
+.suggestion-img-wrapper {
+    flex: 0 0 50px; /* Cố định độ rộng của cột hình ảnh */
+    margin-right: 10px; /* Khoảng cách giữa cột hình ảnh và cột văn bản */
+}
+
+/* Hình ảnh */
+.suggestion-img {
+    width: 100%;
+    height: auto; /* Đảm bảo hình ảnh giữ nguyên tỷ lệ */
+}
+
+/* Phần tử bao bọc văn bản */
+.suggestion-text-wrapper {
+    flex: 1; /* Chiếm phần còn lại của không gian */
+}
+
+/* Văn bản */
+.suggestion-text {
+    font-size: 16px;
+    color: #333; /* Màu chữ */
+}

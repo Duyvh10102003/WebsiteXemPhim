@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Anime Template">
+    <meta name="keywords" content="Anime, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Website Xem Phim</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="shortcut icon" href="~/frontend/img/anime/logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="~/frontend/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="~/frontend/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="~/frontend/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/frontend/css/plyr.css" type="text/css">
+    <link rel="stylesheet" href="~/frontend/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="~/frontend/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="~/frontend/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="~/frontend/css/style.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <link rel="stylesheet" href="~/frontend/css/searchSuggestion.css" type="text/css">
+    <link rel="stylesheet" href="~/frontend/css/buttonPlay.css" type="text/css">
+    <link rel="stylesheet" href="~/frontend/css/FormRandom.css" type="text/css">
+    <link rel="stylesheet" href="~/frontend/css/Xemphim.css" type="text/css">
+    <link rel="stylesheet" href="~/frontend/css/Mobile.css" type="text/css">
+    <!--Start of Fchat.vn-->
+    <script type="text/javascript" src="https://cdn.fchat.vn/assets/embed/webchat.js?id=672c7caa8e33c34ce525611e" async="async"></script><!--End of Fchat.vn-->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+</head>
+<body>
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+  
+    <header class="header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-1">
+                    <div class="header__logo">
+                        <a asp-area="" asp-controller="Home" asp-action="Index">
+                            <h4 style="color: #fff;"><b>WebPhim</b></h4>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="header__nav" style="padding-left:80px;">
+                        <nav class="header__menu mobile-menu">
+                            <ul class="nav">
+                                <li class="nav-item @(IsActive("Home", "Index") ? "active" : "")">
+                                    <a asp-area="" asp-controller="Home" asp-action="Index">Trang Chủ</a>
+                                </li>
+                                <li class="nav-item @(IsActive("Home", "TatCaPhimBo") ? "active" : "")">
+                                    <a asp-area="" asp-controller="Home" asp-action="TatCaPhimBo">Phim Bộ</a>
+                                </li>
+                                <li class="nav-item @(IsActive("Home", "TatCaPhimLe") ? "active" : "")">
+                                    <a asp-area="" asp-controller="Home" asp-action="TatCaPhimLe">Phim Lẻ</a>
+                                </li>
+                                <li class="nav-item @(IsActive("TimKiem", "TimKiemTheLoai") ? "active" : "")">
+                                    <a href="#">Thể Loại <span class="arrow_carrot-down"></span></a>
+                                    <ul class="dropdown">
+                                        @foreach (var item in ViewData["TheLoai"] as List<TheLoai>)
+                                        {
+                                            <li>
+                                                <a asp-area="" asp-controller="TimKiem" asp-action="TimKiemTheLoai" asp-route-id="@item.TheLoaiId"
+                                                   class="@(IsActive("TimKiem", "TimKiemTheLoai", item.TheLoaiId) ? "active" : "")">
+                                                    @item.TenTheLoai
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </li>
+                                <li class="nav-item @(IsActive("TimKiem", "TimKiemNam") ? "active" : "")">
+                                    <a href="#">Năm <span class="arrow_carrot-down"></span></a>
+                                    <ul class="dropdown">
+                                        @foreach (var item in ViewData["Nam"] as List<Nam>)
+                                        {
+                                            <li>
+                                                <a asp-area="" asp-controller="TimKiem" asp-action="TimKiemNam" asp-route-id="@item.NamID"
+                                                   class="@(IsActive("TimKiem", "TimKiemNam", item.NamID) ? "active" : "")">
+                                                    @item.TenNam
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </li>
+                                <li class="nav-item @(IsActive("TimKiem", "TimKiemQuocGia") ? "active" : "")">
+                                    <a href="#">Quốc Gia <span class="arrow_carrot-down"></span></a>
+                                    <ul class="dropdown">
+                                        @foreach (var item in ViewData["QuocGia"] as List<QuocGia>)
+                                        {
+                                            <li>
+                                                <a asp-area="" asp-controller="TimKiem" asp-action="TimKiemQuocGia" asp-route-id="@item.QuocGiaId"
+                                                   class="@(IsActive("TimKiem", "TimKiemQuocGia", item.QuocGiaId) ? "active" : "")">
+                                                    @item.TenQuocGia
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </li>
+                             
+                            </ul>
+
+                            @functions {
+                                private bool IsActive(string controller, string action, int? id = null)
+                                {
+                                    var routeData = ViewContext.RouteData.Values;
+                                    var currentController = routeData["controller"]?.ToString();
+                                    var currentAction = routeData["action"]?.ToString();
+                                    var currentId = routeData["id"]?.ToString();
+
+                                    if (id.HasValue)
+                                    {
+                                        return string.Equals(currentController, controller, StringComparison.OrdinalIgnoreCase) &&
+                                        string.Equals(currentAction, action, StringComparison.OrdinalIgnoreCase) &&
+                                        string.Equals(currentId, id.ToString(), StringComparison.OrdinalIgnoreCase);
+                                    }
+                                    else
+                                    {
+                                        return string.Equals(currentController, controller, StringComparison.OrdinalIgnoreCase) &&
+                                        string.Equals(currentAction, action, StringComparison.OrdinalIgnoreCase);
+                                    }
+                                }
+                            }
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-md-3 d-none d-lg-block">
+                    <div class="header__left">
+                        <form action="/Search/SearchPhims" method="get" class="dropdown">
+                            <input id="search-input" type="text" name="query" placeholder="Tìm phim..." aria-label="Tìm phim..." />
+                            <div id="search-results" class="dropdown-content">
+                                <!-- Suggestions will be appended here -->
+                            </div>
+                            <button type="submit" class="search-button">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-md-1 ">
+                    <div class="header__center">
+                        <partial name="_LoginPartial" />
+                    </div>
+                </div>
+            </div>
+            <div id="mobile-menu-wrap"></div>
+        </div>
+    </header>
+
+
+<!-- Product Section End -->
+@RenderBody()
+<!-- Footer Section Begin -->
+    <footer class="footer">
+        <div class="page-up">
+            <a href="#" id="scrollToTopButton"><span class="arrow_carrot-up"></span></a>
+        </div>
+        <div class="container">
+            <div class="row">
+                <h2 style="color: white;">Chúc mọi người xem phim vui vẻ hihi !!!</h2>
+            </div>
+        </div>
+    </footer>
+
+<script src="~/frontend/js/jquery-3.3.1.min.js"></script>
+<script src="~/frontend/js/bootstrap.min.js"></script>
+<script src="~/frontend/js/player.js"></script>
+<script src="~/frontend/js/jquery.nice-select.min.js"></script>
+<script src="~/frontend/js/mixitup.min.js"></script>
+<script src="~/frontend/js/jquery.slicknav.js"></script>
+<script src="~/frontend/js/owl.carousel.min.js"></script>
+<script src="~/frontend/js/main.js"></script>
+<script src="~/js/searchSuggestions.js"></script>
+<script src="~/js/danhGia.js"></script>
+<script src="~/js/shortenName.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

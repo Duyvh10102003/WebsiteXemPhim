@@ -1,0 +1,70 @@
+﻿/* Media queries cho màn hình nhỏ hơn 992px (máy tính bảng và điện thoại) */
+@media (max-width: 992px) {
+    .header__left form {
+        display: inline-flex;  /* Đảm bảo ô tìm kiếm và nút tìm kiếm nằm trên cùng một dòng */
+        align-items: center;
+        width: 100%;
+    }
+
+    .header__left input#search-input {
+        width: calc(100% - 50px);  /* Ô tìm kiếm chiếm phần lớn chiều rộng, nhưng để lại chỗ cho nút tìm kiếm */
+        margin-bottom: 0; /* Không thêm khoảng cách dưới */
+    }
+
+    .header__left button.search-button {
+        width: 50px; /* Giới hạn chiều rộng của nút tìm kiếm */
+        margin-left: 10px; /* Khoảng cách giữa ô tìm kiếm và nút */
+    }
+}
+
+@media (max-width: 768px) {
+    .header__left input#search-input {
+        font-size: 14px; /* Giảm kích thước font cho điện thoại nhỏ */
+    }
+
+    .header__left button.search-button {
+        font-size: 14px; /* Giảm kích thước font của nút */
+    }
+}
+
+@media (max-width: 480px) {
+    .header__left input#search-input {
+        font-size: 14px; /* Giảm kích thước chữ của ô tìm kiếm cho các điện thoại nhỏ */
+    }
+
+    .header__left button.search-button {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+/* Media queries cho màn hình nhỏ hơn 992px (máy tính bảng và điện thoại) */
+@media (max-width: 992px) {
+    .col-md-1 {
+        flex: 0 0 auto; /* Đảm bảo phần này không chiếm quá nhiều không gian */
+        width: auto; /* Chiều rộng tự động để phù hợp với phần còn lại của màn hình */
+        padding-left: 10px; /* Thêm khoảng cách từ bên trái */
+    }
+
+    .header__center {
+        display: flex;
+        justify-content: center; /* Căn giữa phần login */
+    }
+
+        /* Điều chỉnh vị trí và kích thước của phần login trên màn hình nhỏ */
+        .header__center partial {
+            width: 100%; /* Chiếm toàn bộ chiều rộng của container */
+        }
+}
+
+@media (max-width: 768px) {
+    .header__center {
+        justify-content: flex-start; /* Căn trái khi màn hình nhỏ hơn 768px */
+    }
+}
+
+@media (max-width: 480px) {
+    .header__center {
+        justify-content: flex-start; /* Căn trái cho màn hình điện thoại */
+        padding-left: 10px; /* Giảm khoảng cách giữa các phần tử */
+    }
+}

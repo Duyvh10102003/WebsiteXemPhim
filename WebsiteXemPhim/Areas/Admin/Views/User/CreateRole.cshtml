@@ -1,0 +1,16 @@
+﻿
+
+@{
+    ViewData["Title"] = "Create Role";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Tạo chức vụ</h2>
+
+<form method="post" asp-action="CreateRole">
+    <div class="form-group">
+        <label for="roleName">Tên chức vụ</label>
+        <input type="text" id="roleName" name="roleName" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Tạo</button>
+</form>

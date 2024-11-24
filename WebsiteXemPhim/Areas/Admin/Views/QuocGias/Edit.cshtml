@@ -1,0 +1,28 @@
+﻿@model WebsiteXemPhim.Models.QuocGia
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Sửa</h1>
+
+<h4>Quốc Gia</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="QuocGiaId" />
+            <div class="form-group">
+                <label asp-for="TenQuocGia" class="control-label">Tên quốc gia</label>
+                <input asp-for="TenQuocGia" class="form-control" />
+                <span asp-validation-for="TenQuocGia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Lưu" class="btn btn-primary" />
+                <a class="btn btn-info" asp-action="Index">Trở về danh sách</a>
+            </div>
+        </form>
+    </div>
+</div>

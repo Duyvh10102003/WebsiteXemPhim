@@ -1,0 +1,182 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore
+@using WebsiteXemPhim.DataAccess
+@using WebsiteXemPhim.Models
+@model WebsiteXemPhim.Models.PhimBo
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> _userManager
+@inject ApplicationDbContext _context
+@{
+    ViewData["Title"] = "ChiTietPhim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var user = _userManager.GetUserAsync(User).Result;
+    bool isFavorite = false;
+    if (user != null)
+    {
+        var hopPhim = _context.HopPhim.FirstOrDefault(h => h.UserId == user.Id && h.PhimBoId == Model.PhimBoId);
+        isFavorite = hopPhim != null;
+    }
+}
+
+<section class="anime-details spad">
+    <div class="container">
+        <div class="anime__details__content">
+            <div class="row">
+               
+                <div class="col-lg-3">
+                    <div class="anime__details__pic set-bg" data-setbg="@Model.Anh">
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="anime__details__text">
+                        <div class="anime__details__title">
+                            <h3>@Model.TenPhim</h3>
+                        </div>
+                        <div class="anime__details__rating">
+                            <div class="rating" data-movie-id="@Model.PhimBoId" data-rating-type="phimbo">
+                              
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    if (i <= ViewBag.AverageRating)
+                                    {
+                                        <i class="ratingStar fa fa-star" data-value="@i"></i>
+                                    }
+                                    else if (i - 0.5 <= ViewBag.AverageRating)
+                                    {
+                                        <i class="ratingStar fa fa-star-half-alt" data-value="@i"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="ratingStar far fa-star" data-value="@i"></i>
+                                    }
+                                }
+                            </div>
+                            <input type="hidden" id="star-rating" value="0">
+                            <span>Đánh giá @ViewBag.AverageRating/5</span>
+                            <span>Từ @ViewBag.TongUser thành viên</span>
+                        </div>
+                        <div class="anime__details__widget">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                    <ul>
+                                        <li><span>Thể loại:</span>
+                                            @{
+                                                int count = 0;
+                                                int totalItems = Model.ChiTietTheLoaiPhimBos.Count;
+                                            }
+                                            @foreach (var a in Model.ChiTietTheLoaiPhimBos)
+                                            {
+                                                @Html.DisplayFor(modelItem => a.TheLoai.TenTheLoai)
+                                                if (count < totalItems - 1)
+                                                {
+                                                    <b>, </b>
+                                                }
+                                                count++;
+                                            }
+                                        </li>
+                                        <li><span>Năm phát hành:</span> @Model.Nam.TenNam</li>
+                                        <li><span>Quốc Gia:</span> @Model.QuocGia.TenQuocGia</li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                        <p style="text-align: justify;">
+                            @Model.NoiDung
+                        </p>
+                        <div class="anime__details__btn">
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <a id="favorite-link" data-is-favorite="@isFavorite.ToString().ToLower()" data-phimbo-id="@Model.PhimBoId" class="follow-btn">
+                                    <i class="fa
+                                   @if(isFavorite) {
+                                        <text>fa-heart</text>
+                                    } else {
+                                        <text>fa-heart-o</text>
+                                    }"></i>
+
+                                    @if (isFavorite)
+                                    {
+                                        <text>Đã thích</text>
+                                    }
+                                    else
+                                    {
+                                        <text>Yêu thích</text>
+                                    }
+                                </a>
+                                <a asp-controller="LichSu" asp-action="AddPhimBo" asp-route-phimBoid="@Model.PhimBoId" class="watch-btn">
+                                    <span>Xem</span> <i class="fa fa-angle-right"></i>
+                                </a>
+                            }
+                            else
+                            {
+                                <a asp-controller="Home" asp-action="LuotXemPhimBo" asp-route-phimBoid="@Model.PhimBoId" class="watch-btn">
+                                    <span>Xem </span> <i class="fa fa-angle-right"></i>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-md-8">
+               
+                <div class="anime__details__form mb-5">
+                    <div class="section-title">
+                        <h5>Bình Luận</h5>
+                    </div>
+                    <form action="/BinhLuan/AddBinhLuanPB2" method="post">
+                        <textarea name="text" placeholder="Bình luận của tôi"></textarea>
+                        <input type="hidden" name="phimboid" value="@Model.PhimBoId" /> <!-- Thay thế 1 bằng giá trị phimboid thực tế -->
+                        <button type="submit"><i class="fa fa-location-arrow"></i> Gửi</button>
+                    </form>
+                </div>
+                <div class="anime__details__review">
+                    <div class="section-title">
+                        <h5>Ý Kiến Người Dùng</h5>
+                    </div>
+                    @foreach (var item in ViewData["BinhLuan"] as List<BinhLuan>)
+                    {
+                        <div class="anime__review__item">
+                            <div class="anime__review__item__pic">
+                                <img src="/frontend/img/anime/Avatar.jpg" alt="">
+                            </div>
+                            <div class="anime__review__item__text">
+                                <h6>@item.User.UserName - <span>@item.NgayTao</span></h6>
+                                <p>
+                                    @item.NoiDungBinhLuan
+                                </p>
+                            </div>
+                        </div>
+                    }
+
+
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <div class="anime__details__sidebar">
+                    <div class="section-title">
+                        <form asp-controller="ChiTietPhim" asp-action="XemPhimNgauNhien" method="get">
+                            <button type="submit" class="btn btn-primary">XEM PHIM NGẪU NHIÊN</button>
+                        </form>
+                    </div>
+
+                    <div class="section-title">
+                        <h5>Mới cập nhật..</h5>
+                    </div>
+                    @foreach(var item in ViewData["TopPhim"] as List<PhimBo>)
+                    {
+                        <a asp-controller="ChiTietPhim" asp-action="ChiTietPhimBo" asp-route-id="@item.PhimBoId">
+                        <div class="product__sidebar__view__item set-bg" data-setbg="@item.AnhNen">
+                            <div class="ep">@item.TrangThai.TrangThaiPhim</div>
+                            <h5><a href="#">@item.TenPhim</a></h5>
+                        </div>
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/js/likePhimBo.js"></script>

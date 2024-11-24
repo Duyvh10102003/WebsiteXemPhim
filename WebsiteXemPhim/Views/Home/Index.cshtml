@@ -1,0 +1,223 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="hero">
+    <div class="container">
+        <div class="hero__slider owl-carousel">
+            @foreach (var item in ViewData["Banner"] as List<PhimBo>)
+            {
+                <div class="hero__items set-bg" data-setbg="@item.AnhNen">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="hero__text">
+                                <div class="label">
+                                    @{
+                                        int count = 0;
+                                        int totalItems = item.ChiTietTheLoaiPhimBos.Count;
+                                    }
+                                    @foreach (var a in item.ChiTietTheLoaiPhimBos)
+                                    {
+                                        @Html.DisplayFor(modelItem => a.TheLoai.TenTheLoai)
+                                        if (count < totalItems - 1)
+                                        {
+                                            <span>, </span>
+                                        }
+                                        count++;
+                                    }
+                                </div>
+                                <h2>@item.TenPhim</h2>
+                                <a asp-controller="ChiTietPhim" asp-action="ChiTietPhimBo" asp-route-id="@item.PhimBoId"><span>Xem</span> <i class="fa fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            @foreach (var item in ViewData["Banner2"] as List<PhimLe>)
+            {
+                <div class="hero__items set-bg" data-setbg="@item.AnhNen">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="hero__text">
+                                <div class="label">
+                                    @{
+                                        int count = 0;
+                                        int totalItems = item.ChiTietTheLoaiPhimLes.Count;
+                                    }
+                                    @foreach (var a in item.ChiTietTheLoaiPhimLes)
+                                    {
+                                        @Html.DisplayFor(modelItem => a.TheLoai.TenTheLoai)
+                                        if (count < totalItems - 1)
+                                        {
+                                            <span>, </span>
+                                        }
+                                        count++;
+                                    }
+                                </div>
+                                <h2 >@item.TenPhim</h2>
+                                <a asp-controller="ChiTietPhim" asp-action="ChiTietPhimLe" asp-route-id="@item.PhimLeId"><span>Xem</span> <i class="fa fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!-- Hero Section End -->
+<!-- Product Section Begin -->
+<section class="product spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="trending__product">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            <div class="section-title">
+                                <h4>Phim Bộ</h4>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <div class="btn__all">
+                                <a asp-action="TatCaPhimBo" class="primary-btn">xem thêm <span class="arrow_right"></span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        @foreach (var item in ViewData["DSPhim"] as List<PhimBo>)
+                        {
+                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                <div class="product__item">
+                                    <a asp-controller="ChiTietPhim" asp-action="ChiTietPhimBo" asp-route-id="@item.PhimBoId" class="film-link">
+                                        <div class="product__item__pic set-bg" data-setbg="@item.Anh">
+                                            <div class="ep">@item.TrangThai.TrangThaiPhim</div>
+                                            <div class="play-button">
+                                                <i class="fa fa-play"></i>
+                                            </div>
+                                        </div>
+                                        <div class="product__item__text">
+                                            <h5><a href="#">@item.TenPhim</a></h5>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                </div>
+                <div class="recent__product">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            <div class="section-title">
+                                <h4>Phim Lẻ</h4>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <div class="btn__all">
+                                <a asp-action="TatCaPhimLe" class="primary-btn">Xem thêm <span class="arrow_right"></span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        @foreach(var item in ViewData["DSPhimLe"] as List<PhimLe>)
+                        {
+                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                <div class="product__item">
+                                    <a asp-controller="ChiTietPhim" asp-action="ChiTietPhimLe" asp-route-id="@item.PhimLeId">
+                                        <div class="product__item__pic set-bg" data-setbg="@item.Anh">
+                                            <div class="ep">@item.TrangThai.TrangThaiPhim</div>
+                                            <div class="play-button">
+                                                <i class="fa fa-play"></i>
+                                            </div>
+                                        </div>
+                                        <div class="product__item__text">
+
+                                            <h5><a href="#">@item.TenPhim</a></h5>
+                                        </div>
+                                    </a>                                 
+                                </div>
+                            </div>
+                        }
+                        
+                       
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-8">
+                <div class="product__sidebar">
+                    <div class="product__sidebar__view">
+                        <div class="section-title">
+                            <form asp-controller="ChiTietPhim" asp-action="XemPhimNgauNhien" method="get">
+                                <button type="submit" class="btn btn-primary">XEM PHIM NGẪU NHIÊN</button>
+                            </form>
+                        </div>
+
+                       
+                        <div class="section-title">
+                            <h5>Xem nhiều nhất</h5>
+                        </div>
+
+                        <div class="filter__gallery">
+                            @foreach(var item in ViewData["TopPhimBo"] as List<PhimBo>)
+                            {
+                                <a asp-controller="ChiTietPhim" asp-action="ChiTietPhimBo" asp-route-id="@item.PhimBoId">
+                                <div class="product__sidebar__view__item set-bg "
+                                     data-setbg="@item.AnhNen">
+                                    <div class="ep">@item.TrangThai.TrangThaiPhim</div>
+                                    <h5><a href="#">@item.TenPhim</a></h5>
+                                </div>
+                                </a>
+                            }
+                            @foreach (var item in ViewData["TopPhimLe"] as List<PhimLe>)
+                            {
+                                <a asp-controller="ChiTietPhim" asp-action="ChiTietPhimLe" asp-route-id="@item.PhimLeId">
+                                <div class="product__sidebar__view__item set-bg "
+                                     data-setbg="@item.AnhNen">
+                                    <div class="ep">@item.TrangThai.TrangThaiPhim</div>
+                                    <h5><a href="#">@item.TenPhim</a></h5>
+                                </div>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                    <div class="product__sidebar__comment">
+                        <div class="section-title">
+                            <h5>Yêu thích nhất</h5>
+                        </div>
+                        @foreach (var item in ViewData["TopLikePhimBo"] as List<PhimBo>)
+                        {
+                            <a asp-controller="ChiTietPhim" asp-action="ChiTietPhimBo" asp-route-id="@item.PhimBoId">
+                                <div class="product__sidebar__comment__item">
+                                <div class="product__sidebar__comment__item__pic">
+                                    <img class="topPhim" src="@item.Anh" alt="ERROR" />
+                                </div>
+                                <div class="product__sidebar__comment__item__text">
+                                        <h5><a href="#">@item.TenPhim</a></h5>
+                                </div>
+                                </div>
+                            </a>
+                        }
+                        @foreach (var item in ViewData["TopLikePhimLe"] as List<PhimLe>)
+                        {
+                            <a asp-controller="ChiTietPhim" asp-action="ChiTietPhimLe" asp-route-id="@item.PhimLeId">
+                                <div class="product__sidebar__comment__item">
+                                    <div class="product__sidebar__comment__item__pic">
+                                        <img class="topPhim" src="@item.Anh" alt="ERROR" />
+                                    </div>
+                                    <div class="product__sidebar__comment__item__text">
+                                        <h5><a href="#">@item.TenPhim</a></h5>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

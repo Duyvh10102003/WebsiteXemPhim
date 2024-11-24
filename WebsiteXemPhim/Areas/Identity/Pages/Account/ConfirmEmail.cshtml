@@ -1,0 +1,19 @@
+﻿@page
+@model ConfirmEmailModel
+@{
+    ViewData["Title"] = "Xác nhận email";
+}
+@{
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<link href="~/admin/css/Identity2.css" rel="stylesheet" />
+<div class="confirmation-container">
+    <div class="confirmation-header">
+        <h1>@ViewData["Title"]</h1>
+    </div>
+
+    <div class="status-message">
+        <partial name="_StatusMessage" model="Model.StatusMessage" />
+    </div>
+</div>

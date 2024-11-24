@@ -1,0 +1,107 @@
+﻿@model PaginatedList<WebsiteXemPhim.Models.PhimLe>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Danh sách các phim lẻ</h1>
+
+<form id="search-form" method="get" class="dropdown">
+    <input id="search-input" type="text" name="query" placeholder="Tìm phim..." aria-label="Tìm phim..."/>
+    <div id="search-results" class="dropdown-content">
+        <!-- Suggestions will be appended here -->
+    </div>
+    <input type="submit" value="Tìm kiếm" />
+</form>
+<p>
+    <a style="margin-top : 10px;" class="btn btn-primary" asp-action="Create">Tạo phim mới</a>
+</p>
+<table id="phims" class="table">
+    <thead>
+        <tr>
+            <th>Ảnh phim</th>
+            <th>Tên phim</th>
+            <th>Thể loại</th>
+            <th>Năm</th>
+            <th>Quốc gia</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="padding-right: 23px;">
+                    <img class="custom-img" src="@Html.DisplayFor(modelItem => item.Anh)" alt="ERROR" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenPhim)
+                </td>
+                <td>
+                    @{
+                        int count = 0;
+                        int totalItems = item.ChiTietTheLoaiPhimLes.Count;
+                    }
+                    @foreach (var a in item.ChiTietTheLoaiPhimLes)
+                    {
+                        @Html.DisplayFor(modelItem => a.TheLoai.TenTheLoai)
+                        if (count < totalItems - 1)
+                        {
+                            <span>, </span>
+                        }
+                        count++;
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nam.TenNam)
+                </td>
+                <td style="padding-right:24px;">
+                    @Html.DisplayFor(modelItem => item.QuocGia.TenQuocGia)
+                </td>
+                <td class="col-md-3" style=" text-align:right;">
+                    <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.PhimLeId">Sửa</a> 
+                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.PhimLeId">Chi tiết</a> 
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.PhimLeId">Xoá</a>
+                    <a class="btn btn-info position-relative" asp-area="Admin" asp-controller="BinhLuan" asp-action="BinhLuanPhimLe" asp-route-id="@item.PhimLeId">
+                        Bình Luận
+                        @if (ViewData["SoLuongBinhLuan"] is Dictionary<int, int> soLuongBinhLuan && soLuongBinhLuan.ContainsKey(item.PhimLeId) && soLuongBinhLuan[item.PhimLeId] > 0)
+                        {
+                            <span class="badge bg-danger position-absolute" style="top: -5px; right: -5px; font-size: 12px; padding: 2px 6px;">
+                                @soLuongBinhLuan[item.PhimLeId]
+                            </span>
+                        }
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+<div>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <a asp-action="Index"
+               asp-route-pageNumber="@(Model.PageIndex - 1)" class="btn btn-default @prevDisabled">
+                Trang trước
+            </a>
+            @for (int i = 1; i <= @Model.TotalPages; i++)
+            {
+                <li class="page-item @(i == @Model.PageIndex ? "active" : "")">
+
+                    <a class="page-link"
+                       href="@Url.Action("Index", new { pageNumber = i })">@i</a>
+
+                </li>
+            }
+            <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex + 1)" class="btn btn-default @nextDisabled">
+                Trang sau
+            </a>
+        </ul>
+    </nav>
+</div>
+
+<script src="~/admin/js/searchPhimLe.js"></script>

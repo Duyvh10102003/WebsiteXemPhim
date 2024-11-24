@@ -1,0 +1,30 @@
+﻿
+/* Đảm bảo nút có kiểu dáng giống với các nút khác trong web */
+.btn-primary {
+    background-color: #e53637;
+    border-color: #e53637;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+/* Hiệu ứng hover khi người dùng di chuột vào nút */
+.btn-primary:hover {
+    background-color: #e53637;
+    border-color: #e53637;
+    color: #fff;
+}
+
+/* Hiệu ứng focus khi nút được chọn */
+.btn-primary:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.5); /* Viền đỏ */
+}
+
+

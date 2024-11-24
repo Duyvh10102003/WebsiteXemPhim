@@ -1,0 +1,205 @@
+﻿@using static WebsiteXemPhim.Controllers.LichSuController
+@model PaginatedList<WebsiteXemPhim.Controllers.LichSuController.LichSuPhimViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="product spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="product__page__content">
+                    <div class="product__page__title">
+                        <div class="row">
+                            <div class="col-lg-8 col-md-8 col-sm-6">
+                                <div class="section-title">
+                                    <h4>Lịch Sử Xem  </h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                @{
+                                    string currentSortOrder = ViewBag.CurrentSortOrder as string;
+                                }
+                                <div class="product__page__filter">
+                                    <p>Sắp xếp:</p>
+                                    <select onchange="location = this.value;">
+                                        @if (currentSortOrder == "AZ")
+                                        {
+                                            <option value="@Url.Action("Index", new { sortOrder = "AZ" })">A-Z</option>
+                                            <option value="@Url.Action("Index", new { sortOrder = "ZA" })">Z-A</option>
+                                            <option value="@Url.Action("Index")">Mới</option>
+                                        }
+                                        else if (currentSortOrder == "ZA")
+                                        {
+                                            <option value="@Url.Action("Index", new { sortOrder = "ZA" })">Z-A</option>
+                                            <option value="@Url.Action("Index", new { sortOrder = "AZ" })">A-Z</option>
+                                            <option value="@Url.Action("Index")">Mới</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@Url.Action("Index")">Mới</option>
+                                            <option value="@Url.Action("Index", new { sortOrder = "AZ" })">A-Z</option>
+                                            <option value="@Url.Action("Index", new { sortOrder = "ZA" })">Z-A</option>
+                                        }
+                                    </select>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <a class="btn btn-danger" style="margin: 0 0 20px;" asp-controller="LichSu" asp-action="RemoveAll">Xoá toàn bộ !!!</a>
+                    <div class="row">
+                        
+                        @foreach (var item in Model)
+                        {
+                            @if (item.LoaiPhim == "PhimBo")
+                            {
+                                
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <div class="product__item">
+                                        <a asp-controller="ChiTietPhim" asp-action="ChiTietPhimBo" asp-route-id="@item.PhimBoId">
+                                            <div class="product__item__pic set-bg" data-setbg="@item.Anh">
+                                                <div class="ep">@item.TrangThai</div>
+                                               
+                                                <div class="play-button">
+                                                    <i class="fa fa-play"></i>
+                                                </div>
+                                            </div>
+                                            <div class="product__item__text">
+
+                                                <h5><a href="#">@(TrimTenPhim(item.TenPhim))</a></h5>
+                                            </div>
+                                        </a>
+                                        <a class="btn btn-danger" style="margin: 0 0 20px;" asp-controller="LichSu" asp-action="RemovePhimBo" asp-route-phimboid="@item.PhimBoId">Xoá</a>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <div class="product__item">
+                                        <a asp-controller="ChiTietPhim" asp-action="ChiTietPhimLe" asp-route-id="@item.PhimLeId">
+                                            <div class="product__item__pic set-bg" data-setbg="@item.Anh">
+                                                <div class="ep">@item.TrangThai</div>
+                                                <div class="play-button">
+                                                    <i class="fa fa-play"></i>
+                                                </div>
+                                            </div>
+                                            <div class="product__item__text">
+
+                                                <h5><a href="#">@(TrimTenPhim(item.TenPhim))</a></h5>
+                                            </div>
+                                        </a>
+                                        <a class="btn btn-danger" style="margin: 0 0 20px;" asp-controller="LichSu" asp-action="RemovePhimLe" asp-route-phimboid="@item.PhimLeId">Xoá</a>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="product__pagination">
+                    @{
+                        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                        var query = ViewData["Query"] as string;
+                        var sortOrder = ViewData["sortOrder"] as string;
+                    }
+
+                    <a href="@Url.Action("Index", new { query = query, pageNumber = Model.PageIndex - 1, sortOrder = sortOrder })" class="fa fa-angle-left btn btn-default @prevDisabled">
+                    </a>
+
+                    @for (int i = 1; i <= Model.TotalPages; i++)
+                    {
+                        <a href="@Url.Action("Index", new { query = query, pageNumber = i, sortOrder = sortOrder })" class="@(i == Model.PageIndex ? "current-page" : "")">@i</a>
+                    }
+
+                    <a href="@Url.Action("Index", new { query = query, pageNumber = Model.PageIndex + 1, sortOrder = sortOrder })" class="fa fa-angle-right btn btn-default @nextDisabled">
+                    </a>
+
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-8">
+                <div class="product__sidebar">
+                    <div class="product__sidebar__view">
+                        <div class="section-title">
+                            <form asp-controller="ChiTietPhim" asp-action="XemPhimNgauNhien" method="get">
+                                <button type="submit" class="btn btn-primary">XEM PHIM NGẪU NHIÊN</button>
+                            </form>
+                        </div>
+                        <div class="section-title">
+                            <h5>Xem nhiều nhất</h5>
+                        </div>
+
+                        <div class="filter__gallery">
+                            @foreach(var item in ViewData["TopPhimBo"] as List<PhimBo>)
+                            {
+                                <a asp-controller="ChiTietPhim" asp-action="ChiTietPhimBo" asp-route-id="@item.PhimBoId">
+                                <div class="product__sidebar__view__item set-bg "
+                                     data-setbg="@item.AnhNen">
+                                    <div class="ep">@item.TrangThai.TrangThaiPhim</div>
+                                    <h5><a href="#">@item.TenPhim</a></h5>
+                                </div>
+                                </a>
+                            }
+                            @foreach (var item in ViewData["TopPhimLe"] as List<PhimLe>)
+                            {
+                                <a asp-controller="ChiTietPhim" asp-action="ChiTietPhimLe" asp-route-id="@item.PhimLeId">
+                                <div class="product__sidebar__view__item set-bg "
+                                     data-setbg="@item.AnhNen">
+                                    <div class="ep">@item.TrangThai.TrangThaiPhim</div>
+                                    <h5><a href="#">@item.TenPhim</a></h5>
+                                </div>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                    <div class="product__sidebar__comment">
+                        <div class="section-title">
+                            <h5>Yêu thích nhất</h5>
+                        </div>
+                        @foreach (var item in ViewData["TopLikePhimBo"] as List<PhimBo>)
+                        {
+                            <a asp-controller="ChiTietPhim" asp-action="ChiTietPhimBo" asp-route-id="@item.PhimBoId">
+                                <div class="product__sidebar__comment__item">
+                                    <div class="product__sidebar__comment__item__pic">
+                                        <img class="topPhim" src="@item.Anh" alt="ERROR" />
+                                    </div>
+                                    <div class="product__sidebar__comment__item__text">
+                                        <h5><a href="#">@item.TenPhim</a></h5>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                        @foreach (var item in ViewData["TopLikePhimLe"] as List<PhimLe>)
+                        {
+                            <a asp-controller="ChiTietPhim" asp-action="ChiTietPhimLe" asp-route-id="@item.PhimLeId">
+                                <div class="product__sidebar__comment__item">
+                                    <div class="product__sidebar__comment__item__pic">
+                                        <img class="topPhim" src="@item.Anh" alt="ERROR" />
+                                    </div>
+                                    <div class="product__sidebar__comment__item__text">
+                                        <h5><a href="#">@item.TenPhim</a></h5>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+@functions {
+    public string TrimTenPhim(string tenPhim)
+    {
+        const int maxChars = 20;
+        if (tenPhim.Length > maxChars)
+        {
+            return tenPhim.Substring(0, maxChars) + "...";
+        }
+        return tenPhim;
+    }
+}

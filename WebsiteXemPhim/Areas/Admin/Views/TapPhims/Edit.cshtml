@@ -1,0 +1,48 @@
+﻿@model WebsiteXemPhim.Models.TapPhim
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Sửa</h1>
+
+<h4>Tập Phim</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="TapPhimId" />
+            <div class="form-group">
+                <label asp-for="Tap" class="control-label">Tập</label>
+                <input asp-for="Tap" class="form-control" />
+                <span asp-validation-for="Tap" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Link" class="control-label">Link 1</label>
+                <input asp-for="Link" class="form-control" />
+                <span asp-validation-for="Link" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Linkdb" class="control-label">Link 2</label>
+                <input asp-for="Linkdb" class="form-control" />
+                <span asp-validation-for="Linkdb" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ThoiLuong" class="control-label">Thời lượng</label>
+                <input asp-for="ThoiLuong" class="form-control" />
+                <span asp-validation-for="ThoiLuong" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="PhimBoId" value="@ViewBag.PhimBoId" />
+            </div>
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <input type="submit" value="Lưu" class="btn btn-primary" />
+                <a class="btn btn-info" asp-action="Index" asp-route-id="@ViewBag.Id">Trở về danh sách tập phim</a>
+            </div>
+        </form>
+    </div>
+</div>
+

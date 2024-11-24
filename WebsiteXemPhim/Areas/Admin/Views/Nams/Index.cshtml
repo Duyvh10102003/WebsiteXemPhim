@@ -1,0 +1,35 @@
+﻿@model IEnumerable<WebsiteXemPhim.Models.Nam>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1></h1>
+<h1>Danh sách các năm</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Thêm năm mới</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Năm</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenNam)
+                </td>
+                <td class="col-md-3" style=" text-align:right;">
+                    <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.NamID">Sửa</a> |
+                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.NamID">Chi tiết</a> |
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.NamID">Xoá</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,67 @@
+﻿@model PaginatedList<WebsiteXemPhim.Models.BinhLuan>
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Danh sách bình luận</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tài khoản</th>
+            <th>Phim</th>
+            <th>Nội dung</th>
+            <th>Thời gian</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhimBo.TenPhim)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NoiDungBinhLuan)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgayTao)
+                </td>
+                <td class="col-md-3" style=" text-align:right;">
+                    <a class="btn btn-danger" asp-action="RemoveBinhLuanPhimBo" asp-route-id="@item.BinhLuanId">Xoá</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+<div>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <a asp-action="BinhLuanPhimBo"
+               asp-route-pageNumber="@(Model.PageIndex - 1)" class="btn btn-default @prevDisabled">
+                Trang trước
+            </a>
+            @for (int i = 1; i <= @Model.TotalPages; i++)
+            {
+                <li class="page-item @(i == @Model.PageIndex ? "active" : "")">
+
+                    <a class="page-link"
+                       href="@Url.Action("BinhLuanPhimBo", new { pageNumber = i })">@i</a>
+
+                </li>
+            }
+            <a asp-action="BinhLuanPhimBo" asp-route-pageNumber="@(Model.PageIndex + 1)" class="btn btn-default @nextDisabled">
+                Trang sau
+            </a>
+        </ul>
+    </nav>
+</div>

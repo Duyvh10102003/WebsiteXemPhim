@@ -1,0 +1,140 @@
+﻿/* Định dạng chung */
+.input__item input.error::placeholder {
+    color: red; /* Đổi màu placeholder thành màu đỏ khi có lỗi */
+}
+
+.google-login-btn {
+    background-color: #EA4335;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    max-width: 300px;
+}
+
+    .google-login-btn i {
+        font-family: "Font Awesome 5 Brands";
+        content: "\f1a0"; /* mã icon của Google trong FontAwesome */
+    }
+
+    .google-login-btn:hover {
+        background-color: #d6372f;
+    }
+
+h5 {
+    font-size: 14px; /* Giảm kích thước font chữ */
+    margin: 0; /* Xóa khoảng cách mặc định của thẻ h5 */
+    line-height: 1.2; /* Giảm chiều cao dòng */
+}
+
+/* Chỉnh khoảng cách và căn chỉnh liên kết */
+.login-links {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px; /* Khoảng cách giữa nút "Đăng Nhập" và các liên kết */
+}
+
+    /* Định dạng chung cho các liên kết */
+    .login-links h5 a {
+        color: #ff4d4d; /* Màu đỏ hiện tại */
+        text-decoration: none;
+        font-size: 14px; /* Kích thước chữ nhỏ hơn */
+        transition: color 0.3s ease; /* Hiệu ứng mượt mà khi thay đổi màu */
+    }
+
+        /* Hiệu ứng hover cho các liên kết */
+        .login-links h5 a:hover {
+            color: #ff9999; /* Màu sáng hơn khi hover */
+            text-decoration: underline; /* Gạch chân khi hover */
+        }
+
+/* Định dạng cho liên kết "Đăng nhập ngay!" */
+.single-link {
+    margin-top: 10px; /* Khoảng cách trên cùng */
+}
+
+    .single-link a {
+        color: #ff4d4d; /* Màu đỏ tương tự */
+        text-decoration: none;
+        font-size: 14px; /* Kích thước chữ */
+        transition: color 0.3s ease; /* Hiệu ứng mượt mà khi thay đổi màu */
+    }
+
+        .single-link a:hover {
+            color: #ff9999; /* Màu sáng hơn khi hover */
+            text-decoration: underline; /* Gạch chân khi hover */
+        }
+
+/* Responsive */
+@media only screen and (max-width: 767px) {
+    /* Các điều chỉnh cho điện thoại */
+    .google-login-btn {
+        font-size: 14px; /* Giảm kích thước font */
+        padding: 10px 20px; /* Giảm padding */
+        max-width: 100%; /* Full width cho nút đăng nhập */
+    }
+
+    h5 {
+        font-size: 12px; /* Giảm kích thước font cho h5 */
+    }
+
+    .login-links {
+        flex-direction: column; /* Sắp xếp theo chiều dọc */
+        align-items: flex-start; /* Căn chỉnh liên kết sang trái */
+    }
+
+        .login-links h5 a {
+            font-size: 12px; /* Giảm kích thước font của liên kết */
+        }
+
+    .single-link a {
+        font-size: 12px; /* Giảm kích thước font cho liên kết "Đăng nhập ngay!" */
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    /* Các điều chỉnh cho máy tính bảng */
+    .google-login-btn {
+        font-size: 15px; /* Cải thiện font size cho máy tính bảng */
+        padding: 10px 22px; /* Điều chỉnh padding */
+    }
+
+    h5 {
+        font-size: 13px; /* Cải thiện font size cho h5 */
+    }
+
+    .login-links h5 a {
+        font-size: 13px; /* Cải thiện kích thước chữ cho liên kết */
+    }
+
+    .single-link a {
+        font-size: 13px; /* Cải thiện kích thước chữ cho liên kết "Đăng nhập ngay!" */
+    }
+}
+
+@media only screen and (min-width: 1025px) {
+    /* Các điều chỉnh cho laptop và màn hình lớn */
+    .google-login-btn {
+        font-size: 16px; /* Kích thước font chuẩn cho laptop */
+        padding: 12px 24px; /* Padding chuẩn */
+    }
+
+    h5 {
+        font-size: 14px; /* Kích thước font chuẩn cho h5 */
+    }
+
+    .login-links h5 a {
+        font-size: 14px; /* Kích thước chữ chuẩn cho liên kết */
+    }
+
+    .single-link a {
+        font-size: 14px; /* Kích thước chữ chuẩn cho liên kết "Đăng nhập ngay!" */
+    }
+}

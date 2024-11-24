@@ -1,0 +1,104 @@
+﻿@model WebsiteXemPhim.Models.PhimLe
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Chi tiết</h1>
+
+<div>
+    <h4>Phim Lẻ</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Tên Phim
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TenPhim)
+        </dd>
+        <dt class = "col-sm-2">
+            Nội dung
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NoiDung)
+        </dd>
+        <dt class = "col-sm-2">
+            Ảnh
+        </dt>
+        <dd class = "col-sm-10">
+            <img src="@Html.DisplayFor(model => model.Anh)" width="auto" height="300px" alt="ERROR">
+        </dd>
+        <dt class="col-sm-2">
+            Ảnh nền
+        </dt>
+        <dd class="col-sm-10">
+            <img src="@Html.DisplayFor(model => model.AnhNen)" width="auto" height="300px" alt="ERROR">
+        </dd>
+        <dt class = "col-sm-2">
+            Thời lượng
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ThoiLuong)
+        </dd>
+        <dt class = "col-sm-2">
+            Lượt xem
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LuotXem)
+        </dd>
+        <dt class = "col-sm-2">
+            Link
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Link)
+        </dd>
+        <dt class="col-sm-2">
+            Link dự phòng
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Linkdb)
+        </dd>
+        <dt class="col-sm-2">
+            Like
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Like)
+        </dd>
+        <dt class = "col-sm-2">
+            Thể Loại
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (var theLoai in Model.ChiTietTheLoaiPhimLes)
+            {
+                @theLoai.TheLoai.TenTheLoai
+                @if (!theLoai.Equals(Model.ChiTietTheLoaiPhimLes.Last()))
+                {
+                    <text>, </text>
+                }
+            }
+        </dd>
+        <dt class = "col-sm-2">
+            Năm
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Nam.TenNam)
+        </dd>
+        <dt class = "col-sm-2">
+            Quốc gia
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.QuocGia.TenQuocGia)
+        </dd>
+        <dt class="col-sm-2">
+            Trạng Thái
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TrangThai.TrangThaiPhim)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-success" asp-action="Edit" asp-route-id="@Model?.PhimLeId">Sửa</a> |
+    <a class="btn btn-info" asp-action="Index">Trở về danh sách phim </a>
+</div>

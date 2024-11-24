@@ -1,0 +1,15 @@
+﻿@page
+@model LockoutModel
+@using WebsiteXemPhim.DataAccess
+@inject ApplicationDbContext _context
+@{
+    ViewData["Title"] = "Locked out";
+    ViewData["TheLoai"] = _context.TheLoai.ToList();
+    ViewData["Nam"] = _context.Nam.ToList();
+    ViewData["QuocGia"] = _context.QuocGia.ToList();
+}
+
+<header>
+    <h1 class="text-danger">@ViewData["Title"]</h1>
+    <h2 class="text-danger">Tài khoản của bạn đã bị khoá vĩnh viễn. Vui lòng liên hệ Admin để mở khoá.</h2>
+</header>

@@ -1,0 +1,41 @@
+﻿@model WebsiteXemPhim.Models.TheLoai
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Xoá</h1>
+
+<h3>Bạn có chắc chắn xoá thể loại này không?</h3>
+<div>
+    <h4>Thể loại</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Tên thể loại
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TenTheLoai)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete" id="deleteForm" data-theloai-name="@Model.TenTheLoai">
+        <input type="hidden" asp-for="TheLoaiId" />
+        <input type="button" value="Xoá" class="btn btn-danger" onclick="confirmDelete()" /> |
+        <a class="btn btn-info" asp-action="Index">Trở về danh sách</a>
+    </form>
+</div>
+<script>
+    function confirmDelete() {
+        var hasMovies = @Json.Serialize(Model.ChiTietTheLoaiPhimBos.Any() || Model.ChiTietTheLoaiPhimLes.Any());
+        var tenTheLoai = document.getElementById("deleteForm").getAttribute("data-theloai-name");
+        if (hasMovies) {
+            if (confirm("Thể loại " + tenTheLoai + " có phim.Khi xoá sẽ xoá lun phim.Bạn có chắc chắn muốn xoá ? ")) {
+                document.getElementById("deleteForm").submit();
+            }
+        } else {
+            document.getElementById("deleteForm").submit();
+        }
+    }
+</script>

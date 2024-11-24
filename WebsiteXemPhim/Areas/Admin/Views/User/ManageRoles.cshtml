@@ -1,0 +1,27 @@
+﻿@using static WebsiteXemPhim.Areas.Admin.Controllers.UserController
+@model ManageUserRolesViewModel
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Quản lý tài khoản @Model.UserName</h2>
+
+<form method="post" asp-action="UpdateRoles">
+    <input type="hidden" name="UserId" value="@Model.UserId" />
+    <div class="form-group">
+        <label>Chọn chức vụ:</label>
+        @foreach (var role in Model.AvailableRoles)
+        {
+            <div>
+                 @* <input type="checkbox" name="SelectedRoles" value="@role"
+                 @(Model.AssignedRoles.Contains(role) ? "checked" : "") /> *@
+                <input type="radio" id="@role" name="SelectedRole" value="@role"
+                    @(Model.SelectedRole == role ? "checked" : "") />
+                <label>@role</label>
+            </div>
+        }
+    </div>
+
+    <button type="submit" class="btn btn-primary">Cập nhật chức vụ</button>
+</form>

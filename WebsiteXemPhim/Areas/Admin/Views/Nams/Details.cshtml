@@ -1,0 +1,25 @@
+﻿@model WebsiteXemPhim.Models.Nam
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Chi tiết</h1>
+
+<div>
+    <h4>Năm</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Năm
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TenNam)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-success" asp-action="Edit" asp-route-id="@Model?.NamID">Sửa</a> |
+    <a class="btn btn-info" asp-action="Index">Trở về danh sách</a>
+</div>

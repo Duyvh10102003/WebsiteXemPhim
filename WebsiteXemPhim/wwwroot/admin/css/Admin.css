@@ -1,0 +1,117 @@
+﻿/* Các kiểu mặc định */
+.nav-link {
+    color: gray;
+    padding: 10px 15px;
+    display: block;
+    text-decoration: none;
+}
+
+    .nav-link.active {
+        color: white;
+        background-color: #333;
+    }
+
+    .nav-link:hover {
+        color: white;
+    }
+
+/* Menu dropdown */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.suggestion {
+    padding: 10px;
+    cursor: pointer;
+}
+
+    .suggestion:hover {
+        background-color: #f4f4f4;
+    }
+
+.suggestion-img {
+    width: 50px;
+    height: auto;
+    padding-right: 10px;
+}
+
+.custom-img {
+    margin-left: 10px;
+    width: 50px;
+    height: auto;
+}
+
+.chart {
+    width: 300px;
+    height: 150px;
+}
+
+/* Kiểu dáng cho điện thoại (max-width: 767px) */
+@media (max-width: 767px) {
+    .nav-link {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+    .dropdown-content {
+        max-height: 150px;
+        width: 100%;
+    }
+
+    .suggestion {
+        padding: 8px;
+    }
+
+    .suggestion-img {
+        width: 40px;
+    }
+
+    .custom-img {
+        width: 40px;
+    }
+
+    .chart {
+        width: 100%;
+        height: auto;
+    }
+}
+
+/* Kiểu dáng cho máy tính bảng (min-width: 768px và max-width: 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .nav-link {
+        padding: 9px 14px;
+        font-size: 15px;
+    }
+
+    .dropdown-content {
+        max-height: 175px;
+        width: 100%;
+    }
+
+    .suggestion {
+        padding: 9px;
+    }
+
+    .suggestion-img {
+        width: 45px;
+    }
+
+    .custom-img {
+        width: 45px;
+    }
+
+    .chart {
+        width: 250px;
+        height: 125px;
+    }
+}

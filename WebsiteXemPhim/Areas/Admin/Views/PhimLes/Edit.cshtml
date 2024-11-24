@@ -1,0 +1,87 @@
+﻿@model WebsiteXemPhim.Models.PhimLe
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Sửa</h1>
+
+<h4>Phim Lẻ</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PhimLeId" />
+            <input type="hidden" asp-for="LuotXem" />
+            <input type="hidden" asp-for="Like" />
+            <div class="form-group">
+                <label asp-for="TenPhim" class="control-label">Tên Phim</label>
+                <input asp-for="TenPhim" class="form-control" />
+                <span asp-validation-for="TenPhim" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NoiDung" class="control-label">Nội dung</label>
+                <textarea asp-for="NoiDung" class="form-control" style="width: 100%; height: 150px;"></textarea>
+                <span asp-validation-for="NoiDung" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Anh" class="control-label">Ảnh phim</label>
+                <input type="file" asp-for="Anh" class="form-control" />
+                <span asp-validation-for="Anh" class="text-danger"></span>
+                <img src="@Model.Anh" alt="Image" style=" max-width: 200px;" />
+            </div>
+            <div class="form-group">
+                <label asp-for="AnhNen" class="control-label">Ảnh  nền</label>
+                <input type="file" asp-for="AnhNen" class="form-control" />
+                <span asp-validation-for="AnhNen" class="text-danger"></span>
+                <img src="@Model.AnhNen" alt="Image" style=" max-width: 200px;" />
+            </div>
+            <div class="form-group">
+                <label asp-for="ThoiLuong" class="control-label">Thời lượng</label>
+                <input asp-for="ThoiLuong" class="form-control" />
+                <span asp-validation-for="ThoiLuong" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Link" class="control-label">Link</label>
+                <input asp-for="Link" class="form-control" />
+                <span asp-validation-for="Link" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Linkdb" class="control-label">Link dự phòng</label>
+                <input asp-for="Linkdb" class="form-control" />
+                <span asp-validation-for="Linkdb" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NamID" class="control-label">Năm</label>
+                <select asp-for="NamID" class="form-control" asp-items="ViewBag.Nams"></select>
+                <span asp-validation-for="NamID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QuocGiaId" class="control-label">Quốc gia</label>
+                <select asp-for="QuocGiaId" class="form-control" asp-items="ViewBag.QuocGias"></select>
+                <span asp-validation-for="QuocGiaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TrangThaiId" class="control-label">Trạng Thái</label>
+                <select asp-for="TrangThaiId" class="form-control" asp-items="ViewBag.TrangThais"></select>
+                <span asp-validation-for="TrangThaiId" class="text-danger"></span>
+            </div>
+            <div>
+                <label class="control-label">Thể Loại</label>
+                <div>
+                    @foreach (var theLoai in ViewBag.TheLoais as List<TheLoai>)
+                    {
+                        <input type="checkbox" name="theLoais" value="@theLoai.TheLoaiId" /> @theLoai.TenTheLoai
+                    }
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Lưu" class="btn btn-primary" />
+                <a class="btn btn-info" asp-action="Index">Trở về danh sách</a>
+            </div>
+        </form>
+    </div>
+</div>
+

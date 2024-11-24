@@ -1,0 +1,49 @@
+﻿
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+@model IEnumerable<IdentityUser>
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h2>Quản lý tài khoản</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tên tài khoản</th>
+            <th>Số điện thoại</th>
+            <th>Vai trò</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            var roles = await UserManager.GetRolesAsync(user);
+            <tr>
+                <td>@user.UserName</td>
+                <td>@user.PhoneNumber</td>
+                <td>
+                    @if (roles.Any())
+                    {
+                        @string.Join(", ", roles)
+                        // Hiển thị các role cách nhau bởi dấu phẩy
+                    }
+                    else
+                    {
+                        <span>Không tìm thấy chức vụ</span>
+                    }
+                </td>
+                <td>
+                    @if (user.LockoutEnd != null && user.LockoutEnd > DateTime.UtcNow)
+                    {
+                        <a href="@Url.Action("UnlockUser", "User", new { id = user.Id })" class="btn btn-warning">Mở khoá</a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("LockUser", "User", new { id = user.Id })" class="btn btn-warning">Khoá</a>
+                    }
+                    <a asp-action="ManageRoles" asp-route-userId="@user.Id" class="btn btn-secondary">Quản lý chức vụ</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

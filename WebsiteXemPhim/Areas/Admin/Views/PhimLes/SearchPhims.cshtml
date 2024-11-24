@@ -1,0 +1,56 @@
+﻿@model IEnumerable<WebsiteXemPhim.Models.PhimLe>
+
+@{
+    ViewData["Title"] = "SearchPhims";
+}
+
+<table id="phims" class="table">
+    <thead>
+        <tr>
+            <th>Ảnh phim</th>
+            <th>Tên phim</th>
+            <th>Thể loại</th>
+            <th>Năm</th>
+            <th>Quốc gia</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img class="custom-img" src="@Html.DisplayFor(modelItem => item.Anh)" alt="ERROR" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenPhim)
+                </td>
+                <td>
+                    @{
+                        int count = 0;
+                        int totalItems = item.ChiTietTheLoaiPhimLes.Count;
+                    }
+                    @foreach (var a in item.ChiTietTheLoaiPhimLes)
+                    {
+                        @Html.DisplayFor(modelItem => a.TheLoai.TenTheLoai)
+                        if (count < totalItems - 1)
+                        {
+                            <span>, </span>
+                        }
+                        count++;
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nam.TenNam)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QuocGia.TenQuocGia)
+                </td>
+                <td class="col-md-3" style=" text-align:right;">
+                    <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.PhimLeId">Sửa</a> |
+                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.PhimLeId">Chi tiết</a> |
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.PhimLeId">Xoá</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

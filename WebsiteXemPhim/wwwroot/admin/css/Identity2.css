@@ -1,0 +1,173 @@
+﻿/* Định dạng chung */
+body {
+    display: flex;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    height: 100vh; /* Chiều cao toàn bộ màn hình */
+    margin: 0; /* Xóa khoảng cách mặc định */
+    background-color: #f8f9fa; /* Màu nền sáng */
+}
+
+.confirmation-container {
+    max-width: 500px;
+    width: 100%; /* Để container chiếm tối đa chiều rộng */
+    padding: 30px;
+    background-color: #ffffff; /* Màu nền trắng */
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.confirmation-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+    .confirmation-header h1 {
+        font-size: 2rem;
+        color: #343a40;
+    }
+
+.confirmation-message {
+    text-align: center;
+    margin: 15px 0;
+}
+
+.btn-link {
+    font-weight: bold;
+    color: #007bff;
+}
+
+    .btn-link:hover {
+        text-decoration: underline;
+    }
+
+.registration-container {
+    max-width: 400px;
+    width: 100%; /* Để container chiếm tối đa chiều rộng */
+    padding: 30px;
+    background-color: #ffffff; /* Màu nền trắng */
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.registration-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+    .registration-header h1 {
+        font-size: 2rem;
+        color: #343a40;
+    }
+
+    .registration-header h2 {
+        font-size: 1.5rem;
+        color: #6c757d;
+    }
+
+.form-floating label {
+    font-weight: bold;
+}
+
+.btn-primary {
+    width: 100%;
+}
+
+.text-info {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Responsive */
+@media only screen and (max-width: 767px) {
+    /* Các điều chỉnh cho điện thoại */
+    .confirmation-container {
+        padding: 20px;
+    }
+
+    .confirmation-header h1 {
+        font-size: 1.5rem; /* Giảm kích thước font */
+    }
+
+    .registration-container {
+        padding: 20px;
+    }
+
+    .registration-header h1 {
+        font-size: 1.5rem; /* Giảm kích thước font cho tiêu đề */
+    }
+
+    .registration-header h2 {
+        font-size: 1.2rem; /* Giảm kích thước font cho phụ đề */
+    }
+
+    .btn-primary {
+        padding: 12px; /* Điều chỉnh padding cho nút */
+    }
+
+    .text-info {
+        font-size: 14px; /* Giảm kích thước chữ */
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    /* Các điều chỉnh cho máy tính bảng */
+    .confirmation-container {
+        padding: 25px;
+    }
+
+    .confirmation-header h1 {
+        font-size: 1.8rem; /* Điều chỉnh kích thước font */
+    }
+
+    .registration-container {
+        padding: 25px;
+    }
+
+    .registration-header h1 {
+        font-size: 1.8rem; /* Điều chỉnh kích thước font cho tiêu đề */
+    }
+
+    .registration-header h2 {
+        font-size: 1.3rem; /* Điều chỉnh kích thước font cho phụ đề */
+    }
+
+    .btn-primary {
+        padding: 14px; /* Điều chỉnh padding cho nút */
+    }
+
+    .text-info {
+        font-size: 15px; /* Điều chỉnh kích thước chữ */
+    }
+}
+
+@media only screen and (min-width: 1025px) {
+    /* Các điều chỉnh cho laptop và màn hình lớn */
+    .confirmation-container {
+        padding: 30px;
+    }
+
+    .confirmation-header h1 {
+        font-size: 2rem; /* Kích thước font chuẩn */
+    }
+
+    .registration-container {
+        padding: 30px;
+    }
+
+    .registration-header h1 {
+        font-size: 2rem; /* Kích thước font cho tiêu đề */
+    }
+
+    .registration-header h2 {
+        font-size: 1.5rem; /* Kích thước font cho phụ đề */
+    }
+
+    .btn-primary {
+        padding: 16px; /* Padding chuẩn cho nút */
+    }
+
+    .text-info {
+        font-size: 16px; /* Kích thước chữ chuẩn */
+    }
+}

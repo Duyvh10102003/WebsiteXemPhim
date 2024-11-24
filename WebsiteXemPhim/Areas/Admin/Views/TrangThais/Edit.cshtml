@@ -1,0 +1,29 @@
+﻿@model WebsiteXemPhim.Models.TrangThai
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Sửa</h1>
+
+<h4>Trạng Thái</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="TrangThaiId" />
+            <div class="form-group">
+                <label asp-for="TrangThaiPhim" class="control-label">Trạng thái phim</label>
+                <input asp-for="TrangThaiPhim" class="form-control" />
+                <span asp-validation-for="TrangThaiPhim" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Lưu" class="btn btn-primary" />
+                <a class="btn btn-info" asp-action="Index">Trở về danh sách</a>
+            </div>
+        </form>
+    </div>
+</div>
+

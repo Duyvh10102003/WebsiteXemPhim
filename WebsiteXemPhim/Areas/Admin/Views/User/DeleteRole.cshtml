@@ -1,0 +1,16 @@
+﻿
+@{
+    @using static WebsiteXemPhim.Areas.Admin.Controllers.UserController
+    @model DeleteRoleViewModel
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Xoá chức vụ</h2>
+
+<p>Bạn có chắc chắn muốn xoá <strong>@Model.RoleName</strong> không?</p>
+
+<form method="post" asp-action="DeleteRole">
+    <input type="hidden" name="RoleName" value="@Model.RoleName" />
+    <button type="submit" class="btn btn-danger">Xác nhận</button>
+    <a asp-action="ManageRoles" class="btn btn-secondary">Huỷ</a>
+</form>

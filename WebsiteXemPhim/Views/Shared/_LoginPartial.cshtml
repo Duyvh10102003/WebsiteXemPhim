@@ -1,0 +1,35 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<head>
+    <link rel="stylesheet" href="~/frontend/css/buttonUser.css" />
+</head>
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="dropdown ">
+        <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown">
+            <a href="#"><span class="icon_profile"></span></a>
+        </button>
+        <div class="dropdown-menu">
+            <span class="custom-span">@User.Identity?.Name!</span>
+            <a class="custom-link dropdown-item" asp-area="" asp-controller="HopPhim" asp-action="Index" title="Manage">Phim yêu thích</a>
+            <a class="custom-link dropdown-item" asp-area="" asp-controller="LichSu" asp-action="Index" title="Manage">Lịch Sử Xem</a>
+            @if (User.IsInRole("Admin"))
+            {
+                <a class="custom-link dropdown-item" asp-area="Admin" asp-controller="PhimLes" asp-action="Index">Admin</a>
+            }
+            <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button class="custom-link dropdown-item" type="submit">Logout</button>
+            </form>
+        </div>
+    </div>
+    
+}
+else
+{
+    <a style="font-size:15px;" asp-area="Identity" asp-page="/Account/Login" class="btn btn-danger ">Đăng nhập</a>
+
+}
+<script src="~/js/buttonUser.js"></script>
+

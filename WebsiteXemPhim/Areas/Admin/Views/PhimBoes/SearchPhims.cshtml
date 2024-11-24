@@ -1,0 +1,56 @@
+﻿@model IEnumerable<WebsiteXemPhim.Models.PhimBo>
+
+@{
+    ViewData["Title"] = "SearchPhims";
+}
+<table id="phims" class="table">
+    <thead>
+        <tr>
+            <th>Ảnh phim</th>
+            <th>Tên phim</th>
+            <th>Thể Loại</th>
+            <th>Năm</th>
+            <th>Quốc gia</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img class="custom-img" src="@Html.DisplayFor(modelItem => item.Anh)" alt="ERROR" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenPhim)
+                </td>
+                <td>
+                    @{
+                        int count = 0;
+                        int totalItems = item.ChiTietTheLoaiPhimBos.Count;
+                    }
+                    @foreach (var a in item.ChiTietTheLoaiPhimBos)
+                    {
+                        @Html.DisplayFor(modelItem => a.TheLoai.TenTheLoai)
+                        if (count < totalItems - 1)
+                        {
+                            <span>, </span>
+                        }
+                        count++;
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nam.TenNam)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QuocGia.TenQuocGia)
+                </td>
+                <td class="col-md-4" style=" text-align:right;">
+                    <a class="btn btn-info" asp-area="Admin" asp-controller="TapPhims" asp-action="Index" asp-route-id="@item.PhimBoId">Tập Phim</a> |
+                    <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.PhimBoId">Sửa</a> |
+                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.PhimBoId">Chi tiết</a> |
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.PhimBoId">Xoá</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

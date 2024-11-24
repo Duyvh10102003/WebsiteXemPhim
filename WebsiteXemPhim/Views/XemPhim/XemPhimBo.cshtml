@@ -1,0 +1,101 @@
+﻿@model IEnumerable<WebsiteXemPhim.Models.TapPhim>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<section class="anime-details spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="anime__video__player">
+                    @foreach (var item in Model)
+                    {
+                        <div class="video-container">
+                            <iframe id="videoFrame" src="@item.Link" frameborder="0" scrolling="0" allowfullscreen></iframe>
+                        </div>
+                    }
+                </div>
+                <div class="anime__details__episodes">
+                    <div class="section-title">
+                        <h5>Danh sách tập phim</h5>
+                    </div>
+                    <div class="danhSachTapPhim">
+                        @foreach (var tap in ViewData["TapPhim"] as List<TapPhim>)
+                        {
+                            <a asp-controller="XemPhim" asp-action="XemPhimBo" asp-route-id="@tap.PhimBoId" asp-route-tap="@tap.Tap" class="tapPhim @(ViewData["Tap"] != null && (int)ViewData["Tap"] == tap.Tap ? "active" : "")" data-src="@tap.Link"> Tập @(tap.Tap)</a>
+                        }
+                    </div>
+                </div>
+                @foreach (var item in Model)
+                {
+                    <div class="anime__details__form mb-5">
+                        <div class="section-title">
+                            <h5>Bình Luận</h5>
+                        </div>
+                        <form action="/BinhLuan/AddBinhLuanPB" method="post">
+                            <textarea name="text" placeholder="Bình luận của tôi"></textarea>
+                            <input type="hidden" name="phimboid" value="@item.PhimBo.PhimBoId" /> <!-- Thay thế 1 bằng giá trị phimboid thực tế -->
+                            <button type="submit"><i class="fa fa-location-arrow"></i> Gửi</button>
+                        </form>
+                    </div>
+                }
+                <div class="anime__details__review">
+                    <div class="section-title">
+                        <h5>Ý Kiến Người Dùng</h5>
+                    </div>
+                    @foreach (var item in ViewData["BinhLuan"] as List<BinhLuan>)
+                    {
+                        <div class="anime__review__item">
+                            <div class="anime__review__item__pic">
+                                <img src="/frontend/img/anime/Avatar.jpg" alt="">
+                            </div>
+                            <div class="anime__review__item__text">
+                                <h6>@item.User.UserName - <span>@item.NgayTao</span></h6>
+                                <p>
+                                    @item.NoiDungBinhLuan
+                                </p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <!-- Sidebar gợi ý phim -->
+                <div class="section-title">
+                    <form asp-controller="ChiTietPhim" asp-action="XemPhimNgauNhien" method="get">
+                        <button type="submit" class="btn btn-primary">XEM PHIM NGẪU NHIÊN</button>
+                    </form>
+                </div>
+                <div class="anime__details__form mb-5">
+                    <div class="section-title">
+                        <h5>Phim liên quan</h5>
+                    </div>
+                    @foreach (var phim in ViewData["PhimGoiY"] as List<PhimBo>)
+                    {
+                        <div class="anime__sidebar__item">
+                            <!-- Hình ảnh -->
+                            <div class="anime__sidebar__item__pic">
+                                <img src="@phim.AnhNen" alt="@phim.TenPhim">
+                            </div>
+                            <!-- Chữ -->
+                            <div class="anime__sidebar__item__text">
+                                <h5>
+                                    <a href="/ChiTietPhim/ChiTietPhimBo/@phim.PhimBoId">
+                                        <b>@phim.TenPhim</b>
+                                    </a>
+                                </h5>
+                                <span>Lượt xem @phim.LuotXem</span>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+

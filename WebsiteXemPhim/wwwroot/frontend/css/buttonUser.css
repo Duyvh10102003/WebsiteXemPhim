@@ -1,0 +1,16 @@
+﻿/* Định dạng cho phần tử span */
+.custom-span {
+    margin: 0;
+    border: 0;
+    padding: 10px;
+}
+
+/* Định dạng cho các thẻ <a> trong dropdown */
+.custom-link {
+    margin: 0;
+    border: 0;
+    padding: 10px;
+}
+.login2 {
+    font-size: 15px;
+}

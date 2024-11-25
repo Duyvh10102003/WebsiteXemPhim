@@ -43,7 +43,7 @@ namespace WebsiteXemPhim.Controllers
         }
         public async Task<IActionResult> TatCaPhimBo(int pageNumber = 1, string sortOrder = "")
         {
-            int pageSize = 12;
+            int pageSize = 2;
             var TopPhimBo = _context.PhimBo.Include(p => p.TrangThai).OrderByDescending(p => p.LuotXem).Take(3).ToList();
             var TopPhimLe = _context.PhimLe.Include(p => p.TrangThai).OrderByDescending(p => p.LuotXem).Take(2).ToList();
             var TopLikePhimBo = _context.PhimBo.Include(p => p.TrangThai).OrderByDescending(p => p.Like).Take(3).ToList();

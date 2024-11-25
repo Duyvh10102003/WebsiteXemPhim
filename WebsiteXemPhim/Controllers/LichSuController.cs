@@ -30,9 +30,8 @@ namespace WebsiteXemPhim.Controllers
             _context = context;
             _userManager = userManager;
         }
-        public async Task<IActionResult> Index(string sortOrder = "")
+        public async Task<IActionResult> Index(string sortOrder = "", int pageNumber = 1)
         {
-            int pageNumber = 1;
             int pageSize = 12;
             var user = await _userManager.GetUserAsync(User);
 

@@ -31,7 +31,7 @@ namespace WebsiteXemPhim.Controllers
             _context = context;
             _userManager = userManager;
         }
-        public async Task<IActionResult> Index(string sortOrder = "")
+        public async Task<IActionResult> Index(int pageNumber = 1,string sortOrder = "")
         {
             var user = await _userManager.GetUserAsync(User);
 
@@ -39,8 +39,8 @@ namespace WebsiteXemPhim.Controllers
             {
                 return Unauthorized();
             }
-            int pageNumber = 1;
-            int pageSize = 12;
+           
+            int pageSize = 2;
             IQueryable<HopPhimViewModel> hopPhimList = _context.HopPhim
                 .Where(h => h.UserId == user.Id)
                 .Select(h => new HopPhimViewModel

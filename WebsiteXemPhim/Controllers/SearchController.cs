@@ -9,14 +9,6 @@ namespace WebsiteXemPhim.Controllers
     public class SearchController : Controller
     {
         private readonly ApplicationDbContext _context;
-        public class PhimWithLoai
-        {
-            public int Id { get; set; }
-            public string Loai { get; set; } // Bộ hoặc Lẻ
-            public string TenPhim { get; set; }
-            public string Anh {  get; set; }
-            public string TrangThai { get; set; }
-        }
 
         public SearchController(ApplicationDbContext context)
         {
@@ -49,19 +41,20 @@ namespace WebsiteXemPhim.Controllers
             var paginatedPhims = await PaginatedList<PhimWithLoai>.CreateAsync(DSPhims, pageNumber, pageSize);
 
             // Lấy danh sách các thông tin khác cần thiết
-            var TopPhimBo = _context.PhimBo.Include(p => p.TrangThai).OrderByDescending(p => p.LuotXem).Take(3).ToList();
-            var TopPhimLe = _context.PhimLe.Include(p => p.TrangThai).OrderByDescending(p => p.LuotXem).Take(3).ToList();
-            var TopLikePhimBo = _context.PhimBo.Include(p => p.TrangThai).OrderByDescending(p => p.Like).Take(3).ToList();
-            var TopLikePhimLe = _context.PhimLe.Include(p => p.TrangThai).OrderByDescending(p => p.Like).Take(2).ToList();
+            IQueryable<PhimWithLoai> DSPhims2 = _context.PhimBo.Include(p => p.TrangThai)
+                                                   .Select(p => new PhimWithLoai { Id = p.PhimBoId, Loai = "Bo", TenPhim = p.TenPhim, Anh = p.Anh, AnhNen = p.AnhNen, TrangThai = p.TrangThai.TrangThaiPhim, Like = p.Like, LuotXem = p.LuotXem })
+                                                   .Union(_context.PhimLe.Include(p => p.TrangThai)
+                                                                         .Select(p => new PhimWithLoai { Id = p.PhimLeId, Loai = "Le", TenPhim = p.TenPhim, Anh = p.Anh, AnhNen = p.AnhNen, TrangThai = p.TrangThai.TrangThaiPhim, Like = p.Like, LuotXem = p.LuotXem }))
+                                                   .OrderByDescending(p => p.Id);
+            var TopLuotXem = DSPhims2.OrderByDescending(p => p.LuotXem).Take(5).ToList();
+            var TopLikePhim = DSPhims2.OrderByDescending(p => p.Like).Take(5).ToList();
             var TheLoai = _context.TheLoai.ToList();
             var QuocGia = _context.QuocGia.ToList();
             var Nam = _context.Nam.ToList();
 
             // Đưa dữ liệu vào ViewData
-            ViewData["TopPhimBo"] = TopPhimBo;
-            ViewData["TopPhimLe"] = TopPhimLe;
-            ViewData["TopLikePhimBo"] = TopLikePhimBo;
-            ViewData["TopLikePhimLe"] = TopLikePhimLe;
+            ViewData["TopLuotXem"] = TopLuotXem;
+            ViewData["TopLikePhim"] = TopLikePhim;
             ViewData["TheLoai"] = TheLoai;
             ViewData["QuocGia"] = QuocGia;
             ViewData["Nam"] = Nam;

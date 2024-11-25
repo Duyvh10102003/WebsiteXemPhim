@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebsiteXemPhim.Models.PhimLe>
+﻿@model PaginatedList<WebsiteXemPhim.Models.PhimLe>
 
 @{
     ViewData["Title"] = "SearchPhims";
@@ -14,43 +14,54 @@
             <th>Quốc gia</th>
         </tr>
     </thead>
-    <tbody>
-        @foreach (var item in Model)
+    <tbody id="search-results">
+        @if (Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img class="custom-img" src="@Html.DisplayFor(modelItem => item.Anh)" alt="ERROR" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TenPhim)
+                    </td>
+                    <td>
+                        @{
+                            int count = 0;
+                            int totalItems = item.ChiTietTheLoaiPhimLes.Count;
+                        }
+                        @foreach (var a in item.ChiTietTheLoaiPhimLes)
+                        {
+                            @Html.DisplayFor(modelItem => a.TheLoai.TenTheLoai)
+                            if (count < totalItems - 1)
+                            {
+                                <span>, </span>
+                            }
+                            count++;
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nam.TenNam)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.QuocGia.TenQuocGia)
+                    </td>
+                    <td class="col-md-3" style=" text-align:right;">
+                        <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.PhimLeId">Sửa</a> |
+                        <a class="btn btn-info" asp-action="Details" asp-route-id="@item.PhimLeId">Chi tiết</a> |
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.PhimLeId">Xoá</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
         {
             <tr>
-                <td>
-                    <img class="custom-img" src="@Html.DisplayFor(modelItem => item.Anh)" alt="ERROR" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TenPhim)
-                </td>
-                <td>
-                    @{
-                        int count = 0;
-                        int totalItems = item.ChiTietTheLoaiPhimLes.Count;
-                    }
-                    @foreach (var a in item.ChiTietTheLoaiPhimLes)
-                    {
-                        @Html.DisplayFor(modelItem => a.TheLoai.TenTheLoai)
-                        if (count < totalItems - 1)
-                        {
-                            <span>, </span>
-                        }
-                        count++;
-                    }
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nam.TenNam)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.QuocGia.TenQuocGia)
-                </td>
-                <td class="col-md-3" style=" text-align:right;">
-                    <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.PhimLeId">Sửa</a> |
-                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.PhimLeId">Chi tiết</a> |
-                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.PhimLeId">Xoá</a>
-                </td>
+                <td colspan="6" style="text-align: center;">Không tìm thấy kết quả nào</td>
             </tr>
         }
     </tbody>
 </table>
+
+

@@ -262,7 +262,7 @@ namespace WebsiteXemPhim.Areas.Admin.Controllers
         {
             IQueryable<PhimBo> phimBoesQuery = _context.PhimBo.Include(p => p.ChiTietTheLoaiPhimBos).ThenInclude(p => p.TheLoai).Include(p => p.Nam).Include(p => p.QuocGia).Include(p => p.TrangThai).Where(p => p.TenPhim.Contains(query));
 
-            var paginatedPhimBoes = await PaginatedList<PhimBo>.CreateAsync(phimBoesQuery, pageNumber, 2);
+            var paginatedPhimBoes = await PaginatedList<PhimBo>.CreateAsync(phimBoesQuery, pageNumber, 10);
             return PartialView(paginatedPhimBoes);
         }
         public async Task<IActionResult> PagingNoLibrary(int pageNumber)

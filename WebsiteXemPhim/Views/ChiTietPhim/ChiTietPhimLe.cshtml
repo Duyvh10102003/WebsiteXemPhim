@@ -163,7 +163,7 @@
                             <a asp-controller="ChiTietPhim" asp-action="ChiTietPhimLe" asp-route-id="@item.PhimLeId">
                                 <div class="product__sidebar__view__item set-bg" data-setbg="@item.AnhNen">
                                     <div class="ep">@item.TrangThai.TrangThaiPhim</div>
-                                    <h5><a href="#">@item.TenPhim</a></h5>
+                                    <h5><a href="#">@item.TenPhim</a> <br /> @item.LuotXem lượt xem</h5>
                                 </div>
                             </a>
                     }

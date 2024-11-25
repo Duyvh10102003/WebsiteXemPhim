@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using SQLitePCL;
 using WebsiteXemPhim.DataAccess;
 using WebsiteXemPhim.Models;
-using static WebsiteXemPhim.Controllers.LichSuController;
 
 namespace WebsiteXemPhim.Controllers
 {
@@ -15,23 +14,13 @@ namespace WebsiteXemPhim.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
-        public class HopPhimViewModel
-        {
-            public int HopPhimId { get; set; }
-            public int? PhimBoId { get; set; }
-            public int? PhimLeId { get; set; }
-            public string UserId { get; set; }
-            public string TenPhim { get; set; } // Tên của PhimBo hoặc PhimLe
-            public string LoaiPhim { get; set; } // "PhimBo" hoặc "PhimLe"
-            public string Anh { get; set; } // Đường dẫn ảnh
-            public string TrangThai { get; set; } // Trạng thái phim
-        }
+        
         public HopPhimController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
-        public async Task<IActionResult> Index(string sortOrder = "")
+        public async Task<IActionResult> Index(string sortOrder = "", int pageNumber = 1)
         {
             var user = await _userManager.GetUserAsync(User);
 
@@ -39,7 +28,6 @@ namespace WebsiteXemPhim.Controllers
             {
                 return Unauthorized();
             }
-            int pageNumber = 1;
             int pageSize = 12;
             IQueryable<HopPhimViewModel> hopPhimList = _context.HopPhim
                 .Where(h => h.UserId == user.Id)
@@ -55,17 +43,18 @@ namespace WebsiteXemPhim.Controllers
                    
                     TrangThai = h.PhimBoId != null ? h.PhimBo.TrangThai.TrangThaiPhim : h.PhimLe.TrangThai.TrangThaiPhim
                 });
-            var TopPhimBo = _context.PhimBo.Include(p => p.TrangThai).OrderByDescending(p => p.LuotXem).Take(3).ToList();
-            var TopPhimLe = _context.PhimLe.Include(p => p.TrangThai).OrderByDescending(p => p.LuotXem).Take(2).ToList();
-            var TopLikePhimBo = _context.PhimBo.Include(p => p.TrangThai).OrderByDescending(p => p.Like).Take(3).ToList();
-            var TopLikePhimLe = _context.PhimLe.Include(p => p.TrangThai).OrderByDescending(p => p.Like).Take(2).ToList();
+            IQueryable<PhimWithLoai> DSPhims = _context.PhimBo.Include(p => p.TrangThai)
+                                                   .Select(p => new PhimWithLoai { Id = p.PhimBoId, Loai = "Bo", TenPhim = p.TenPhim, Anh = p.Anh, AnhNen = p.AnhNen, TrangThai = p.TrangThai.TrangThaiPhim, Like = p.Like, LuotXem = p.LuotXem })
+                                                   .Union(_context.PhimLe.Include(p => p.TrangThai)
+                                                                         .Select(p => new PhimWithLoai { Id = p.PhimLeId, Loai = "Le", TenPhim = p.TenPhim, Anh = p.Anh, AnhNen = p.AnhNen, TrangThai = p.TrangThai.TrangThaiPhim, Like = p.Like, LuotXem = p.LuotXem }))
+                                                   .OrderByDescending(p => p.Id);
+            var TopLuotXem = DSPhims.OrderByDescending(p => p.LuotXem).Take(5).ToList();
+            var TopLikePhim = DSPhims.OrderByDescending(p => p.Like).Take(5).ToList();
             var TheLoai = _context.TheLoai.ToList();
             var QuocGia = _context.QuocGia.ToList();
             var Nam = _context.Nam.ToList();
-            ViewData["TopPhimBo"] = TopPhimBo;
-            ViewData["TopPhimLe"] = TopPhimLe;
-            ViewData["TopLikePhimBo"] = TopLikePhimBo;
-            ViewData["TopLikePhimLe"] = TopLikePhimLe;
+            ViewData["TopLuotXem"] = TopLuotXem;
+            ViewData["TopLikePhim"] = TopLikePhim;
             ViewData["TheLoai"] = TheLoai;
             ViewData["QuocGia"] = QuocGia;
             ViewData["Nam"] = Nam;

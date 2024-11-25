@@ -75,33 +75,28 @@
             </tr>
         }
     </tbody>
+
+   
 </table>
-
-@{
-    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
-}
-<div>
-    <nav aria-label="Page navigation">
-        <ul class="pagination">
-            <a asp-action="Index"
-               asp-route-pageNumber="@(Model.PageIndex - 1)" class="btn btn-default @prevDisabled">
-                Trang trước
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+            <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.PageIndex - 1)" aria-label="Trang trước">
+                <span aria-hidden="true">&laquo;</span>
             </a>
-            @for (int i = 1; i <= @Model.TotalPages; i++)
-            {
-                <li class="page-item @(i == @Model.PageIndex ? "active" : "")">
-
-                    <a class="page-link"
-                       href="@Url.Action("Index", new { pageNumber = i })">@i</a>
-
-                </li>
-            }
-            <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex + 1)" class="btn btn-default @nextDisabled">
-                Trang sau
+        </li>
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+                <a class="page-link" asp-action="Index" asp-route-pageNumber="@i">@i</a>
+            </li>
+        }
+        <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+            <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.PageIndex + 1)" aria-label="Trang sau">
+                <span aria-hidden="true">&raquo;</span>
             </a>
-        </ul>
-    </nav>
-</div>
+        </li>
+    </ul>
+</nav>
 
 <script src="~/admin/js/searchPhimLe.js"></script>

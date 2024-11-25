@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using WebsiteXemPhim.DataAccess;
 using WebsiteXemPhim.Models;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace WebsiteXemPhim.Controllers
 {
@@ -17,41 +18,45 @@ namespace WebsiteXemPhim.Controllers
         }
         public IActionResult Index()
         {
-            var Banner1 = _context.PhimBo.Include(p => p.ChiTietTheLoaiPhimBos).ThenInclude(p => p.TheLoai).OrderByDescending(p=>p.PhimBoId).Take(3).ToList();
+            var Banner1 = _context.PhimBo.Include(p => p.ChiTietTheLoaiPhimBos).ThenInclude(p => p.TheLoai).OrderByDescending(p => p.PhimBoId).Take(3).ToList();
             var Banner2 = _context.PhimLe.Include(p => p.ChiTietTheLoaiPhimLes).ThenInclude(p => p.TheLoai).OrderByDescending(p => p.PhimLeId).Take(2).ToList();
-            var TopPhimBo =_context.PhimBo.Include(p => p.TrangThai).OrderByDescending(p=>p.LuotXem).Take(3).ToList();
-            var TopPhimLe = _context.PhimLe.Include(p => p.TrangThai).OrderByDescending(p => p.LuotXem).Take(2).ToList();
-            var TopLikePhimBo = _context.PhimBo.Include(p => p.TrangThai).OrderByDescending(p => p.Like).Take(3).ToList();
-            var TopLikePhimLe = _context.PhimLe.Include(p => p.TrangThai).OrderByDescending(p => p.Like).Take(2).ToList();
+            IQueryable<PhimWithLoai> DSPhims = _context.PhimBo.Include(p => p.TrangThai)
+                                                   .Select(p => new PhimWithLoai { Id = p.PhimBoId, Loai = "Bo", TenPhim = p.TenPhim, Anh = p.Anh, AnhNen = p.AnhNen, TrangThai = p.TrangThai.TrangThaiPhim, Like = p.Like, LuotXem = p.LuotXem })
+                                                   .Union(_context.PhimLe.Include(p => p.TrangThai)
+                                                                         .Select(p => new PhimWithLoai { Id = p.PhimLeId, Loai = "Le", TenPhim = p.TenPhim, Anh = p.Anh, AnhNen = p.AnhNen, TrangThai = p.TrangThai.TrangThaiPhim, Like = p.Like, LuotXem = p.LuotXem }))
+                                                   .OrderByDescending(p => p.Id);
+            var TopLuotXem = DSPhims.OrderByDescending(p => p.LuotXem).Take(5).ToList();
+            var TopLikePhim = DSPhims.OrderByDescending(p => p.Like).Take(5).ToList();
             var TheLoai = _context.TheLoai.ToList();
             var QuocGia = _context.QuocGia.ToList();
             var Nam = _context.Nam.ToList();
             var DSPhimLe = _context.PhimLe.Include(p => p.TrangThai).OrderByDescending(p => p.PhimLeId).Take(6).ToList();
-            var DSPhim =_context.PhimBo.Include(p => p.TrangThai).OrderByDescending(p=>p.PhimBoId).Take(6).ToList();
+            var DSPhimBo = _context.PhimBo.Include(p => p.TrangThai).OrderByDescending(p => p.PhimBoId).Take(6).ToList();
             ViewData["Banner"] = Banner1;
             ViewData["Banner2"] = Banner2;
-            ViewData["TopPhimBo"] = TopPhimBo;
-            ViewData["TopPhimLe"] = TopPhimLe;
-            ViewData["TopLikePhimBo"] = TopLikePhimBo;
-            ViewData["TopLikePhimLe"] = TopLikePhimLe;
+            ViewData["TopLuotXem"] = TopLuotXem;
+            ViewData["TopLikePhim"] = TopLikePhim;
             ViewData["TheLoai"] = TheLoai;
             ViewData["QuocGia"] = QuocGia;
             ViewData["Nam"] = Nam;
-            ViewData["DSPhim"] = DSPhim;
+            ViewData["DSPhim"] = DSPhimBo;
             ViewData["DSPhimLe"] = DSPhimLe;
             return View();
         }
         public async Task<IActionResult> TatCaPhimBo(int pageNumber = 1, string sortOrder = "")
         {
             int pageSize = 12;
-            var TopPhimBo = _context.PhimBo.Include(p => p.TrangThai).OrderByDescending(p => p.LuotXem).Take(3).ToList();
-            var TopPhimLe = _context.PhimLe.Include(p => p.TrangThai).OrderByDescending(p => p.LuotXem).Take(2).ToList();
-            var TopLikePhimBo = _context.PhimBo.Include(p => p.TrangThai).OrderByDescending(p => p.Like).Take(3).ToList();
-            var TopLikePhimLe = _context.PhimLe.Include(p => p.TrangThai).OrderByDescending(p => p.Like).Take(2).ToList();
+            IQueryable<PhimWithLoai> DSPhim2 = _context.PhimBo.Include(p => p.TrangThai)
+                                                  .Select(p => new PhimWithLoai { Id = p.PhimBoId, Loai = "Bo", TenPhim = p.TenPhim, Anh = p.Anh, AnhNen = p.AnhNen, TrangThai = p.TrangThai.TrangThaiPhim, Like = p.Like, LuotXem = p.LuotXem })
+                                                  .Union(_context.PhimLe.Include(p => p.TrangThai)
+                                                                        .Select(p => new PhimWithLoai { Id = p.PhimLeId, Loai = "Le", TenPhim = p.TenPhim, Anh = p.Anh, AnhNen = p.AnhNen, TrangThai = p.TrangThai.TrangThaiPhim, Like = p.Like, LuotXem = p.LuotXem }))
+                                                  .OrderByDescending(p => p.Id);
+            var TopLuotXem = DSPhim2.OrderByDescending(p => p.LuotXem).Take(5).ToList();
+            var TopLikePhim = DSPhim2.OrderByDescending(p => p.Like).Take(5).ToList();
             var TheLoai = _context.TheLoai.ToList();
             var QuocGia = _context.QuocGia.ToList();
             var Nam = _context.Nam.ToList();
-            IQueryable<PhimBo> DSPhim = _context.PhimBo.OrderByDescending(p => p.PhimBoId);
+            IQueryable<PhimBo> DSPhim = _context.PhimBo.Include(p => p.TrangThai).OrderByDescending(p => p.PhimBoId);
             // Sắp xếp dựa trên kiểu sắp xếp
             switch (sortOrder)
             {
@@ -66,10 +71,8 @@ namespace WebsiteXemPhim.Controllers
                     break;
             }
             var paginatedPhimBos = await PaginatedList<PhimBo>.CreateAsync(DSPhim, pageNumber, pageSize);
-            ViewData["TopPhimBo"] = TopPhimBo;
-            ViewData["TopPhimLe"] = TopPhimLe;
-            ViewData["TopLikePhimBo"] = TopLikePhimBo;
-            ViewData["TopLikePhimLe"] = TopLikePhimLe;
+            ViewData["TopLuotXem"] = TopLuotXem;
+            ViewData["TopLikePhim"] = TopLikePhim;
             ViewData["TheLoai"] = TheLoai;
             ViewData["QuocGia"] = QuocGia;
             ViewData["Nam"] = Nam;
@@ -81,14 +84,17 @@ namespace WebsiteXemPhim.Controllers
         public async Task<IActionResult> TatCaPhimLe(int pageNumber = 1, string sortOrder = "")
         {
             int pageSize = 12;
-            var TopPhimBo = _context.PhimBo.Include(p => p.TrangThai).OrderByDescending(p => p.LuotXem).Take(3).ToList();
-            var TopPhimLe = _context.PhimLe.Include(p => p.TrangThai).OrderByDescending(p => p.LuotXem).Take(2).ToList();
-            var TopLikePhimBo = _context.PhimBo.Include(p => p.TrangThai).OrderByDescending(p => p.Like).Take(3).ToList();
-            var TopLikePhimLe = _context.PhimLe.Include(p => p.TrangThai).OrderByDescending(p => p.Like).Take(2).ToList();
+            IQueryable<PhimWithLoai> DSPhims = _context.PhimBo.Include(p => p.TrangThai)
+                                                             .Select(p => new PhimWithLoai { Id = p.PhimBoId, Loai = "Bo", TenPhim = p.TenPhim, Anh = p.Anh, AnhNen = p.AnhNen, TrangThai = p.TrangThai.TrangThaiPhim, Like = p.Like, LuotXem = p.LuotXem })
+                                                             .Union(_context.PhimLe.Include(p => p.TrangThai)
+                                                                                   .Select(p => new PhimWithLoai { Id = p.PhimLeId, Loai = "Le", TenPhim = p.TenPhim, Anh = p.Anh, AnhNen = p.AnhNen, TrangThai = p.TrangThai.TrangThaiPhim, Like = p.Like, LuotXem = p.LuotXem }))
+                                                             .OrderByDescending(p => p.Id);
+            var TopLuotXem = DSPhims.OrderByDescending(p => p.LuotXem).Take(5).ToList();
+            var TopLikePhim = DSPhims.OrderByDescending(p => p.Like).Take(5).ToList();
             var TheLoai = _context.TheLoai.ToList();
             var QuocGia = _context.QuocGia.ToList();
             var Nam = _context.Nam.ToList();
-            IQueryable<PhimLe> DSPhim = _context.PhimLe.OrderByDescending(p => p.PhimLeId);
+            IQueryable<PhimLe> DSPhim = _context.PhimLe.Include(p => p.TrangThai).OrderByDescending(p => p.PhimLeId);
             // Sắp xếp dựa trên kiểu sắp xếp
             switch (sortOrder)
             {
@@ -103,10 +109,8 @@ namespace WebsiteXemPhim.Controllers
                     break;
             }
             var paginatedPhimLes = await PaginatedList<PhimLe>.CreateAsync(DSPhim, pageNumber, pageSize);
-            ViewData["TopPhimBo"] = TopPhimBo;
-            ViewData["TopPhimLe"] = TopPhimLe;
-            ViewData["TopLikePhimBo"] = TopLikePhimBo;
-            ViewData["TopLikePhimLe"] = TopLikePhimLe;
+            ViewData["TopLuotXem"] = TopLuotXem;
+            ViewData["TopLikePhim"] = TopLikePhim;
             ViewData["TheLoai"] = TheLoai;
             ViewData["QuocGia"] = QuocGia;
             ViewData["Nam"] = Nam;

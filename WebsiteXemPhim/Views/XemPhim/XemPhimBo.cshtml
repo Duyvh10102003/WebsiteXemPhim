@@ -46,12 +46,13 @@
                     </div>
                     @foreach (var item in ViewData["BinhLuan"] as List<BinhLuan>)
                     {
+                        var thoiGian = ViewBag.BinhLuanThoiGian[item.BinhLuanId];
                         <div class="anime__review__item">
                             <div class="anime__review__item__pic">
                                 <img src="/frontend/img/anime/Avatar.jpg" alt="">
                             </div>
                             <div class="anime__review__item__text">
-                                <h6>@item.User.UserName - <span>@item.NgayTao</span></h6>
+                                <h6>@item.User.UserName - <span>@thoiGian</span></h6>
                                 <p>
                                     @item.NoiDungBinhLuan
                                 </p>

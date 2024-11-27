@@ -49,7 +49,7 @@ namespace WebsiteXemPhim.Controllers
                 .OrderByDescending(p => p.LuotXem)
                 .Take(10) // Giới hạn 10 phim
                 .ToListAsync();
-
+            ViewBag.BinhLuanThoiGian = BinhLuan.ToDictionary(b => b.BinhLuanId, b => ThoiGianTruoc(b.NgayTao));
             ViewData["PhimGoiY"] = phimGoiY;
             ViewData["TheLoai"] = TheLoai;
             ViewData["QuocGia"] = QuocGia;
@@ -95,7 +95,7 @@ namespace WebsiteXemPhim.Controllers
                 .OrderByDescending(p => p.LuotXem)
                 .Take(8) // Giới hạn 8 phim
                 .ToListAsync();
-
+            ViewBag.BinhLuanThoiGian = BinhLuan.ToDictionary(b => b.BinhLuanId, b => ThoiGianTruoc(b.NgayTao));
             ViewData["PhimGoiY"] = phimGoiY;
             ViewData["BinhLuan"] = BinhLuan;
             ViewData["TheLoai"] = TheLoai;
@@ -104,6 +104,33 @@ namespace WebsiteXemPhim.Controllers
 
             return View(phimLe);
         }
-
+        public string ThoiGianTruoc(DateTime NgayTao)
+        {
+            TimeSpan timeSinceCreation = DateTime.Now - NgayTao;
+            if (timeSinceCreation.TotalMinutes < 1)
+            {
+                return "vừa xong";
+            }
+            else if (timeSinceCreation.TotalMinutes < 60)
+            {
+                return $"{(int)timeSinceCreation.TotalMinutes} phút trước";
+            }
+            else if (timeSinceCreation.TotalHours < 24)
+            {
+                return $"{(int)timeSinceCreation.TotalHours} giờ trước";
+            }
+            else if (timeSinceCreation.TotalDays < 30)
+            {
+                return $"{(int)timeSinceCreation.TotalDays} ngày trước";
+            }
+            else if (timeSinceCreation.TotalDays < 365)
+            {
+                return $"{(int)(timeSinceCreation.TotalDays / 30)} tháng trước";
+            }
+            else
+            {
+                return $"{(int)(timeSinceCreation.TotalDays / 365)} năm trước";
+            }
+        }
     }
 }

@@ -253,6 +253,15 @@ namespace WebsiteXemPhim.Areas.Admin.Controllers
             IQueryable<PhimLe> phimLesQuery = _context.PhimLe.Include(p => p.ChiTietTheLoaiPhimLes).ThenInclude(p => p.TheLoai).Include(p => p.Nam).Include(p => p.QuocGia).Include(p => p.TrangThai).Where(p => p.TenPhim.Contains(query));
 
             var paginatedPhimLes = await PaginatedList<PhimLe>.CreateAsync(phimLesQuery, pageNumber, 10);
+            // Tạo một danh sách chứa số lượng bình luận cho từng bộ phim
+            var soLuongBinhLuan = new Dictionary<int, int>();
+            // Lấy số lượng bình luận cho mỗi phim
+            foreach (var phimLe in paginatedPhimLes)
+            {
+                var binhLuanCount = await _context.BinhLuan.CountAsync(b => b.PhimLeId == phimLe.PhimLeId);
+                soLuongBinhLuan[phimLe.PhimLeId] = binhLuanCount;
+            }
+            ViewData["SoLuongBinhLuan"] = soLuongBinhLuan;
             return PartialView(paginatedPhimLes);
         }
         public async Task<IActionResult> PagingNoLibrary(int pageNumber)

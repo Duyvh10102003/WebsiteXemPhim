@@ -1,0 +1,56 @@
+﻿@model EditProfileViewModel
+@using WebsiteXemPhim.DataAccess
+@inject ApplicationDbContext _context
+@{
+    ViewData["Title"] = "Log in";
+    ViewData["TheLoai"] = _context.TheLoai.ToList();
+    ViewData["Nam"] = _context.Nam.ToList();
+    ViewData["QuocGia"] = _context.QuocGia.ToList();
+}
+
+
+
+<section class="signup spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+               
+
+            </div>
+            <div class="col-lg-6">
+                <div class="login__form">
+                    <h3>Thông tin cá nhân</h3>
+                    <form asp-action="EditProfile" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="input__item">
+                            <label style="color:white" for="Email">Email</label>
+                            <input asp-for="Email" readonly class="form-control" />
+                        </div>
+                        <div class="input__item">
+                            <label style="color:white" for="UserName">Tên người dùng</label>
+                            <input asp-for="UserName"  />
+                        </div>
+
+                        <div class="input__item">
+                            <label style="color:white" for="PhoneNumber">Số điện thoại</label>
+                            <input asp-for="PhoneNumber" />
+                        </div>
+
+                        <a asp-area="Identity" asp-page="/Account/Manage/ChangePassword" class="btn btn-secondary w-25">Thay đổi mật khẩu</a>
+                         <br />        
+                        <button type="submit" class="site-btn">Lưu thông tin</button>
+                    </form>     
+           
+                </div>
+                
+            </div>
+
+            
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/login.js"></script>
+}

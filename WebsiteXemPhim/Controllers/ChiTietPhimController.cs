@@ -53,13 +53,13 @@ namespace WebsiteXemPhim.Controllers
             ViewBag.TongUser = tongUser;
             ViewBag.AverageRating = averageRating;
             var user = await _userManager.GetUserAsync(User);
+            ViewBag.BinhLuanThoiGian = BinhLuan.ToDictionary(b => b.BinhLuanId, b => ThoiGianTruoc(b.NgayTao));
             ViewData["IsFavorite"] = await CheckIfFavoriteAsync(id, user);
             ViewData["TopPhim"] = TopPhim;
             ViewData["TheLoai"] = TheLoai;
             ViewData["QuocGia"] = QuocGia;
             ViewData["Nam"] = Nam;
             ViewData["BinhLuan"] = BinhLuan;
-
             return View(chiTietPhim);
         }
 
@@ -98,13 +98,13 @@ namespace WebsiteXemPhim.Controllers
             ViewBag.TongUser = tongUser;
             ViewBag.AverageRating = averageRating;
             var user = await _userManager.GetUserAsync(User);
+            ViewBag.BinhLuanThoiGian = BinhLuan.ToDictionary(b => b.BinhLuanId, b => ThoiGianTruoc(b.NgayTao));
             ViewData["IsFavorite"] = await CheckIfFavoriteAsync(id, user);
             ViewData["TopPhim"] = TopPhim;
             ViewData["TheLoai"] = TheLoai;
             ViewData["QuocGia"] = QuocGia;
             ViewData["Nam"] = Nam;
             ViewData["BinhLuan"] = BinhLuan;
-
             return View(chiTietPhimLe);
         }
 
@@ -166,16 +166,34 @@ namespace WebsiteXemPhim.Controllers
             // Nếu không có phim nào, quay về trang chủ
             return RedirectToAction("Index", "Home");
         }
-
-        public class PhimWithLoai
+        // Thuộc tính tính toán để hiển thị thời gian đã trôi qua
+        public string ThoiGianTruoc(DateTime NgayTao)
         {
-            public int Id { get; set; }
-            public string Loai { get; set; } // Bộ hoặc Lẻ
-            public string TenPhim { get; set; }
-            public string Anh { get; set; }
-            public string TrangThai { get; set; }
+            TimeSpan timeSinceCreation = DateTime.Now - NgayTao;
+            if (timeSinceCreation.TotalMinutes < 1)
+            {
+                return "vừa xong";
+            }
+            else if (timeSinceCreation.TotalMinutes < 60)
+            {
+                return $"{(int)timeSinceCreation.TotalMinutes} phút trước";
+            }
+            else if (timeSinceCreation.TotalHours < 24)
+            {
+                return $"{(int)timeSinceCreation.TotalHours} giờ trước";
+            }
+            else if (timeSinceCreation.TotalDays < 30)
+            {
+                return $"{(int)timeSinceCreation.TotalDays} ngày trước";
+            }
+            else if (timeSinceCreation.TotalDays < 365)
+            {
+                return $"{(int)(timeSinceCreation.TotalDays / 30)} tháng trước";
+            }
+            else
+            {
+                return $"{(int)(timeSinceCreation.TotalDays / 365)} năm trước";
+            }
         }
-
-
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using WebsiteXemPhim.DataAccess;
+using WebsiteXemPhim.Models;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WebsiteXemPhim.Areas.Admin.Controllers
@@ -19,15 +20,6 @@ namespace WebsiteXemPhim.Areas.Admin.Controllers
         {
             _context = context;
 
-        }
-        public class PhimWithLoai
-        {
-            public int Id { get; set; }
-            public string Loai { get; set; } // Bộ hoặc Lẻ
-            public string TenPhim { get; set; }
-            public string Anh { get; set; }
-            public string TrangThai { get; set; }
-            public int LuotXem { get; set; }
         }
         public IActionResult Index()
         {

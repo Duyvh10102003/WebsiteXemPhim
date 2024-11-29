@@ -19,6 +19,7 @@
             {
                 <a class="custom-link dropdown-item" asp-area="Admin" asp-controller="PhimLes" asp-action="Index">Admin</a>
             }
+            <a class="custom-link dropdown-item" asp-area="" asp-controller="User" asp-action="EditProfile" title="Manage">Profile</a>
             <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                 <button class="custom-link dropdown-item" type="submit">Logout</button>
             </form>

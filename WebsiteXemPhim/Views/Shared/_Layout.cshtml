@@ -1,5 +1,5 @@
 ﻿ @using Microsoft.AspNetCore.Identity
- @inject SignInManager<IdentityUser> SignInManager
+ @inject SignInManager<AppUser> SignInManager
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -165,8 +165,10 @@
 
                 <div class="col-md-1 ">
                     <div class="header__center" style="display: flex; align-items: center; justify-content: space-between;">
-                   
 
+                        <div>
+                            <partial name="_LoginPartial" />
+                        </div>
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <div class="notification" style="position: relative; margin-right: 10px;">
@@ -184,9 +186,7 @@
                             </div>
                         }
 
-                        <div>
-                            <partial name="_LoginPartial" />
-                        </div>
+                       
                     </div>
 
                        

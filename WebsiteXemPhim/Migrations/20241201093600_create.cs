@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebsiteXemPhim.Migrations
 {
     /// <inheritdoc />
-    public partial class v1 : Migration
+    public partial class create : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -89,6 +89,23 @@ namespace WebsiteXemPhim.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TheLoai", x => x.TheLoaiId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ThongBaos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsRead = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ThongBaos", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -676,6 +693,9 @@ namespace WebsiteXemPhim.Migrations
 
             migrationBuilder.DropTable(
                 name: "TapPhim");
+
+            migrationBuilder.DropTable(
+                name: "ThongBaos");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

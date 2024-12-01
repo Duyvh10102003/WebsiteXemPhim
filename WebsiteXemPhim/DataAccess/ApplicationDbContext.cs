@@ -4,7 +4,7 @@ using WebsiteXemPhim.Models;
 
 namespace WebsiteXemPhim.DataAccess
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<AppUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         { }
@@ -21,6 +21,8 @@ namespace WebsiteXemPhim.DataAccess
         public DbSet<ChiTietTheLoaiPhimLe> ChiTietTheLoaiPhimLe { get; set; }
         public DbSet<BinhLuan> BinhLuan { get; set; }
         public DbSet<DanhGia> DanhGia { get; set; }
+        public DbSet<ThongBao> ThongBaos { get; set; }
+
 
     }
 }

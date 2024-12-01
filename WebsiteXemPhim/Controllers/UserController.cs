@@ -1,15 +1,16 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebsiteXemPhim.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WebsiteXemPhim.Controllers
 {
     public class UserController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
 
-        public UserController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public UserController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -28,8 +29,9 @@ namespace WebsiteXemPhim.Controllers
             var model = new EditProfileViewModel
             {
                 UserName = user.UserName,
-                PhoneNumber = user.PhoneNumber,
-                Email = user.Email // Thêm email vào model
+                Email = user.Email, 
+                avatar = user.avatar,
+                sex = user.sex,
             };
 
             return View(model);
@@ -38,8 +40,9 @@ namespace WebsiteXemPhim.Controllers
 
         // Xử lý khi người dùng cập nhật thông tin
         [HttpPost]
-        public async Task<IActionResult> EditProfile(EditProfileViewModel model)
+        public async Task<IActionResult> EditProfile(EditProfileViewModel model, IFormFile avatar)
         {
+            ModelState.Remove("avatar");
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(User);
@@ -48,15 +51,25 @@ namespace WebsiteXemPhim.Controllers
                     return RedirectToAction("Login", "Account", new { area = "Identity" });
 
                 }
-
+                // Giữ nguyên thông tin hình ảnh nếu không có hình mới được tải lên            
+                if (avatar == null)
+                {
+                    model.avatar = user.avatar;
+                }
+                else
+                {
+                    // Lưu hình ảnh mới
+                    model.avatar = await SaveImage(avatar);
+                }
                 user.UserName = model.UserName;
-                user.PhoneNumber = model.PhoneNumber;
+                user.sex = model.sex;
+                user.avatar = model.avatar;
 
                 var result = await _userManager.UpdateAsync(user);
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("EditProfile", "User");
                 }
                 else
                 {
@@ -69,5 +82,16 @@ namespace WebsiteXemPhim.Controllers
 
             return View(model);
         }
+
+        private async Task<string> SaveImage(IFormFile image)
+        {
+            var savePath = Path.Combine("wwwroot/frontend/img/avatar", image.FileName); // Thay   đổi đường dẫn theo cấu hình của bạn
+            using (var fileStream = new FileStream(savePath, FileMode.Create))
+            {
+                await image.CopyToAsync(fileStream);
+            }
+            return "/frontend/img/avatar/" + image.FileName; // Trả về đường dẫn tương đối
+        }
+
     }
 }

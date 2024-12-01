@@ -126,10 +126,12 @@ namespace WebsiteXemPhim.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+            var selectedTheLoais = _context.ChiTietTheLoaiPhimLe.Where(ct => ct.PhimLeId == id).Select(ct => ct.TheLoaiId).ToList();
             var nams = await _namRepository.GetAllAsync();
             var theLoais = await _theLoaiRepository.GetAllAsync();
             var quocGias = await _quocGiaRepository.GetAllAsync();
             var trangThais = await _trangThaiRepository.GetAllAsync();
+            ViewBag.SelectedTheLoais = selectedTheLoais;
             ViewBag.Nams = new SelectList(nams, "NamID", "TenNam");
             ViewBag.QuocGias = new SelectList(quocGias, "QuocGiaId", "TenQuocGia");
             ViewBag.TheLoais = theLoais;

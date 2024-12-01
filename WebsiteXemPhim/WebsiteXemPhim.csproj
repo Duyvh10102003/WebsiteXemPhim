@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\frontend\img\banner\**" />
+    <Content Remove="wwwroot\frontend\img\banner\**" />
+    <EmbeddedResource Remove="wwwroot\frontend\img\banner\**" />
+    <None Remove="wwwroot\frontend\img\banner\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MailKit" Version="4.8.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="8.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="8.0.10" />
@@ -27,8 +34,7 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Migrations\" />
-    <Folder Include="wwwroot\frontend\img\banner\" />
+    <Folder Include="wwwroot\frontend\img\avatar\" />
     <Folder Include="wwwroot\frontend\img\tintuc\" />
   </ItemGroup>
 

@@ -1,0 +1,221 @@
+﻿.profile-section {
+    padding: 40px 0;
+    background-color: transparent; /* Nền tổng thể bỏ đen */
+    color: #333; /* Màu chữ chuyển sang xám đậm */
+}
+
+    .profile-section .profile-form {
+        background: #1c1c1c; /* Nền đen cho form */
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Đổ bóng để nổi bật */
+        color: white; /* Chữ trắng để dễ đọc trên nền đen */
+    }
+
+    .profile-section h3 {
+        color: #ffcc00; /* Chữ vàng cho tiêu đề */
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .profile-section .form-item {
+        margin-bottom: 20px;
+    }
+
+        .profile-section .form-item label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #ffcc00; /* Màu vàng nổi bật */
+        }
+
+        .profile-section .form-item input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #555; /* Viền xám đậm */
+            background: #333; /* Nền xám đậm */
+            color: white; /* Chữ trắng */
+        }
+
+            .profile-section .form-item input:focus {
+                border-color: #ffcc00; /* Viền vàng khi focus */
+                outline: none;
+            }
+
+    .profile-section .save-btn {
+        background-color: #ffcc00; /* Nút vàng */
+        color: black; /* Chữ đen */
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+        font-weight: bold;
+    }
+
+        .profile-section .save-btn:hover {
+            background-color: #e6b800; /* Màu vàng đậm hơn khi hover */
+        }
+
+    .profile-section .change-password-btn {
+        margin-top: 10px;
+        display: block;
+        text-align: center;
+        background: #555; /* Nút xám đậm */
+        color: white; /* Chữ trắng */
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+        .profile-section .change-password-btn:hover {
+            background: #666; /* Xám sáng hơn khi hover */
+        }
+.profile-section {
+    padding: 40px 0;
+    background-color: transparent; /* Nền tổng thể bỏ đen */
+    color: #333; /* Màu chữ chuyển sang xám đậm */
+}
+
+    .profile-section .profile-form {
+        background: #1c1c1c; /* Nền đen cho form */
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Đổ bóng để nổi bật */
+        color: white; /* Chữ trắng để dễ đọc trên nền đen */
+    }
+
+    .profile-section h3 {
+        color: #ffcc00; /* Chữ vàng cho tiêu đề */
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .profile-section .form-item {
+        margin-bottom: 20px;
+    }
+
+        .profile-section .form-item label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #ffcc00; /* Màu vàng nổi bật */
+        }
+
+        .profile-section .form-item input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #555; /* Viền xám đậm */
+            background: #333; /* Nền xám đậm */
+            color: white; /* Chữ trắng */
+        }
+
+            .profile-section .form-item input:focus {
+                border-color: #ffcc00; /* Viền vàng khi focus */
+                outline: none;
+            }
+
+    .profile-section .save-btn {
+        background-color: #ffcc00; /* Nút vàng */
+        color: black; /* Chữ đen */
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+        font-weight: bold;
+    }
+
+        .profile-section .save-btn:hover {
+            background-color: #e6b800; /* Màu vàng đậm hơn khi hover */
+        }
+
+    .profile-section .change-password-btn {
+        margin-top: 10px;
+        display: block;
+        text-align: center;
+        background: #555; /* Nút xám đậm */
+        color: white; /* Chữ trắng */
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+        .profile-section .change-password-btn:hover {
+            background: #666; /* Xám sáng hơn khi hover */
+        }
+
+
+    .profile-section .user-profile {
+        text-align: center;
+        color: #333;
+        width: 100%; /* Đảm bảo user-profile chiếm toàn bộ chiều rộng */
+        height: 100%; /* Đảm bảo user-profile chiếm toàn bộ chiều cao */
+        display: flex; /* Dùng Flexbox để căn giữa */
+        flex-direction: column; /* Căn theo chiều dọc */
+        justify-content: center; /* Căn giữa theo chiều dọc */
+        align-items: center; /* Căn giữa theo chiều ngang */
+        padding: 0; /* Loại bỏ padding nếu không cần */
+    }
+
+    .profile-section .user-profile__avatar {
+        width: 100%; /* Avatar chiếm toàn bộ chiều rộng */
+        height: 100%; /* Avatar chiếm toàn bộ chiều cao */
+        max-width: 100%; /* Đảm bảo avatar không vượt quá chiều rộng */
+        max-height: 100%; /* Đảm bảo avatar không vượt quá chiều cao */
+        border-radius: 50%; /* Làm avatar thành hình tròn */
+        border: 3px solid #ffcc00; /* Viền vàng */
+        object-fit: cover; /* Đảm bảo hình ảnh không bị méo */
+        margin-bottom: 10px; /* Khoảng cách dưới avatar */
+    }
+
+    .profile-section .user-profile__name {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 10px;
+        color: #ffcc00; /* Chữ vàng */
+    }
+.form-item {
+    margin-bottom: 20px;
+}
+
+.gender-label {
+    font-size: 16px;
+    color: #ffcc00; /* Màu vàng cho tiêu đề */
+    margin-bottom: 10px;
+    display: block;
+}
+
+.gender-options {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.gender-option {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #ffcc00;
+}
+
+    .gender-option input[type="radio"] {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        margin-right: 10px;
+        accent-color: #ffcc00; /* Thay đổi màu sắc của radio button */
+        transition: all 0.3s ease;
+    }
+
+        .gender-option input[type="radio"]:checked {
+            transform: scale(1.2); /* Phóng to khi chọn */
+        }
+
+    .gender-option span {
+        font-size: 14px;
+    }
+
+    .gender-option input[type="radio"]:hover {
+        transform: scale(1.1); /* Phóng to khi hover */
+    }

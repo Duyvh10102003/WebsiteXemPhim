@@ -14,8 +14,8 @@ namespace WebsiteXemPhim.Controllers
     public class DanhGiaController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
-        public DanhGiaController(ApplicationDbContext dbContext, UserManager<IdentityUser> userManager)
+        private readonly UserManager<AppUser> _userManager;
+        public DanhGiaController(ApplicationDbContext dbContext, UserManager<AppUser> userManager)
         {
             _context = dbContext;
             _userManager = userManager;
@@ -79,14 +79,6 @@ namespace WebsiteXemPhim.Controllers
             await _context.SaveChangesAsync();
 
             return Ok(new { success = true, message = "Đã thêm đánh giá mới!" });
-        }
-
-
-        public class DanhGiaModel
-        {
-            public int? PhimBoId { get; set; }
-            public int? PhimLeId { get; set; }
-            public float Star { get; set; }
         }
     }
 }

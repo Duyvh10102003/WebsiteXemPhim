@@ -13,8 +13,8 @@ namespace WebsiteXemPhim.Controllers
     public class LichSuController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<IdentityUser> _userManager;       
-        public LichSuController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
+        private readonly UserManager<AppUser> _userManager;       
+        public LichSuController(ApplicationDbContext context, UserManager<AppUser> userManager)
         {
             _context = context;
             _userManager = userManager;

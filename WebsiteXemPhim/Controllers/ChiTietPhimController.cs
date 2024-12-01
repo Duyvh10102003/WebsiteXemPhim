@@ -11,9 +11,9 @@ namespace WebsiteXemPhim.Controllers
     public class ChiTietPhimController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<AppUser> _userManager;
 
-        public ChiTietPhimController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
+        public ChiTietPhimController(ApplicationDbContext context, UserManager<AppUser> userManager)
         {
             _context = context;
             _userManager = userManager;

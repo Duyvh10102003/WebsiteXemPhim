@@ -1,0 +1,136 @@
+﻿/* Form tổng thể */
+form.series-form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Các nhóm form */
+.series-form .series-form-group label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+    color: #495057;
+    font-size: 1rem;
+}
+
+.series-form .series-form-control {
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    padding: 12px;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+    background-color: #f8f9fa;
+}
+
+    .series-form .series-form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+        background-color: #ffffff;
+    }
+
+/* Hiển thị ảnh */
+.series-form img.series-thumbnail {
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    max-height: 150px;
+    display: block;
+    margin-top: 15px;
+    transition: transform 0.2s ease;
+}
+
+    .series-form img.series-thumbnail:hover {
+        transform: scale(1.1);
+    }
+
+/* Checkbox */
+.series-form .checkbox-group input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.series-form .checkbox-group label {
+    display: inline-block;
+    margin-right: 15px;
+    color: #495057;
+}
+
+/* Validation lỗi */
+.series-form .text-danger {
+    font-size: 0.9rem;
+    margin-top: 5px;
+    display: block;
+    color: #dc3545;
+}
+
+/* Nút bấm */
+.series-form .btn {
+    margin-top: 20px;
+    margin-right: 12px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.series-form .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #ffffff;
+    transition: all 0.3s ease;
+}
+
+    .series-form .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+
+/* Tiêu đề */
+h1.series-title, h4.series-title {
+    color: #343a40;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Đặt tối thiểu 120px mỗi ô và tự động co giãn */
+    gap: 10px 15px; /* Khoảng cách giữa các ô */
+    padding: 15px;
+    background-color: #f8f9fa; /* Màu nền nhẹ */
+    border: 1px solid #ddd; /* Đường viền */
+    border-radius: 8px; /* Bo góc */
+}
+
+    /* Căn chỉnh checkbox và nhãn */
+    .checkbox-group input[type="checkbox"] {
+        margin-right: 8px; /* Khoảng cách giữa checkbox và nhãn */
+        transform: scale(1.2); /* Kích thước lớn hơn */
+        accent-color: #0d6efd; /* Màu sắc nổi bật */
+        cursor: pointer;
+    }
+
+    .checkbox-group label {
+        font-size: 15px;
+        color: #212529;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        transition: color 0.3s ease;
+    }
+
+        /* Hiệu ứng hover */
+        .checkbox-group label:hover {
+            color: #0d6efd;
+        }
+
+    /* Đảm bảo bố cục ô checkbox */
+    .checkbox-group div {
+        display: flex;
+        align-items: center; /* Căn giữa checkbox và nhãn */
+    }
+
+
+
+

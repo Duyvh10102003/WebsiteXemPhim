@@ -10,7 +10,7 @@ namespace WebsiteXemPhim.Models
         public string UserId { get; set; }
         public PhimBo? PhimBo { get; set; }
         public PhimLe? PhimLe { get; set; }
-        public IdentityUser User { get; set; }
+        public AppUser User { get; set; }
     }
     public class HopPhimViewModel
     {

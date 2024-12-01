@@ -106,25 +106,30 @@
                         </div>
 
                         <div class="filter__gallery">
-                            @foreach (var item in ViewData["TopPhimBo"] as List<PhimBo>)
+                            @foreach (var item in ViewData["TopLuotXem"] as List<PhimWithLoai>)
                             {
-                                <a asp-controller="ChiTietPhim" asp-action="ChiTietPhimBo" asp-route-id="@item.PhimBoId">
-                                    <div class="product__sidebar__view__item set-bg "
-                                         data-setbg="@item.AnhNen">
-                                        <div class="ep">@item.TrangThai.TrangThaiPhim</div>
-                                        <h5><a href="#">@item.TenPhim</a></h5>
-                                    </div>
-                                </a>
-                            }
-                            @foreach (var item in ViewData["TopPhimLe"] as List<PhimLe>)
-                            {
-                                <a asp-controller="ChiTietPhim" asp-action="ChiTietPhimLe" asp-route-id="@item.PhimLeId">
-                                    <div class="product__sidebar__view__item set-bg "
-                                         data-setbg="@item.AnhNen">
-                                        <div class="ep">@item.TrangThai.TrangThaiPhim</div>
-                                        <h5><a href="#">@item.TenPhim</a></h5>
-                                    </div>
-                                </a>
+                                if (item.Loai == "Bo")
+                                {
+                                    <!-- Hiển thị thông tin của phim bộ -->
+                                    <a asp-controller="ChiTietPhim" asp-action="ChiTietPhimBo" asp-route-id="@item.Id">
+                                        <div class="product__sidebar__view__item set-bg"
+                                             data-setbg="@item.AnhNen">
+                                            <div class="ep">@item.TrangThai</div>
+                                            <h5 style="color : white"><a href="#">@item.TenPhim</a>  <br /> @item.LuotXem lượt xem</h5>
+                                        </div>
+                                    </a>
+                                }
+                                if (item.Loai == "Le")
+                                {
+                                    <!-- Hiển thị thông tin của phim lẻ -->
+                                    <a asp-controller="ChiTietPhim" asp-action="ChiTietPhimLe" asp-route-id="@item.Id">
+                                        <div class="product__sidebar__view__item set-bg"
+                                             data-setbg="@item.AnhNen">
+                                            <div class="ep">@item.TrangThai</div>
+                                            <h5 style="color : white"><a href="#">@item.TenPhim</a> <br /> @item.LuotXem lượt xem</h5>
+                                        </div>
+                                    </a>
+                                }
                             }
                         </div>
                     </div>
@@ -132,31 +137,38 @@
                         <div class="section-title">
                             <h5>Yêu thích nhất</h5>
                         </div>
-                        @foreach (var item in ViewData["TopLikePhimBo"] as List<PhimBo>)
+                        @foreach (var item in ViewData["TopLikePhim"] as List<PhimWithLoai>)
                         {
-                            <a asp-controller="ChiTietPhim" asp-action="ChiTietPhimBo" asp-route-id="@item.PhimBoId">
-                                <div class="product__sidebar__comment__item">
-                                    <div class="product__sidebar__comment__item__pic">
-                                        <img class="topPhim" src="@item.Anh" alt="ERROR" />
+                            if (item.Loai == "Bo")
+                            {
+                                <!-- Hiển thị thông tin của phim bộ -->
+                                <a asp-controller="ChiTietPhim" asp-action="ChiTietPhimBo" asp-route-id="@item.Id">
+                                    <div class="product__sidebar__comment__item">
+                                        <div class="product__sidebar__comment__item__pic">
+                                            <img class="topPhim" src="@item.Anh" alt="ERROR" />
+                                        </div>
+                                        <div class="product__sidebar__comment__item__text tuaDe">
+                                            <h5><a href="#">@item.TenPhim</a></h5>
+                                            <span>@item.Like like</span>
+                                        </div>
                                     </div>
-                                    <div class="product__sidebar__comment__item__text">
-                                        <h5><a href="#">@item.TenPhim</a></h5>
+                                </a>
+                            }
+                            if (item.Loai == "Le")
+                            {
+                                <!-- Hiển thị thông tin của phim lẻ -->
+                                <a asp-controller="ChiTietPhim" asp-action="ChiTietPhimLe" asp-route-id="@item.Id">
+                                    <div class="product__sidebar__comment__item">
+                                        <div class="product__sidebar__comment__item__pic">
+                                            <img class="topPhim" src="@item.Anh" alt="ERROR" />
+                                        </div>
+                                        <div class="product__sidebar__comment__item__text ">
+                                            <h5><a href="#">@item.TenPhim</a></h5>
+                                            <span>@item.Like like</span>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                        }
-                        @foreach (var item in ViewData["TopLikePhimLe"] as List<PhimLe>)
-                        {
-                            <a asp-controller="ChiTietPhim" asp-action="ChiTietPhimLe" asp-route-id="@item.PhimLeId">
-                                <div class="product__sidebar__comment__item">
-                                    <div class="product__sidebar__comment__item__pic">
-                                        <img class="topPhim" src="@item.Anh" alt="ERROR" />
-                                    </div>
-                                    <div class="product__sidebar__comment__item__text">
-                                        <h5><a href="#">@item.TenPhim</a></h5>
-                                    </div>
-                                </div>
-                            </a>
+                                </a>
+                            }
                         }
                     </div>
                 </div>

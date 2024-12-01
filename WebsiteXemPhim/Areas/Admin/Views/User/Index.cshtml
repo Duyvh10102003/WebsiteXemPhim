@@ -1,7 +1,7 @@
 ﻿
 @using Microsoft.AspNetCore.Identity
-@inject UserManager<IdentityUser> UserManager
-@model IEnumerable<IdentityUser>
+@inject UserManager<AppUser> UserManager
+@model IEnumerable<AppUser>
 @{
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
@@ -10,7 +10,6 @@
     <thead>
         <tr>
             <th>Tên tài khoản</th>
-            <th>Số điện thoại</th>
             <th>Vai trò</th>
         </tr>
     </thead>
@@ -20,7 +19,6 @@
             var roles = await UserManager.GetRolesAsync(user);
             <tr>
                 <td>@user.UserName</td>
-                <td>@user.PhoneNumber</td>
                 <td>
                     @if (roles.Any())
                     {

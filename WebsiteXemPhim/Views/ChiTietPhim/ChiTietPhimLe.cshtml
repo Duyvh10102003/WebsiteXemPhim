@@ -2,8 +2,8 @@
 @using WebsiteXemPhim.DataAccess
 @using WebsiteXemPhim.Models
 @model WebsiteXemPhim.Models.PhimLe
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> _userManager
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> _userManager
 @inject ApplicationDbContext _context
 @{
     ViewData["Title"] = "ChiTietPhimLe";
@@ -136,15 +136,18 @@
                     </div>
                     @foreach (var item in ViewData["BinhLuan"] as List<BinhLuan>)
                     {
-                            <div class="anime__review__item">
-                                <div class="anime__review__item__pic">
-                                    <img src="/frontend/img/anime/Avatar.jpg" alt=""/>
-                                </div>
-                                <div class="anime__review__item__text">
-                                    <h6>@item.User.UserName - <span>@item.NgayTao</span></h6>
-                                    <p>@item.NoiDungBinhLuan</p>
-                                </div>
+                        var thoiGian = ViewBag.BinhLuanThoiGian[item.BinhLuanId];
+                        <div class="anime__review__item">
+                            <div class="anime__review__item__pic">
+                                <img src="@(item.User.avatar ?? "/frontend/img/anime/Avatar.jpg")" alt="Error">
                             </div>
+                            <div class="anime__review__item__text">
+                                <h6>@item.User.UserName - <span>@thoiGian</span></h6>
+                                <p>
+                                    @item.NoiDungBinhLuan
+                                </p>
+                            </div>
+                        </div>
                     }
                 </div>
             </div>
@@ -163,7 +166,7 @@
                             <a asp-controller="ChiTietPhim" asp-action="ChiTietPhimLe" asp-route-id="@item.PhimLeId">
                                 <div class="product__sidebar__view__item set-bg" data-setbg="@item.AnhNen">
                                     <div class="ep">@item.TrangThai.TrangThaiPhim</div>
-                                    <h5><a href="#">@item.TenPhim</a></h5>
+                                    <h5><a href="#">@item.TenPhim</a> <br /> @item.LuotXem lượt xem</h5>
                                 </div>
                             </a>
                     }

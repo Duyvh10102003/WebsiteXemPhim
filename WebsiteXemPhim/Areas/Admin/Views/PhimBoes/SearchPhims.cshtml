@@ -14,43 +14,61 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @if (Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="padding-right: 23px;">
+                        <img class="custom-img" src="@Html.DisplayFor(modelItem => item.Anh)" alt="ERROR" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TenPhim)
+                    </td>
+                    <td>
+                        @{
+                            int count = 0;
+                            int totalItems = item.ChiTietTheLoaiPhimBos.Count;
+                        }
+                        @foreach (var a in item.ChiTietTheLoaiPhimBos)
+                        {
+                            @Html.DisplayFor(modelItem => a.TheLoai.TenTheLoai)
+                            if (count < totalItems - 1)
+                            {
+                                <span>, </span>
+                            }
+                            count++;
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nam.TenNam)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.QuocGia.TenQuocGia)
+                    </td>
+                    <td class="col-md-4" style=" text-align:right;">
+                        <a class="btn btn-info" asp-area="Admin" asp-controller="TapPhims" asp-action="Index" asp-route-id="@item.PhimBoId">Tập Phim</a>
+                        <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.PhimBoId">Sửa</a>
+                        <a class="btn btn-info" asp-action="Details" asp-route-id="@item.PhimBoId">Chi tiết</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.PhimBoId">Xoá</a>
+                        <a class="btn btn-info position-relative" asp-area="Admin" asp-controller="BinhLuan" asp-action="BinhLuanPhimBo" asp-route-id="@item.PhimBoId">
+                            Bình Luận
+                            @if (ViewData["SoLuongBinhLuan"] is Dictionary<int, int> soLuongBinhLuan && soLuongBinhLuan.ContainsKey(item.PhimBoId) && soLuongBinhLuan[item.PhimBoId] > 0)
+                            {
+                                <span class="badge bg-danger position-absolute" style="top: -5px; right: -5px; font-size: 12px; padding: 2px 6px;">
+                                    @soLuongBinhLuan[item.PhimBoId]
+                                </span>
+                            }
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+        else
         {
             <tr>
-                <td>
-                    <img class="custom-img" src="@Html.DisplayFor(modelItem => item.Anh)" alt="ERROR" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TenPhim)
-                </td>
-                <td>
-                    @{
-                        int count = 0;
-                        int totalItems = item.ChiTietTheLoaiPhimBos.Count;
-                    }
-                    @foreach (var a in item.ChiTietTheLoaiPhimBos)
-                    {
-                        @Html.DisplayFor(modelItem => a.TheLoai.TenTheLoai)
-                        if (count < totalItems - 1)
-                        {
-                            <span>, </span>
-                        }
-                        count++;
-                    }
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nam.TenNam)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.QuocGia.TenQuocGia)
-                </td>
-                <td class="col-md-4" style=" text-align:right;">
-                    <a class="btn btn-info" asp-area="Admin" asp-controller="TapPhims" asp-action="Index" asp-route-id="@item.PhimBoId">Tập Phim</a> |
-                    <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.PhimBoId">Sửa</a> |
-                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.PhimBoId">Chi tiết</a> |
-                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.PhimBoId">Xoá</a>
-                </td>
-            </tr>
+                <td colspan="6" style="text-align: center;">Không tìm thấy kết quả nào</td>
+        </tr>
         }
     </tbody>
 </table>

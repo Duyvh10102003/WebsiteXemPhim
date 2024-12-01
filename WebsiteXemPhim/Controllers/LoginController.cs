@@ -5,15 +5,16 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using WebsiteXemPhim.Models;
 
 namespace WebsiteXemPhim.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
 
-        public LoginController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public LoginController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -48,7 +49,7 @@ namespace WebsiteXemPhim.Controllers
             if (user == null)
             {
                 // Nếu người dùng chưa tồn tại, tạo mới
-                user = new IdentityUser { UserName = email, Email = email };
+                user = new AppUser { UserName = email, Email = email };
                 var createResult = await _userManager.CreateAsync(user);
                 if (createResult.Succeeded)
                 {

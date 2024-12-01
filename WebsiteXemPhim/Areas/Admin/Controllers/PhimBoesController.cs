@@ -132,10 +132,12 @@ namespace WebsiteXemPhim.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+            var selectedTheLoais = _context.ChiTietTheLoaiPhimBo.Where(ct => ct.PhimBoId == id).Select(ct => ct.TheLoaiId).ToList();
             var nams = await _namRepository.GetAllAsync();
             var theLoais = await _theLoaiRepository.GetAllAsync();
             var quocGias = await _quocGiaRepository.GetAllAsync();
             var trangThais = await _trangThaiRepository.GetAllAsync();
+            ViewBag.SelectedTheLoais = selectedTheLoais;
             ViewBag.Nams = new SelectList(nams, "NamID", "TenNam");
             ViewBag.QuocGias = new SelectList(quocGias, "QuocGiaId", "TenQuocGia");
             ViewBag.TheLoais = theLoais;
@@ -213,11 +215,12 @@ namespace WebsiteXemPhim.Areas.Admin.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-
+            var selectedTheLoais = _context.ChiTietTheLoaiPhimBo.Where(ct => ct.PhimBoId == id).Select(ct => ct.TheLoaiId).ToList();
             var nams = await _namRepository.GetAllAsync();
             var theLoai = await _theLoaiRepository.GetAllAsync();
             var quocGias = await _quocGiaRepository.GetAllAsync();
             var trangThais = await _trangThaiRepository.GetAllAsync();
+            ViewBag.SelectedTheLoais = selectedTheLoais;
             ViewBag.Nams = new SelectList(nams, "NamID", "TenNam");
             ViewBag.QuocGias = new SelectList(quocGias, "QuocGiaId", "TenQuocGia");
             ViewBag.TheLoais = new SelectList(theLoai, "TheLoaiId", "TenTheLoai");
@@ -262,8 +265,16 @@ namespace WebsiteXemPhim.Areas.Admin.Controllers
         {
             IQueryable<PhimBo> phimBoesQuery = _context.PhimBo.Include(p => p.ChiTietTheLoaiPhimBos).ThenInclude(p => p.TheLoai).Include(p => p.Nam).Include(p => p.QuocGia).Include(p => p.TrangThai).Where(p => p.TenPhim.Contains(query));
 
-            var paginatedPhimBoes = await PaginatedList<PhimBo>.CreateAsync(phimBoesQuery, pageNumber, 2);
-            return PartialView(paginatedPhimBoes);
+            var paginatedPhimBoes = await PaginatedList<PhimBo>.CreateAsync(phimBoesQuery, pageNumber, 10);
+            var soLuongBinhLuan = new Dictionary<int, int>();
+            // Lấy số lượng bình luận cho mỗi phim
+            foreach (var phimBo in paginatedPhimBoes)
+            {
+                var binhLuanCount = await _context.BinhLuan.CountAsync(b => b.PhimBoId == phimBo.PhimBoId);
+                soLuongBinhLuan[phimBo.PhimBoId] = binhLuanCount;
+            }
+            ViewData["SoLuongBinhLuan"] = soLuongBinhLuan;
+            return PartialView("SearchPhims",paginatedPhimBoes);
         }
         public async Task<IActionResult> PagingNoLibrary(int pageNumber)
         {

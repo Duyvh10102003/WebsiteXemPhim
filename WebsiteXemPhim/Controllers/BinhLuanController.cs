@@ -9,56 +9,8 @@ namespace WebsiteXemPhim.Controllers
     public class BinhLuanController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
-        public class BinhLuanViewModel
-        {
-            public int BinhLuanId { get; set; }
-            public int? PhimBoId { get; set; }
-            public int? PhimLeId { get; set; }
-            public string UserId { get; set; }
-            public string NoiDungBinhLuan { get; set; } // Nội dung bình luận
-            public DateTime NgayTao { get; set; } // Ngày tạo bình luận
-            public string TenNguoiDung { get; set; } // Tên người dùng
-
-            public BinhLuanViewModel()
-            {
-                NgayTao = DateTime.Now; // Gán ngày hiện tại
-            }
-            // Thuộc tính tính toán để hiển thị thời gian đã trôi qua
-            public string ThoiGianTruoc
-            {
-                get
-                {
-                    TimeSpan timeSinceCreation = DateTime.Now - NgayTao;
-                    if (timeSinceCreation.TotalMinutes < 1)
-                    {
-                        return "vừa xong";
-                    }
-                    else if (timeSinceCreation.TotalMinutes < 60)
-                    {
-                        return $"{(int)timeSinceCreation.TotalMinutes} phút trước";
-                    }
-                    else if (timeSinceCreation.TotalHours < 24)
-                    {
-                        return $"{(int)timeSinceCreation.TotalHours} giờ trước";
-                    }
-                    else if (timeSinceCreation.TotalDays < 30)
-                    {
-                        return $"{(int)timeSinceCreation.TotalDays} ngày trước";
-                    }
-                    else if (timeSinceCreation.TotalDays < 365)
-                    {
-                        return $"{(int)(timeSinceCreation.TotalDays / 30)} tháng trước";
-                    }
-                    else
-                    {
-                        return $"{(int)(timeSinceCreation.TotalDays / 365)} năm trước";
-                    }
-                }
-            }
-        }
-        
-        public BinhLuanController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
+        private readonly UserManager<AppUser> _userManager;
+        public BinhLuanController(ApplicationDbContext context, UserManager<AppUser> userManager)
         {
             _context = context;
             _userManager = userManager;
@@ -161,8 +113,5 @@ namespace WebsiteXemPhim.Controllers
 
             return RedirectToAction("ChiTietPhimLe", "ChiTietPhim", new { id = phimLeid });
         }
-
-
-
     }
 }

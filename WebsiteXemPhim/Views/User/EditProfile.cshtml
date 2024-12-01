@@ -1,0 +1,69 @@
+﻿@model EditProfileViewModel
+@using WebsiteXemPhim.DataAccess
+@inject ApplicationDbContext _context
+@{
+    ViewData["Title"] = "Log in";
+    ViewData["TheLoai"] = _context.TheLoai.ToList();
+    ViewData["Nam"] = _context.Nam.ToList();
+    ViewData["QuocGia"] = _context.QuocGia.ToList();
+}
+
+<section class="profile-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="user-profile">
+                    <img src="@(Model.avatar ?? "/frontend/img/anime/Avatar.jpg")" alt="Avatar" class="user-profile__avatar">
+                    <h4 class="user-profile__name">@Model.UserName</h4>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="profile-form">
+                    <h3>Thông tin cá nhân</h3>
+                    <form asp-action="EditProfile" method="post" enctype="multipart/form-data">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-item">
+                            <label for="Email">Email</label>
+                            <input asp-for="Email" readonly class="form-control" />
+                        </div>
+                        <div class="form-item">
+                            <label for="UserName">Tên người dùng</label>
+                            <input asp-for="UserName" />
+                        </div>
+                        <div class="form-item">
+                            <label for="sex" class="gender-label">Giới tính</label>
+                            <div class="gender-options">
+                                <label class="gender-option">
+                                    <input type="radio" id="male" name="sex" value="Male" asp-for="sex" />
+                                    <span>Nam</span>
+                                </label>
+                                <label class="gender-option">
+                                    <input type="radio" id="female" name="sex" value="Female" asp-for="sex" />
+                                    <span>Nữ</span>
+                                </label>
+                                <label class="gender-option">
+                                    <input type="radio" id="other" name="sex" value="Other" asp-for="sex" />
+                                    <span>Khác</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-item">
+                            <label for="avatar">Avatar</label>
+                            <input type="file" asp-for="avatar" />
+                        </div>
+                        <a asp-area="Identity" asp-page="/Account/Manage/ChangePassword" class="change-password-btn">Thay đổi mật khẩu</a>
+                        <br />
+                        <button type="submit" class="save-btn">Lưu thông tin</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/login.js"></script>
+    <link rel="stylesheet" href="~/frontend/css/profile.css" type="text/css">
+}

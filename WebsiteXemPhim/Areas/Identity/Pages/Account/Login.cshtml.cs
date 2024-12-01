@@ -14,15 +14,16 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using WebsiteXemPhim.Models;
 
 namespace WebsiteXemPhim.Areas.Identity.Pages.Account
 {
     public class LoginModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly ILogger<LoginModel> _logger;
+        private readonly SignInManager<AppUser> _signInManager;
+        private readonly ILogger<AppUser> _logger;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<AppUser> signInManager, ILogger<AppUser> logger)
         {
             _signInManager = signInManager;
             _logger = logger;
@@ -109,32 +110,48 @@ namespace WebsiteXemPhim.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
+                // Kiểm tra xem đầu vào là email hay username
+                var isEmail = new EmailAddressAttribute().IsValid(Input.Email);
+
+                // Tìm user bằng email hoặc username
+                AppUser user;
+                if (isEmail)
                 {
-                    _logger.LogInformation("Đăng nhập thành công.");
-                    return LocalRedirect(returnUrl);
-                }
-                if (result.RequiresTwoFactor)
-                {
-                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
-                }
-                if (result.IsLockedOut)
-                {
-                    _logger.LogWarning("User đã bị khoá.");
-                    return RedirectToPage("./Lockout");
+                    user = await _signInManager.UserManager.FindByEmailAsync(Input.Email);
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Tài khoản hoặc mật khẩu không chính xác. Vui lòng thử lại.");
-                    return Page();
+                    user = await _signInManager.UserManager.FindByNameAsync(Input.Email);
                 }
+
+                if (user != null)
+                {
+                    // Thực hiện đăng nhập
+                    var result = await _signInManager.PasswordSignInAsync(user.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+
+                    if (result.Succeeded)
+                    {
+                        _logger.LogInformation("Đăng nhập thành công.");
+                        return LocalRedirect(returnUrl);
+                    }
+                    if (result.RequiresTwoFactor)
+                    {
+                        return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
+                    }
+                    if (result.IsLockedOut)
+                    {
+                        _logger.LogWarning("User đã bị khoá.");
+                        return RedirectToPage("./Lockout");
+                    }
+                }
+
+                // Nếu user không tồn tại hoặc mật khẩu sai
+                ModelState.AddModelError(string.Empty, "Tài khoản hoặc mật khẩu không chính xác. Vui lòng thử lại.");
             }
 
-            // If we got this far, something failed, redisplay form
+            // Nếu lỗi, hiển thị lại form
             return Page();
         }
+
     }
 }

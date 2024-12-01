@@ -15,6 +15,6 @@ namespace WebsiteXemPhim.Models
         public DateTime NgayTao { get; set; } = DateTime.Now;
         public PhimBo? PhimBo { get; set; }
         public PhimLe? PhimLe { get; set; }
-        public IdentityUser User { get; set; }
+        public AppUser User { get; set; }
     }
 }

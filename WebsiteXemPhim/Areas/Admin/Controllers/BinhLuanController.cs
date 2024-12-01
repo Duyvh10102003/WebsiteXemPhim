@@ -13,8 +13,8 @@ namespace WebsiteXemPhim.Areas.Admin.Controllers
     public class BinhLuanController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
-        public BinhLuanController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
+        private readonly UserManager<AppUser> _userManager;
+        public BinhLuanController(ApplicationDbContext context, UserManager<AppUser> userManager)
         {
             _context = context;
             _userManager = userManager;

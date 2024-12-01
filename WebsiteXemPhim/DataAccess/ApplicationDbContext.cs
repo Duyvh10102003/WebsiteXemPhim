@@ -21,6 +21,8 @@ namespace WebsiteXemPhim.DataAccess
         public DbSet<ChiTietTheLoaiPhimLe> ChiTietTheLoaiPhimLe { get; set; }
         public DbSet<BinhLuan> BinhLuan { get; set; }
         public DbSet<DanhGia> DanhGia { get; set; }
+        public DbSet<ThongBao> ThongBaos { get; set; }
+
 
     }
 }

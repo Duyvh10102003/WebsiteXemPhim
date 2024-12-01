@@ -59,28 +59,36 @@ namespace WebsiteXemPhim.Areas.Admin.Controllers
         }
         private async Task NotifyUsersAboutNewEpisode(int phimBoId, TapPhim tapPhim)
         {
-            // Lấy danh sách người dùng đã thích bộ phim
             var users = await _context.HopPhim
                 .Where(h => h.PhimBoId == phimBoId)
                 .Select(h => h.UserId)
                 .Distinct()
                 .ToListAsync();
-           
-            var phim = await _context.TapPhim
-                .Include(tp => tp.PhimBo) 
-                .FirstOrDefaultAsync(tp => tp.PhimBoId == phimBoId && tp.Tap == tapPhim.Tap);
-            var callbackUrl = Url.Action(
-                 "XemPhimBo",                // Tên action
-                 "XemPhim",                  // Tên controller
-                 new { area = "", id = phimBoId, tap = tapPhim.Tap }, // Thêm tham số area
-                 protocol: Request.Scheme);  // Sử dụng protocol của request hiện tại
 
-            string subject = "Tập phim mới đã được cập nhật!";
-            string htmlMessage = $"Xin chào, Bộ phim '{phim.PhimBo.TenPhim}' vừa ra mắt tập '{tapPhim.Tap}'.hãy <a href='{callbackUrl}'>bấm vào đây để xem ngay</a>";
-               
+            var phim = await _context.TapPhim
+                .Include(tp => tp.PhimBo)
+                .FirstOrDefaultAsync(tp => tp.PhimBoId == phimBoId && tp.Tap == tapPhim.Tap);
+
+            var callbackUrl = Url.Action(
+                "XemPhimBo",
+                "XemPhim",
+                new { area = "", id = phimBoId, tap = tapPhim.Tap },
+                protocol: Request.Scheme);
+
+            string message = $"Bộ phim {phim.PhimBo.TenPhim} đã có tập mới {tapPhim.Tap}.";
 
             foreach (var userId in users)
             {
+                // Lưu thông báo
+                var notification = new ThongBao
+                {
+                    UserId = userId,
+                    Message = $"{phim.PhimBo.TenPhim} tập {tapPhim.Tap}.",
+                    Url = callbackUrl
+                };
+                _context.ThongBaos.Add(notification);
+
+                // Gửi email nếu cần
                 var userEmail = await _context.Users
                     .Where(u => u.Id == userId)
                     .Select(u => u.Email)
@@ -88,10 +96,15 @@ namespace WebsiteXemPhim.Areas.Admin.Controllers
 
                 if (!string.IsNullOrEmpty(userEmail))
                 {
+                    string subject = "Tập phim mới đã được cập nhật!";
+                    string htmlMessage = $"{message} <a href='{callbackUrl}'>Bấm vào đây để xem ngay</a>";
                     await _emailSender.SendEmailAsync(userEmail, subject, htmlMessage);
                 }
             }
+
+            await _context.SaveChangesAsync();
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -178,9 +191,33 @@ namespace WebsiteXemPhim.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+           
+            var tap = await _context.TapPhim.Where(p => p.TapPhimId == id).FirstOrDefaultAsync();
+
+            if (tap == null)
+            {
+                return NotFound(); 
+            }
+
+            if (TempData["PhimBoId"] == null)
+            {
+                return BadRequest("PhimBoId is missing.");
+            }
+
+            var notifications = await _context.ThongBaos
+                .Where(tb => !string.IsNullOrEmpty(tb.Url) &&
+                            tb.Url.Contains($"/{(int)TempData["PhimBoId"]}?tap={tap.Tap}"))
+                .ToListAsync();
+
+            _context.ThongBaos.RemoveRange(notifications);
             await _tapPhimRepository.DeleteAsync(id);
+            await _context.SaveChangesAsync(); 
+
             return RedirectToAction("Index", new { id = (int)TempData["PhimBoId"] });
         }
+
+
+
 
     }
 }

@@ -15,16 +15,6 @@ namespace WebsiteXemPhim.Models
         public DateTime NgayTao { get; set; } = DateTime.Now;
         public PhimBo? PhimBo { get; set; }
         public PhimLe? PhimLe { get; set; }
-        public IdentityUser User { get; set; }
-    }
-    public class BinhLuanViewModel
-    {
-        public int BinhLuanId { get; set; }
-        public int? PhimBoId { get; set; }
-        public int? PhimLeId { get; set; }
-        public string UserId { get; set; }
-        public string NoiDungBinhLuan { get; set; } // Nội dung bình luận
-        public DateTime NgayTao { get; set; } // Ngày tạo bình luận
-        public string TenNguoiDung { get; set; } // Tên người dùng
+        public AppUser User { get; set; }
     }
 }

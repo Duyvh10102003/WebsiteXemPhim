@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿ @using Microsoft.AspNetCore.Identity
+ @inject SignInManager<IdentityUser> SignInManager
+<!DOCTYPE html>
 <html lang="zxx">
 
 <head>
@@ -37,6 +39,18 @@
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </head>
+<style>
+    .header__center {
+        display: flex; /* Đặt phần tử theo hàng ngang */
+        align-items: center; /* Căn giữa theo chiều dọc */
+        justify-content: space-between; /* Cách đều các phần tử */
+    }
+
+    .notification {
+        margin-right: 10px; /* Thêm khoảng cách giữa chuông và phần LoginPartial */
+    }
+
+</style>
 <body>
     <div id="preloder">
         <div class="loader"></div>
@@ -145,12 +159,38 @@
                                 <i class="fa fa-search"></i>
                             </button>
                         </form>
+                       
                     </div>
                 </div>
 
                 <div class="col-md-1 ">
-                    <div class="header__center">
-                        <partial name="_LoginPartial" />
+                    <div class="header__center" style="display: flex; align-items: center; justify-content: space-between;">
+                   
+
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <div class="notification" style="position: relative; margin-right: 10px;">
+                                <a href="javascript:void(0);" id="notificationBell" style="width:60px">
+                                    <i class="fa fa-bell"></i>
+                                    <span class="badge" id="notificationCount" style="display:none;"></span>
+                                </a>
+
+                                <!-- Dropdown chứa thông báo -->
+                                <div id="notificationDropdown" class="notification-dropdown" style="display: none;">
+                                    <ul id="notificationList">
+                                        <li>Không có thông báo</li> <!-- Mặc định khi không có thông báo -->
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+
+                        <div>
+                            <partial name="_LoginPartial" />
+                        </div>
+                    </div>
+
+                       
+
                     </div>
                 </div>
             </div>
@@ -184,6 +224,7 @@
 <script src="~/js/searchSuggestions.js"></script>
 <script src="~/js/danhGia.js"></script>
 <script src="~/js/shortenName.js"></script>
+    <script src="~/js/ThongBao.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 

@@ -5,71 +5,80 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>Xoá phim</h1>
+<h1 class="page-title">Xoá Phim</h1>
 
 <h3>Bạn có chắc chắn xoá phim này không?</h3>
-<div>
-    <h4>Phim Lẻ</h4>
-    <hr />
+<div class="details-container">
+    <h4 class="section-title">Phim Lẻ</h4>
+    <hr class="divider" />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2 label">
             Tên phim
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10 value">
             @Html.DisplayFor(model => model.TenPhim)
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-2 label">
             Nội dung
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10 value">
             @Html.DisplayFor(model => model.NoiDung)
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-2 label">
             Ảnh
         </dt>
-        <dd class = "col-sm-10">
-            <img src="@Html.DisplayFor(model => model.Anh)" width="auto" height="300px" alt="ERROR">
+        <dd class="col-sm-10 value">
+            <img class="movie-image2" src="@Html.DisplayFor(model => model.Anh)" alt="Phim ảnh không có" />
         </dd>
-        <dt class="col-sm-2">
+
+        <dt class="col-sm-2 label">
             Ảnh nền
         </dt>
-        <dd class="col-sm-10">
-            <img src="@Html.DisplayFor(model => model.AnhNen)" width="auto" height="300px" alt="ERROR">
+        <dd class="col-sm-10 value">
+            <img class="movie-background-image2" src="@Html.DisplayFor(model => model.AnhNen)" alt="Phim ảnh nền không có" />
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-2 label">
             Thời lượng
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10 value">
             @Html.DisplayFor(model => model.ThoiLuong)
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-2 label">
             Lượt xem
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10 value">
             @Html.DisplayFor(model => model.LuotXem)
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-2 label">
             Link
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10 value">
             @Html.DisplayFor(model => model.Link)
         </dd>
-        <dt class="col-sm-2">
+
+        <dt class="col-sm-2 label">
             Link dự phòng
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-10 value">
             @Html.DisplayFor(model => model.Linkdb)
         </dd>
-        <dt class="col-sm-2">
+
+        <dt class="col-sm-2 label">
             Like
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-10 value">
             @Html.DisplayFor(model => model.Like)
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-2 label">
             Thể Loại
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-10 value">
             @foreach (var theLoai in Model.ChiTietTheLoaiPhimLes)
             {
                 @theLoai.TheLoai.TenTheLoai
@@ -79,29 +88,33 @@
                 }
             }
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-2 label">
             Năm
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10 value">
             @Html.DisplayFor(model => model.Nam.TenNam)
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-2 label">
             Quốc gia
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10 value">
             @Html.DisplayFor(model => model.QuocGia.TenQuocGia)
         </dd>
-        <dt class="col-sm-2">
-            Trạng Thái 
+
+        <dt class="col-sm-2 label">
+            Trạng Thái
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-10 value">
             @Html.DisplayFor(model => model.TrangThai.TrangThaiPhim)
         </dd>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="PhimLeId" />
-        <input type="submit" value="Xoá" class="btn btn-danger" /> |
+        <input type="submit" value="Xoá" class="btn btn-danger" /> 
         <a class="btn btn-info" asp-action="Index">Trở về danh sách</a>
     </form>
 </div>
+

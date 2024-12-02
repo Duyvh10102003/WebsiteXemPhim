@@ -33,7 +33,7 @@ namespace WebsiteXemPhim.Areas.Admin.Controllers
         public async Task<IActionResult> Index(int id, int pageNumber = 1)
         {
             TempData["PhimBoId"] = id;
-            int pageSize = 5;
+            int pageSize = 10;
             IQueryable<TapPhim> PhimBoesQuery = _context.TapPhim.Include(p => p.PhimBo).Where(p => p.PhimBoId == id);
             var paginatedPhimBoes = await PaginatedList<TapPhim>.CreateAsync(PhimBoesQuery, pageNumber, pageSize);
             return View(paginatedPhimBoes);

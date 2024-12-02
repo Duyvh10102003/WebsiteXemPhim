@@ -1,0 +1,40 @@
+﻿.notification-dropdown {
+    position: absolute;
+    top: 30px; /* Điều chỉnh vị trí so với biểu tượng chuông */
+    right: 0;
+    width: 300px; /* Chiều rộng dropdown */
+    background-color: white; /* Màu nền trắng */
+    border: 1px solid #ccc; /* Đường viền */
+    border-radius: 8px; /* Bo góc */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng để nổi bật */
+    z-index: 9999; /* Giá trị lớn để đảm bảo không bị che */
+    padding: 10px;
+    max-height: 400px; /* Giới hạn chiều cao */
+    overflow-y: auto; /* Cuộn khi nội dung quá nhiều */
+}
+
+    .notification-dropdown ul {
+        list-style-type: none; /* Xóa bullet list */
+        margin: 0;
+        padding: 0;
+    }
+
+    .notification-dropdown li {
+        padding: 10px;
+        border-bottom: 1px solid #eee; /* Đường ngăn cách giữa các thông báo */
+        background-color: white; /* Nền trắng */
+    }
+
+        .notification-dropdown li:last-child {
+            border-bottom: none;
+        }
+
+        .notification-dropdown li a {
+            text-decoration: none; /* Xóa gạch chân */
+            color: #333; /* Màu chữ */
+            display: block; /* Căn chỉnh toàn bộ khu vực link */
+        }
+
+            .notification-dropdown li a:hover {
+                background-color: #f5f5f5; /* Nền xám nhạt khi hover */
+            }

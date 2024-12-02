@@ -35,6 +35,7 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="wwwroot\frontend\img\avatar\" />
+    <Folder Include="wwwroot\frontend\img\gif\" />
     <Folder Include="wwwroot\frontend\img\tintuc\" />
   </ItemGroup>
 

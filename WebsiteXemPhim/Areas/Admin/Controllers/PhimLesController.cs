@@ -195,7 +195,7 @@ namespace WebsiteXemPhim.Areas.Admin.Controllers
                 existingPhimLe.ThoiLuong = phimLe.ThoiLuong;
                 existingPhimLe.LuotXem = phimLe.LuotXem;
                 existingPhimLe.Link = phimLe.Link;
-                existingPhimLe.Linkdb = phimLe.Linkdb;
+                existingPhimLe.Trailer = phimLe.Trailer;
                 existingPhimLe.Like = phimLe.Like;
 
                 existingPhimLe.TrangThaiId = phimLe.TrangThaiId;

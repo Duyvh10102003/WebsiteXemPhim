@@ -38,6 +38,11 @@
                 <img src="@Model.AnhNen" alt="Image" class="series-thumbnail" />
             </div>
             <div class="series-form-group">
+                <label asp-for="Trailer" class="control-label">Link phim giới thiệu</label>
+                <input asp-for="Trailer" class="series-form-control" />
+                <span asp-validation-for="Trailer" class="text-danger"></span>
+            </div>
+            <div class="series-form-group">
                 <label asp-for="NamID" class="control-label">Năm</label>
                 <select asp-for="NamID" class="series-form-control" asp-items="ViewBag.Nams"></select>
                 <span asp-validation-for="NamID" class="text-danger"></span>

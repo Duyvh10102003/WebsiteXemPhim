@@ -5,7 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>Danh sách tập phim</h1>
+<h1>Danh sách tập phim @ViewBag.TenPhim </h1>
 
 <p>
     <a class="btn btn-primary" asp-action="Create">Thêm tập phim mới</a>
@@ -14,10 +14,8 @@
     <thead>
         <tr>
             <th>Tập</th>
-            <th>Link 1</th>
-            <th>Link 2</th>
+            <th>Link phim</th>
             <th>Thời lượng</th>
-            <th>Phim Bộ</th>
         </tr>
     </thead>
     <tbody>
@@ -31,13 +29,7 @@
                     @Html.DisplayFor(modelItem => item.Link)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Linkdb)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.ThoiLuong)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PhimBo.TenPhim)
                 </td>
                 <td class="col-md-3" style=" text-align:right;">
                     <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.TapPhimId">Sửa</a> |
@@ -54,24 +46,22 @@
     var nextDisabled = !Model.HasNextPage ? "disabled" : "";
 }
 <div>
-    <nav aria-label="Page navigation">
-        <ul class="pagination">
-            <a asp-action="Index"
-               asp-route-pageNumber="@(Model.PageIndex - 1)" class="btn btn-default @prevDisabled">
-                Trang trước
+    <ul class="pagination">
+        <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+            <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.PageIndex - 1)" aria-label="Trang trước">
+                <span aria-hidden="true">&laquo;</span>
             </a>
-            @for (int i = 1; i <= @Model.TotalPages; i++)
-            {
-                <li class="page-item @(i == @Model.PageIndex ? "active" : "")">
-
-                    <a class="page-link"
-                       href="@Url.Action("Index", new { pageNumber = i })">@i</a>
-
-                </li>
-            }
-            <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex + 1)" class="btn btn-default @nextDisabled">
-                Trang sau
+        </li>
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+                <a class="page-link" asp-action="Index" asp-route-pageNumber="@i">@i</a>
+            </li>
+        }
+        <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+            <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.PageIndex + 1)" aria-label="Trang sau">
+                <span aria-hidden="true">&raquo;</span>
             </a>
-        </ul>
-    </nav>
+        </li>
+    </ul>
 </div>

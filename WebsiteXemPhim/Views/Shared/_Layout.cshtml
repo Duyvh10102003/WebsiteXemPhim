@@ -14,7 +14,7 @@
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
+          rel="stylesheet">
 
     <!-- Css Styles -->
     <link rel="shortcut icon" href="~/frontend/img/anime/logo.png" type="image/x-icon" />
@@ -31,31 +31,21 @@
     <link rel="stylesheet" href="~/frontend/css/searchSuggestion.css" type="text/css">
     <link rel="stylesheet" href="~/frontend/css/buttonPlay.css" type="text/css">
     <link rel="stylesheet" href="~/frontend/css/FormRandom.css" type="text/css">
-    <link rel="stylesheet" href="~/frontend/css/Xemphim.css" type="text/css">
     <link rel="stylesheet" href="~/frontend/css/Mobile.css" type="text/css">
+    <link rel="stylesheet" href="~/frontend/css/Xemphim.css" type="text/css">
+    <link rel="stylesheet" href="~/frontend/css/thongBao.css" type="text/css">
+    <link rel="stylesheet" href="~/frontend/css/footer.css" type="text/css">
     <!--Start of Fchat.vn-->
     <script type="text/javascript" src="https://cdn.fchat.vn/assets/embed/webchat.js?id=672c7caa8e33c34ce525611e" async="async"></script><!--End of Fchat.vn-->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </head>
-<style>
-    .header__center {
-        display: flex; /* Đặt phần tử theo hàng ngang */
-        align-items: center; /* Căn giữa theo chiều dọc */
-        justify-content: space-between; /* Cách đều các phần tử */
-    }
-
-    .notification {
-        margin-right: 10px; /* Thêm khoảng cách giữa chuông và phần LoginPartial */
-    }
-
-</style>
 <body>
     <div id="preloder">
         <div class="loader"></div>
     </div>
-  
+
     <header class="header">
         <div class="container-fluid">
             <div class="row">
@@ -121,7 +111,7 @@
                                         }
                                     </ul>
                                 </li>
-                             
+
                             </ul>
 
                             @functions {
@@ -159,7 +149,7 @@
                                 <i class="fa fa-search"></i>
                             </button>
                         </form>
-                       
+
                     </div>
                 </div>
 
@@ -172,61 +162,79 @@
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <div class="notification" style="position: relative; margin-right: 10px;">
-                                <a href="javascript:void(0);" id="notificationBell" style="width:60px">
+                                <a href="javascript:void(0);" id="notificationBell" style="width: 60px;">
                                     <i class="fa fa-bell"></i>
-                                    <span class="badge" id="notificationCount" style="display:none;"></span>
+                                    <span style="color:red" class="badge" id="notificationCount" style="display: none;"></span>
                                 </a>
 
                                 <!-- Dropdown chứa thông báo -->
                                 <div id="notificationDropdown" class="notification-dropdown" style="display: none;">
                                     <ul id="notificationList">
-                                        <li>Không có thông báo</li> <!-- Mặc định khi không có thông báo -->
+                                        <li>Không có thông báo</li>
                                     </ul>
+                                    <button id="deleteAllNotifications" class="delete-all-btn" style="display: none;">Xóa tất cả</button>
                                 </div>
                             </div>
                         }
-
-                       
-                    </div>
-
-                       
-
                     </div>
                 </div>
             </div>
-            <div id="mobile-menu-wrap"></div>
+        </div>
+        <div id="mobile-menu-wrap"></div>
         </div>
     </header>
 
 
-<!-- Product Section End -->
-@RenderBody()
-<!-- Footer Section Begin -->
+    <!-- Product Section End -->
+    @RenderBody()
+    <!-- Footer Section Begin -->
     <footer class="footer">
         <div class="page-up">
             <a href="#" id="scrollToTopButton"><span class="arrow_carrot-up"></span></a>
         </div>
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
-                <h2 style="color: white;">Chúc mọi người xem phim vui vẻ hihi !!!</h2>
+                <div class="col-lg-8">
+                    <h2 style="color: white;">Chúc mọi người xem phim vui vẻ</h2>
+                </div>
+                <div class="col-lg-4">
+                    <div class="footer__nav">
+                        <ul>
+                            <li>
+                                <a href="" class="fab fa-facebook"></a>
+                            </li>
+                            <li>
+                                <a href="" class="fab fa-instagram"></a>
+                            </li>
+                            <li>
+                                <a href="" class="fab fa-twitter"></a>
+                            </li>
+                            <li>
+                                <a href="" class="fab fa-youtube"></a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
-    </footer>
 
-<script src="~/frontend/js/jquery-3.3.1.min.js"></script>
-<script src="~/frontend/js/bootstrap.min.js"></script>
-<script src="~/frontend/js/player.js"></script>
-<script src="~/frontend/js/jquery.nice-select.min.js"></script>
-<script src="~/frontend/js/mixitup.min.js"></script>
-<script src="~/frontend/js/jquery.slicknav.js"></script>
-<script src="~/frontend/js/owl.carousel.min.js"></script>
-<script src="~/frontend/js/main.js"></script>
-<script src="~/js/searchSuggestions.js"></script>
-<script src="~/js/danhGia.js"></script>
-<script src="~/js/shortenName.js"></script>
-    <script src="~/js/ThongBao.js"></script>
 
-    @await RenderSectionAsync("Scripts", required: false)
+        <script src="~/frontend/js/jquery-3.3.1.min.js"></script>
+        <script src="~/frontend/js/bootstrap.min.js"></script>
+        <script src="~/frontend/js/player.js"></script>
+        <script src="~/frontend/js/jquery.nice-select.min.js"></script>
+        <script src="~/frontend/js/mixitup.min.js"></script>
+        <script src="~/frontend/js/jquery.slicknav.js"></script>
+        <script src="~/frontend/js/owl.carousel.min.js"></script>
+        <script src="~/frontend/js/main.js"></script>
+        <script src="~/js/searchSuggestions.js"></script>
+        <script src="~/js/danhGia.js"></script>
+        <script src="~/js/shortenName.js"></script>
+        <script src="~/js/ThongBao.js"></script>
+        <script src="~/js/Trailer.js"></script>
+
+        @await RenderSectionAsync("Scripts", required: false)
 
 </body>
 </html>

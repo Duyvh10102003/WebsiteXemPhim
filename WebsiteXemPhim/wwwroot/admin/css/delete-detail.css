@@ -1,0 +1,116 @@
+﻿/* Full-screen layout */
+.page-title {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #2c3e50;
+}
+
+/* Container for details (full-width) */
+.details-container {
+    width: 100%;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+}
+
+/* Section title */
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #34495e;
+}
+
+/* Divider line */
+.divider {
+    border: 0;
+    border-top: 1px solid #dcdcdc;
+    margin: 20px 0;
+}
+
+/* Label and value for each section */
+.label {
+    font-weight: 600;
+    color: #343a40;
+}
+
+.value {
+    font-size: 1.1rem;
+    color: #2c3e50;
+}
+
+/* Image styles - smaller */
+.movie-image, .movie-background-image {
+    width: 50%; /* Reduced width */
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+/* Image styles - smaller */
+.movie-image2, .movie-background-image2 {
+    width: 30%; /* Reduced width */
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+/* Button styles */
+.action-buttons {
+    text-align: center;
+    margin-top: 30px;
+}
+
+    .action-buttons .btn {
+        margin: 0 10px;
+    }
+
+.btn-success {
+    background-color: #2ecc71;
+    border-color: #27ae60;
+}
+
+.btn-info {
+    background-color: #3498db;
+    border-color: #2980b9;
+}
+
+.btn-success:hover {
+    background-color: #27ae60;
+    border-color: #2ecc71;
+}
+
+.btn-info:hover {
+    background-color: #2980b9;
+    border-color: #3498db;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .details-container {
+        padding: 10px;
+    }
+
+    .page-title {
+        font-size: 1.5rem;
+    }
+
+    .section-title {
+        font-size: 1.2rem;
+    }
+
+    .label {
+        font-size: 1rem;
+    }
+
+    .value {
+        font-size: 1rem;
+    }
+
+    .movie-image, .movie-background-image {
+        width: 90%; /* Make images larger on small screens */
+    }
+}

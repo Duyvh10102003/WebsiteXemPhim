@@ -33,8 +33,9 @@ namespace WebsiteXemPhim.Areas.Admin.Controllers
         public async Task<IActionResult> Index(int id, int pageNumber = 1)
         {
             TempData["PhimBoId"] = id;
-            int pageSize = 5;
+            int pageSize = 10;
             IQueryable<TapPhim> PhimBoesQuery = _context.TapPhim.Include(p => p.PhimBo).Where(p => p.PhimBoId == id);
+            ViewBag.TenPhim = _context.PhimBo.Where(p => p.PhimBoId == id).Select(p => p.TenPhim).FirstOrDefault(); ;
             var paginatedPhimBoes = await PaginatedList<TapPhim>.CreateAsync(PhimBoesQuery, pageNumber, pageSize);
             return View(paginatedPhimBoes);
         }
@@ -83,7 +84,8 @@ namespace WebsiteXemPhim.Areas.Admin.Controllers
                 var notification = new ThongBao
                 {
                     UserId = userId,
-                    Message = $"{phim.PhimBo.TenPhim} tập {tapPhim.Tap}.",
+                    PhimBoId = phimBoId,
+                    Message = $"{phim.PhimBo.TenPhim} vừa cập nhật tập {tapPhim.Tap}.",
                     Url = callbackUrl
                 };
                 _context.ThongBaos.Add(notification);
@@ -159,7 +161,6 @@ namespace WebsiteXemPhim.Areas.Admin.Controllers
                 
                 existingPhim.Tap = tapPhim.Tap;
                 existingPhim.Link = tapPhim.Link;
-                existingPhim.Linkdb = tapPhim.Linkdb;
                 existingPhim.ThoiLuong = tapPhim.ThoiLuong;
 
                 existingPhim.PhimBoId = PhimBoId;

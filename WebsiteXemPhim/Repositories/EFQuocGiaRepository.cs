@@ -53,6 +53,8 @@ namespace WebsiteXemPhim.Repositories
                 var binhLuans = _context.BinhLuan.Where(b => b.PhimBoId == phimBo.PhimBoId);
                 var chitiettheloai = _context.ChiTietTheLoaiPhimBo.Where(b => b.ChiTietTheLoaiPhimBoId == phimBo.PhimBoId);
                 var danhGias = _context.DanhGia.Where(a => a.PhimBoId == phimBo.PhimBoId);
+                var thongbaos = _context.ThongBaos.Where(a => a.PhimBoId == phimBo.PhimBoId);
+                _context.ThongBaos.RemoveRange(thongbaos);
                 _context.DanhGia.RemoveRange(danhGias);
                 _context.HopPhim.RemoveRange(hopPhims);
                 _context.LichSuXem.RemoveRange(lichSuXems);

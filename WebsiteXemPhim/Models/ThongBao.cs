@@ -4,9 +4,11 @@
     {
         public int Id { get; set; }
         public string UserId { get; set; }
+        public int? PhimBoId { get; set; }
         public string Message { get; set; }
         public string Url { get; set; }
-        public bool IsRead { get; set; } = false; // Để xác định thông báo đã đọc hay chưa
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public PhimBo? PhimBo { get; set; }
+        public AppUser User { get; set; }
     }
 }

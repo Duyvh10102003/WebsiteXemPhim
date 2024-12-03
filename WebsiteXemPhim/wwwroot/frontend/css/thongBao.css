@@ -1,0 +1,108 @@
+﻿.notification-dropdown {
+    position: absolute;
+    top: 30px;
+    right: 0;
+    width: 300px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    padding: 10px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+    .notification-dropdown ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .notification-dropdown li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+        position: relative; /* Để các phần tử con có thể được định vị chính xác */
+    }
+
+        .notification-dropdown li:last-child {
+            border-bottom: none;
+        }
+
+        .notification-dropdown li a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            width: 100%; /* Đảm bảo nút xóa nằm bên ngoài liên kết */
+            color: #333;
+        }
+
+            .notification-dropdown li a:hover {
+                background-color: #f5f5f5;
+            }
+
+            .notification-dropdown li a img {
+                flex-shrink: 0; /* Ngăn hình ảnh bị co lại */
+                width: 50px;
+                height: 50px;
+                margin-right: 10px; /* Khoảng cách giữa ảnh và nội dung */
+                border-radius: 4px;
+            }
+
+            .notification-dropdown li a span {
+                flex-grow: 1; /* Để nội dung chiếm phần còn lại */
+                text-align: left; /* Căn trái đoạn text */
+                line-height: 1.2; /* Tăng khoảng cách dòng nếu cần */
+                white-space: normal; /* Cho phép text xuống dòng nếu quá dài */
+            }
+
+        .notification-dropdown li button {
+            background-color: red; /* Màu nền đỏ */
+            border: none; /* Không viền */
+            color: black; /* Màu chữ đen */
+            font-size: 20px; /* Kích thước chữ */
+            font-weight: bold; /* Làm cho dấu "X" đậm hơn */
+            cursor: pointer; /* Con trỏ chuột thành hình bàn tay */
+            margin-left: 10px; /* Khoảng cách với nội dung */
+            padding: 5px 10px; /* Khoảng cách bên trong nút (padding) */
+            border-radius: 5px; /* Bo tròn các góc của nút */
+            transition: background-color 0.3s, transform 0.2s; /* Hiệu ứng chuyển màu nền và hiệu ứng phóng to */
+            display: none; /* Ẩn nút mặc định */
+        }
+
+            .notification-dropdown li button:hover {
+                background-color: darkred; /* Màu nền đỏ đậm khi hover */
+                color: white; /* Chữ trắng khi hover */
+                transform: scale(1.1); /* Phóng to nút khi hover */
+            }
+
+        .notification-dropdown li:hover button {
+            display: block; /* Hiển thị nút khi hover vào li */
+        }
+
+        .notification-dropdown li:hover {
+            background-color: #f5f5f5; /* Tạo hiệu ứng hover cho item, màu nền nhẹ nhàng */
+        }
+
+    .notification-dropdown .delete-all-btn {
+        background-color: red;
+        color: white;
+        border: none;
+        padding: 10px;
+        width: 100%;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+.header__center {
+    display: flex; /* Đặt phần tử theo hàng ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    justify-content: space-between; /* Cách đều các phần tử */
+}
+
+.notification {
+    margin-right: 10px; /* Thêm khoảng cách giữa chuông và phần LoginPartial */
+}

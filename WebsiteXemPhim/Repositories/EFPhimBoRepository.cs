@@ -43,12 +43,14 @@ namespace WebsiteXemPhim.Repositories
                 var lichSuXems = _context.LichSuXem.Where(l => l.PhimBoId == phimBo.PhimBoId);
                 var binhLuans = _context.BinhLuan.Where(b => b.PhimBoId == phimBo.PhimBoId);
                 var danhGias = _context.DanhGia.Where(a => a.PhimBoId == phimBo.PhimBoId);
-                
+                var thongbaos = _context.ThongBaos.Where(a => a.PhimBoId == phimBo.PhimBoId);
+               
                 _context.HopPhim.RemoveRange(hopPhims);
                 _context.LichSuXem.RemoveRange(lichSuXems);
                 _context.BinhLuan.RemoveRange(binhLuans);
                 _context.TapPhim.Remove(tapPhim);
                 _context.DanhGia.RemoveRange(danhGias);
+                _context.ThongBaos.RemoveRange(thongbaos);
             }
             // Xóa chủ đề
             _context.PhimBo.Remove(phimBo);

@@ -20,7 +20,7 @@ namespace WebsiteXemPhim.Models
         [StringLength(200)]
         public string Link {  get; set; }
         [StringLength(200)]
-        public string Linkdb { get; set; }
+        public string? Trailer { get; set; }
         public int? NamID { get; set; }
         public int? QuocGiaId {  get; set; }
         public int? TrangThaiId { get; set; }

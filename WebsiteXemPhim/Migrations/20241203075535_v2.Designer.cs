@@ -12,8 +12,8 @@ using WebsiteXemPhim.DataAccess;
 namespace WebsiteXemPhim.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241201093600_create")]
-    partial class create
+    [Migration("20241203075535_v2")]
+    partial class v2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -460,6 +460,11 @@ namespace WebsiteXemPhim.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
+                    b.Property<string>("Trailer")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
                     b.Property<int?>("TrangThaiId")
                         .HasColumnType("int");
 
@@ -498,11 +503,6 @@ namespace WebsiteXemPhim.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("Linkdb")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<int>("LuotXem")
                         .HasColumnType("int");
 
@@ -525,6 +525,11 @@ namespace WebsiteXemPhim.Migrations
                     b.Property<string>("ThoiLuong")
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Trailer")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<int?>("TrangThaiId")
                         .HasColumnType("int");
@@ -567,11 +572,6 @@ namespace WebsiteXemPhim.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TapPhimId"));
 
                     b.Property<string>("Link")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("Linkdb")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -622,12 +622,12 @@ namespace WebsiteXemPhim.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsRead")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Message")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("PhimBoId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Url")
                         .IsRequired()
@@ -635,9 +635,13 @@ namespace WebsiteXemPhim.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PhimBoId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("ThongBaos");
                 });
@@ -886,6 +890,23 @@ namespace WebsiteXemPhim.Migrations
                     b.Navigation("PhimBo");
                 });
 
+            modelBuilder.Entity("WebsiteXemPhim.Models.ThongBao", b =>
+                {
+                    b.HasOne("WebsiteXemPhim.Models.PhimBo", "PhimBo")
+                        .WithMany("ThongBaos")
+                        .HasForeignKey("PhimBoId");
+
+                    b.HasOne("WebsiteXemPhim.Models.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PhimBo");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("WebsiteXemPhim.Models.Nam", b =>
                 {
                     b.Navigation("phimBos");
@@ -900,6 +921,8 @@ namespace WebsiteXemPhim.Migrations
                     b.Navigation("Hops");
 
                     b.Navigation("TapPhims");
+
+                    b.Navigation("ThongBaos");
 
                     b.Navigation("binhLuans");
 

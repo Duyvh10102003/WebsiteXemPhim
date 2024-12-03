@@ -15,6 +15,8 @@ namespace WebsiteXemPhim.Models
         public string? AnhNen {  get; set; }
         public int LuotXem { get; set; }
         public int Like {  get; set; }
+        [StringLength(200)]
+        public string? Trailer { get; set; }
         public int? NamID { get; set; }
         public int? QuocGiaId { get; set; }
         public int? TrangThaiId { get; set; }
@@ -26,8 +28,8 @@ namespace WebsiteXemPhim.Models
         public List<LichSuXem>? lichSuXems { get; set; }
         public List<BinhLuan>? binhLuans { get; set; }
         public List<DanhGia>? danhGias { get; set; }
-      
         public List<TapPhim>? TapPhims { get; set; }
+        public List<ThongBao>? ThongBaos { get; set; }
         public List<ChiTietTheLoaiPhimBo>? ChiTietTheLoaiPhimBos { get; set; }
     }
 }

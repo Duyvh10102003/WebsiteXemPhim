@@ -83,7 +83,8 @@ namespace WebsiteXemPhim.Areas.Admin.Controllers
                 var notification = new ThongBao
                 {
                     UserId = userId,
-                    Message = $"{phim.PhimBo.TenPhim} tập {tapPhim.Tap}.",
+                    PhimBoId = phimBoId,
+                    Message = $"{phim.PhimBo.TenPhim} vừa cập nhật tập {tapPhim.Tap}.",
                     Url = callbackUrl
                 };
                 _context.ThongBaos.Add(notification);

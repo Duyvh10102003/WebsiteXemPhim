@@ -28,6 +28,7 @@ namespace WebsiteXemPhim.Models
         public List<DanhGia>? danhGias { get; set; }
       
         public List<TapPhim>? TapPhims { get; set; }
+        public List<ThongBao> ThongBaos { get; set; }
         public List<ChiTietTheLoaiPhimBo>? ChiTietTheLoaiPhimBos { get; set; }
     }
 }

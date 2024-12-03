@@ -12,8 +12,8 @@ using WebsiteXemPhim.DataAccess;
 namespace WebsiteXemPhim.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241201093600_create")]
-    partial class create
+    [Migration("20241202095049_ThongBao")]
+    partial class ThongBao
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -622,12 +622,12 @@ namespace WebsiteXemPhim.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsRead")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Message")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("PhimBoId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Url")
                         .IsRequired()
@@ -635,9 +635,13 @@ namespace WebsiteXemPhim.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PhimBoId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("ThongBaos");
                 });
@@ -886,6 +890,23 @@ namespace WebsiteXemPhim.Migrations
                     b.Navigation("PhimBo");
                 });
 
+            modelBuilder.Entity("WebsiteXemPhim.Models.ThongBao", b =>
+                {
+                    b.HasOne("WebsiteXemPhim.Models.PhimBo", "PhimBo")
+                        .WithMany("ThongBaos")
+                        .HasForeignKey("PhimBoId");
+
+                    b.HasOne("WebsiteXemPhim.Models.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PhimBo");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("WebsiteXemPhim.Models.Nam", b =>
                 {
                     b.Navigation("phimBos");
@@ -900,6 +921,8 @@ namespace WebsiteXemPhim.Migrations
                     b.Navigation("Hops");
 
                     b.Navigation("TapPhims");
+
+                    b.Navigation("ThongBaos");
 
                     b.Navigation("binhLuans");
 

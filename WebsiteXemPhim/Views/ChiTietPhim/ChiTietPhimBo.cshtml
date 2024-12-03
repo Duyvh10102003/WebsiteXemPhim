@@ -107,11 +107,17 @@
                                 <a asp-controller="LichSu" asp-action="AddPhimBo" asp-route-phimBoid="@Model.PhimBoId" class="watch-btn">
                                     <span>Xem</span> <i class="fa fa-angle-right"></i>
                                 </a>
+                                <a id="showTrailerBtn" class="watch-btn" style="margin-left:10px">
+                                    <span>Trailer</span> <i class="fa fa-angle-right"></i>
+                                </a>
                             }
                             else
                             {
                                 <a asp-controller="Home" asp-action="LuotXemPhimBo" asp-route-phimBoid="@Model.PhimBoId" class="watch-btn">
                                     <span>Xem </span> <i class="fa fa-angle-right"></i>
+                                </a>
+                                <a id="showTrailerBtn" class="watch-btn" style="margin-left:10px">
+                                    <span>Trailer</span> <i class="fa fa-angle-right"></i>
                                 </a>
                             }
                         </div>
@@ -121,7 +127,11 @@
         </div>
         <div class="row">
             <div class="col-lg-8 col-md-8">
-               
+                <div class="anime__video__player" id="videoPlayer" style="display: none;">
+                    <div class="video-container">
+                        <iframe id="videoFrame" src="https://www.youtube.com/embed/LMVs1NU7KBw" frameborder="0" scrolling="0" allowfullscreen></iframe>
+                    </div>
+                </div>
                 <div class="anime__details__form mb-5">
                     <div class="section-title">
                         <h5>Bình Luận</h5>

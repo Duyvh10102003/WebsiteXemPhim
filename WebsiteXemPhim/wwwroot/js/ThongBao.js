@@ -3,19 +3,19 @@
     const dropdown = document.getElementById('notificationDropdown');
     const notificationList = document.getElementById('notificationList');
     const deleteAllButton = document.getElementById('deleteAllNotifications');
+    const notificationCount = document.getElementById('notificationCount');
 
-    // Hiển thị số lượng thông báo
+    // Hiển thị số lượng thông báo chưa đọc
     fetch('/Notifications/GetUnreadNotificationsCount')
         .then(response => response.json())
         .then(data => {
             if (data.count > 0) {
-                const badge = document.getElementById('notificationCount');
-                badge.innerText = data.count;
-                badge.style.display = 'inline-block';
+                notificationCount.innerText = data.count;
+                notificationCount.style.display = 'inline-block';
             }
         });
 
-    // Hiển thị dropdown thông báo
+    // Hiển thị dropdown thông báo khi nhấp vào chuông thông báo
     bell.addEventListener('click', function () {
         dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
 
@@ -24,38 +24,44 @@
                 .then(response => response.json())
                 .then(data => {
                     console.log(data); // Kiểm tra dữ liệu nhận được
-                    notificationList.innerHTML = '';
+                    notificationList.innerHTML = ''; // Xóa danh sách thông báo trước đó
 
                     if (data.length > 0) {
                         data.forEach(notification => {
                             const li = document.createElement('li');
                             li.innerHTML = `
-                        <a href="${notification.url}" style="display: flex; align-items: center;">
-                            ${notification.anh ? `<img src="${notification.anh}" alt="Thumbnail">` : ''}
-                            <span>${notification.message}</span>
-                        </a>
-                        <button onclick="deleteNotification(${notification.id})">&times;</button>
-                    `;
+                                <a href="${notification.url}" style="display: flex; align-items: center;">
+                                    ${notification.anh ? `<img src="${notification.anh}" alt="Thumbnail">` : ''}
+                                    <span>${notification.message}</span>
+                                </a>
+                                <button onclick="deleteNotification(${notification.id})">&times;</button>
+                            `;
                             notificationList.appendChild(li);
                         });
+
+                        // Hiển thị nút "Xóa tất cả" khi có thông báo
+                        deleteAllNotifications.style.display = "block";
                     } else {
                         notificationList.innerHTML = '<li>Không có thông báo</li>';
+                        // Ẩn nút "Xóa tất cả" nếu không có thông báo
+                        deleteAllNotifications.style.display = "none";
                     }
                 })
-                .catch(error => console.error('Error fetching notifications:', error));
+                .catch(error => console.error('Lỗi khi lấy thông báo:', error));
         }
     });
 
-
-
-    // Xóa tất cả thông báo
+    // Xóa tất cả thông báo khi nhấn vào nút "Xóa tất cả"
     deleteAllButton.addEventListener('click', function () {
         fetch('/Notifications/DeleteAllNotifications', { method: 'POST' })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
                     notificationList.innerHTML = '<li>Không có thông báo</li>';
-                    document.getElementById('notificationCount').style.display = 'none';
+                    notificationCount.style.display = 'none';
+
+                    // Ẩn nút "Xóa tất cả" ngay sau khi xóa tất cả
+                    deleteAllNotifications.style.display = 'none';
                 }
             });
     });
@@ -73,6 +79,9 @@ function deleteNotification(id) {
                 if (!document.querySelector('#notificationList li')) {
                     document.getElementById('notificationList').innerHTML = '<li>Không có thông báo</li>';
                     document.getElementById('notificationCount').style.display = 'none';
+
+                    // Ẩn nút "Xóa tất cả" khi không còn thông báo
+                    deleteAllNotifications.style.display = 'none';
                 }
             }
         });

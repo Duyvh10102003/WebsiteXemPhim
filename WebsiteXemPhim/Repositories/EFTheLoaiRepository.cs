@@ -63,6 +63,9 @@ namespace WebsiteXemPhim.Repository
                 var danhGias = _context.DanhGia.Where(a => a.PhimBoId == phimBo.PhimBoId);
                 _context.DanhGia.RemoveRange(danhGias);
 
+                var thongbaos = _context.ThongBaos.Where(a => a.PhimBoId == phimBo.PhimBoId);
+                _context.ThongBaos.RemoveRange(thongbaos);
+
                 foreach (var tapPhim in phimBo.PhimBo.TapPhims)
                 {
                     _context.TapPhim.Remove(tapPhim);

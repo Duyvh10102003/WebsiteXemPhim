@@ -14,7 +14,7 @@
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
+          rel="stylesheet">
 
     <!-- Css Styles -->
     <link rel="shortcut icon" href="~/frontend/img/anime/logo.png" type="image/x-icon" />
@@ -41,23 +41,11 @@
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </head>
-<style>
-    .header__center {
-        display: flex; /* Đặt phần tử theo hàng ngang */
-        align-items: center; /* Căn giữa theo chiều dọc */
-        justify-content: space-between; /* Cách đều các phần tử */
-    }
-
-    .notification {
-        margin-right: 10px; /* Thêm khoảng cách giữa chuông và phần LoginPartial */
-    }
-
-</style>
 <body>
     <div id="preloder">
         <div class="loader"></div>
     </div>
-  
+
     <header class="header">
         <div class="container-fluid">
             <div class="row">
@@ -123,7 +111,7 @@
                                         }
                                     </ul>
                                 </li>
-                             
+
                             </ul>
 
                             @functions {
@@ -161,7 +149,7 @@
                                 <i class="fa fa-search"></i>
                             </button>
                         </form>
-                       
+
                     </div>
                 </div>
 
@@ -184,28 +172,22 @@
                                     <ul id="notificationList">
                                         <li>Không có thông báo</li>
                                     </ul>
-                                    <button id="deleteAllNotifications" class="delete-all-btn">Xóa tất cả</button>
+                                    <button id="deleteAllNotifications" class="delete-all-btn" style="display: none;">Xóa tất cả</button>
                                 </div>
                             </div>
-
                         }
-
-                       
-                    </div>
-
-                       
-
                     </div>
                 </div>
             </div>
-            <div id="mobile-menu-wrap"></div>
+        </div>
+        <div id="mobile-menu-wrap"></div>
         </div>
     </header>
 
 
-<!-- Product Section End -->
-@RenderBody()
-<!-- Footer Section Begin -->
+    <!-- Product Section End -->
+    @RenderBody()
+    <!-- Footer Section Begin -->
     <footer class="footer">
         <div class="page-up">
             <a href="#" id="scrollToTopButton"><span class="arrow_carrot-up"></span></a>
@@ -230,7 +212,7 @@
                             <li>
                                 <a href="" class="fab fa-youtube"></a>
                             </li>
-                          
+
                         </ul>
                     </div>
                 </div>
@@ -238,21 +220,21 @@
         </div>
 
 
-<script src="~/frontend/js/jquery-3.3.1.min.js"></script>
-<script src="~/frontend/js/bootstrap.min.js"></script>
-<script src="~/frontend/js/player.js"></script>
-<script src="~/frontend/js/jquery.nice-select.min.js"></script>
-<script src="~/frontend/js/mixitup.min.js"></script>
-<script src="~/frontend/js/jquery.slicknav.js"></script>
-<script src="~/frontend/js/owl.carousel.min.js"></script>
-<script src="~/frontend/js/main.js"></script>
-<script src="~/js/searchSuggestions.js"></script>
-<script src="~/js/danhGia.js"></script>
-<script src="~/js/shortenName.js"></script>
-<script src="~/js/ThongBao.js"></script>
-<script src="~/js/Trailer.js"></script>
+        <script src="~/frontend/js/jquery-3.3.1.min.js"></script>
+        <script src="~/frontend/js/bootstrap.min.js"></script>
+        <script src="~/frontend/js/player.js"></script>
+        <script src="~/frontend/js/jquery.nice-select.min.js"></script>
+        <script src="~/frontend/js/mixitup.min.js"></script>
+        <script src="~/frontend/js/jquery.slicknav.js"></script>
+        <script src="~/frontend/js/owl.carousel.min.js"></script>
+        <script src="~/frontend/js/main.js"></script>
+        <script src="~/js/searchSuggestions.js"></script>
+        <script src="~/js/danhGia.js"></script>
+        <script src="~/js/shortenName.js"></script>
+        <script src="~/js/ThongBao.js"></script>
+        <script src="~/js/Trailer.js"></script>
 
-    @await RenderSectionAsync("Scripts", required: false)
+        @await RenderSectionAsync("Scripts", required: false)
 
 </body>
 </html>

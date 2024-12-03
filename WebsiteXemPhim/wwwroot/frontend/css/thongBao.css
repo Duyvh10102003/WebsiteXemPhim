@@ -96,3 +96,13 @@
         cursor: pointer;
         border-radius: 4px;
     }
+
+.header__center {
+    display: flex; /* Đặt phần tử theo hàng ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    justify-content: space-between; /* Cách đều các phần tử */
+}
+
+.notification {
+    margin-right: 10px; /* Thêm khoảng cách giữa chuông và phần LoginPartial */
+}

@@ -7,7 +7,7 @@
         public int? PhimBoId { get; set; }
         public string Message { get; set; }
         public string Url { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
         public PhimBo? PhimBo { get; set; }
         public AppUser User { get; set; }
     }

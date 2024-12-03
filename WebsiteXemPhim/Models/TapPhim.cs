@@ -10,8 +10,6 @@ namespace WebsiteXemPhim.Models
         public int Tap { get; set; }
         [StringLength(200)]
         public string Link { get; set; }
-        [StringLength(200)]
-        public string Linkdb { get; set; }
         [StringLength(10)]
         public string? ThoiLuong { get; set; }
         public int? PhimBoId { get; set; }

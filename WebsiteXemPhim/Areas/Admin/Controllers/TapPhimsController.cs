@@ -35,6 +35,7 @@ namespace WebsiteXemPhim.Areas.Admin.Controllers
             TempData["PhimBoId"] = id;
             int pageSize = 10;
             IQueryable<TapPhim> PhimBoesQuery = _context.TapPhim.Include(p => p.PhimBo).Where(p => p.PhimBoId == id);
+            ViewBag.TenPhim = _context.PhimBo.Where(p => p.PhimBoId == id).Select(p => p.TenPhim).FirstOrDefault(); ;
             var paginatedPhimBoes = await PaginatedList<TapPhim>.CreateAsync(PhimBoesQuery, pageNumber, pageSize);
             return View(paginatedPhimBoes);
         }
@@ -160,7 +161,6 @@ namespace WebsiteXemPhim.Areas.Admin.Controllers
                 
                 existingPhim.Tap = tapPhim.Tap;
                 existingPhim.Link = tapPhim.Link;
-                existingPhim.Linkdb = tapPhim.Linkdb;
                 existingPhim.ThoiLuong = tapPhim.ThoiLuong;
 
                 existingPhim.PhimBoId = PhimBoId;

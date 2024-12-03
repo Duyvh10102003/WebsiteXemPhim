@@ -206,6 +206,7 @@ namespace WebsiteXemPhim.Areas.Admin.Controllers
                 existingPhimBo.AnhNen = phimBo.AnhNen;
                 existingPhimBo.LuotXem = phimBo.LuotXem;
                 existingPhimBo.Like = phimBo.Like;
+                existingPhimBo.Trailer = phimBo.Trailer;
                 existingPhimBo.TrangThaiId = phimBo.TrangThaiId;
                 existingPhimBo.QuocGiaId = phimBo.QuocGiaId;
                 existingPhimBo.NamID = phimBo.NamID;

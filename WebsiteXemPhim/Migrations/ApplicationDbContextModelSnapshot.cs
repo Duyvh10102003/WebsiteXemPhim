@@ -458,7 +458,6 @@ namespace WebsiteXemPhim.Migrations
                         .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("Trailer")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -496,7 +495,6 @@ namespace WebsiteXemPhim.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Link")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -524,7 +522,6 @@ namespace WebsiteXemPhim.Migrations
                         .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Trailer")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 

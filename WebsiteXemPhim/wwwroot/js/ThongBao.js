@@ -69,20 +69,39 @@
 
 // Xóa một thông báo
 function deleteNotification(id) {
+    const deleteButton = document.querySelector(`button[onclick="deleteNotification(${id})"]`);
+    const notificationItem = deleteButton.parentElement;
+
     fetch(`/Notifications/DeleteNotification?id=${id}`, { method: 'POST' })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                document.querySelector(`button[onclick="deleteNotification(${id})"]`).parentElement.remove();
+                notificationItem.remove();
 
-                // Nếu không còn thông báo
+                // Nếu không còn thông báo, cập nhật lại giao diện
                 if (!document.querySelector('#notificationList li')) {
                     document.getElementById('notificationList').innerHTML = '<li>Không có thông báo</li>';
                     document.getElementById('notificationCount').style.display = 'none';
 
                     // Ẩn nút "Xóa tất cả" khi không còn thông báo
                     deleteAllNotifications.style.display = 'none';
+                } else {
+                    // Cập nhật lại số lượng thông báo
+                    updateNotificationCount();
                 }
             }
         });
+}
+
+// Cập nhật số lượng thông báo sau khi xóa
+function updateNotificationCount() {
+    const count = document.querySelectorAll('#notificationList li').length;
+    const notificationCount = document.getElementById('notificationCount');
+
+    if (count > 0) {
+        notificationCount.innerText = count;
+        notificationCount.style.display = 'inline-block';
+    } else {
+        notificationCount.style.display = 'none';
+    }
 }

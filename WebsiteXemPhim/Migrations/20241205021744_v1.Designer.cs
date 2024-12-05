@@ -12,8 +12,8 @@ using WebsiteXemPhim.DataAccess;
 namespace WebsiteXemPhim.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241203075535_v2")]
-    partial class v2
+    [Migration("20241205021744_v1")]
+    partial class v1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -461,7 +461,6 @@ namespace WebsiteXemPhim.Migrations
                         .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("Trailer")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -499,7 +498,6 @@ namespace WebsiteXemPhim.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Link")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -527,7 +525,6 @@ namespace WebsiteXemPhim.Migrations
                         .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Trailer")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebsiteXemPhim.Migrations
 {
     /// <inheritdoc />
-    public partial class ThongBao : Migration
+    public partial class v1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -222,6 +222,7 @@ namespace WebsiteXemPhim.Migrations
                     AnhNen = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     LuotXem = table.Column<int>(type: "int", nullable: false),
                     Like = table.Column<int>(type: "int", nullable: false),
+                    Trailer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     NamID = table.Column<int>(type: "int", nullable: true),
                     QuocGiaId = table.Column<int>(type: "int", nullable: true),
                     TrangThaiId = table.Column<int>(type: "int", nullable: true)
@@ -259,8 +260,8 @@ namespace WebsiteXemPhim.Migrations
                     ThoiLuong = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     LuotXem = table.Column<int>(type: "int", nullable: false),
                     Like = table.Column<int>(type: "int", nullable: false),
-                    Link = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Linkdb = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Link = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Trailer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     NamID = table.Column<int>(type: "int", nullable: true),
                     QuocGiaId = table.Column<int>(type: "int", nullable: true),
                     TrangThaiId = table.Column<int>(type: "int", nullable: true)
@@ -317,7 +318,6 @@ namespace WebsiteXemPhim.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Tap = table.Column<int>(type: "int", nullable: false),
                     Link = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Linkdb = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     ThoiLuong = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     PhimBoId = table.Column<int>(type: "int", nullable: true)
                 },

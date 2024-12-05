@@ -26,12 +26,17 @@ namespace WebsiteXemPhim.Controllers
                 return RedirectToAction("Login", "Account", new { area = "Identity" });
             }
 
+            // Kiểm tra nếu người dùng đăng nhập bằng Google
+            var logins = await _userManager.GetLoginsAsync(user);
+            var isGoogleLogin = logins.Any(login => login.LoginProvider == "Google");
+
             var model = new EditProfileViewModel
             {
                 UserName = user.UserName,
-                Email = user.Email, 
+                Email = user.Email,
                 avatar = user.avatar,
                 sex = user.sex,
+                IsGoogleLogin = isGoogleLogin // Gửi thông tin này qua View
             };
 
             return View(model);

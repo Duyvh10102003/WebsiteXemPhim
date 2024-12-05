@@ -51,7 +51,10 @@
                             <label for="avatar">Avatar</label>
                             <input type="file" asp-for="avatar" />
                         </div>
-                        <a asp-area="Identity" asp-page="/Account/Manage/ChangePassword" class="change-password-btn">Thay đổi mật khẩu</a>
+                        @if (!Model.IsGoogleLogin)
+                        {
+                            <a asp-area="Identity" asp-page="/Account/Manage/ChangePassword" class="change-password-btn">Thay đổi mật khẩu</a>
+                        }
                         <br />
                         <button type="submit" class="save-btn">Lưu thông tin</button>
                     </form>

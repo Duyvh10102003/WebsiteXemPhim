@@ -37,6 +37,7 @@ namespace WebsiteXemPhim.Controllers
             var QuocGia = await _context.QuocGia.ToListAsync();
             var Nam = await _context.Nam.ToListAsync();
             var chiTietPhim = await _context.PhimBo
+                .Include(p => p.TapPhims)
                 .Include(p => p.TrangThai)
                 .Include(p => p.ChiTietTheLoaiPhimBos).ThenInclude(p => p.TheLoai)
                 .Include(p => p.QuocGia)

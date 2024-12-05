@@ -12,6 +12,7 @@ namespace WebsiteXemPhim.Models
         public string? avatar { get; set; }
         [StringLength(5)]
         public string? sex { get; set; }
+        public bool IsGoogleLogin { get; set; }
     }
 
 }

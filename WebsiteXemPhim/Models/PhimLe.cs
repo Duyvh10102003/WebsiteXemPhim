@@ -18,7 +18,7 @@ namespace WebsiteXemPhim.Models
         public int LuotXem { get; set; }
         public int Like {  get; set; }
         [StringLength(200)]
-        public string Link {  get; set; }
+        public string? Link {  get; set; }
         [StringLength(200)]
         public string? Trailer { get; set; }
         public int? NamID { get; set; }

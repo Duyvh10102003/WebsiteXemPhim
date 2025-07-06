@@ -1,0 +1,21 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      dotnet: 8.0
+  build:
+    commands:
+      - echo === Restoring dependencies ===
+      - dotnet restore
+      - echo === Building solution ===
+      - dotnet build --no-restore
+      - echo === Running unit tests ===
+      - dotnet test Web.Tests/Web.Tests.csproj --logger "trx"
+artifacts:
+  files:
+    - '**/*.trx'
+    - '**/*.dll'
+    - '**/*.cshtml'
+    - '**/appsettings*.json'
+  discard-paths: yes

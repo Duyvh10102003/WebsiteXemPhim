@@ -3,20 +3,16 @@ using Xunit;
 
 public class PhimBoTests
 {
-    [Fact]
-    public void TenPhimVaLuotXem_ShouldBeCorrect()
-    {
-        var phimBo = new PhimBo
+        [Fact]
+        public void PhimBo_DefaultLuotXem_ShouldBeZero()
         {
-            TenPhim = "Breaking Bad",
-            NoiDung = "Một giáo viên hóa học chế ma túy",
-            LuotXem = 10000,
-            Like = 5000
-        };
+            // Arrange
+            var phim = new PhimBo();
 
-        Assert.Equal("Breaking Bad", phimBo.TenPhim);
-        Assert.Equal("Một giáo viên hóa học chế ma túy", phimBo.NoiDung);
-        Assert.Equal(10000, phimBo.LuotXem);
-        Assert.Equal(5000, phimBo.Like);
-    }
+            // Act
+            var luotXem = phim.LuotXem;
+
+            // Assert
+            Assert.Equal(0, luotXem);
+        }
 }

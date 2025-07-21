@@ -3,6 +3,7 @@ using Xunit;
 
 namespace Web.Tests
 {
+    // Test CodeBuild trigger
     public class LuotXemTests
     {
         [Fact]

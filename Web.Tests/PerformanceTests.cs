@@ -19,5 +19,10 @@ namespace Web.Tests
             Thread.Sleep(1000);
             Assert.True(true);
         }
+        [Fact]
+        public void Test_Should_Fail()
+        {
+            Assert.True(false); // Test này sẽ luôn fail
+        }
     }
 }

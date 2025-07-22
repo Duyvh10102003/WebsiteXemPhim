@@ -3,6 +3,7 @@ using Xunit;
 
 namespace Web.Tests
 {
+    //Parallel Test Execution
     public class PerformanceTests
     {
         [Fact]

@@ -16,7 +16,8 @@
 - **Tìm kiếm thông minh:** Bộ lọc đa năng theo thể loại, quốc gia, năm phát hành và tên phim.
 - **Trải nghiệm xem phim:** Trình phát video mượt mà, hỗ trợ cả phim lẻ (Movie) và phim bộ (Series).
 - **Tương tác:** Đánh giá sao (Rating), bình luận (Comment) chia sẻ cảm nhận.
-- **Cá nhân hóa:** - **Hộp phim:** Lưu trữ những bộ phim yêu thích.
+- **Cá nhân hóa:**
+  - **Hộp phim:** Lưu trữ những bộ phim yêu thích.
   - **Lịch sử:** Theo dõi lại các phim đã xem gần đây.
 - **Thông báo:** Nhận email thông báo khi có tập phim mới hoặc cập nhật hệ thống.
 
